@@ -25,6 +25,7 @@
 !.vscode/extensions.json
 
 # misc
+/.bashrc
 /.sass-cache
 /connect.lock
 /coverage
@@ -37,3 +38,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Kubuntu .directory file
+.directory
