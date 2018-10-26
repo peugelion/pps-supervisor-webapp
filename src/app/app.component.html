@@ -7,7 +7,7 @@
 <sui-sidebar-container class="ui bottom attached segment">
   <sui-sidebar class="inverted vertical" #sidebar>
     <div *ngFor="let p of appPages; let i = index">
-      <a class="item" [routerLink]=[p.route] >
+      <a class="item" [routerLink]=[p.route]  (click)="sidebar.close()">
         <i [class]="[p.icon + ' icon']"></i>
         {{p.title}}
       </a>
