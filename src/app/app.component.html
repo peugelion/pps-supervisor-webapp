@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<!-- <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
@@ -16,5 +16,57 @@
   <li>
     <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
   </li>
-</ul>
+</ul> -->
+
+<!-- <ion-app> -->
+  <!-- <ion-router-outlet></ion-router-outlet> -->
+<!-- </ion-app> -->
+
+<!-- <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+  <div class="container">
+      <a class="navbar-brand">Angular Router</a>
+      <ul class="nav navbar-nav" routerLinkActive="active">
+          <li class="nav-item"><a class="nav-link" routerLink="home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="about">About</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="courses">Courses</a></li>
+      </ul>
+  </div>
+</nav> -->
+
+<div class="ui top attached demo menu">
+  <a class="item" (click)="sidebar.toggle()">
+      <i class="sidebar icon"></i> Menu
+  </a>
+</div>
+<sui-sidebar-container class="ui bottom attached segment">
+  <sui-sidebar class="inverted vertical" #sidebar>
+    <div *ngFor="let p of appPages; let i = index">
+      <!-- <a class="item" (click)="navigate(p.url)" routerLink > -->
+      <a class="item" [routerLink]=[p.route] >
+        <i [class]="[p.icon + ' icon']"></i>
+        {{p.title}}
+      </a>
+    </div>
+  </sui-sidebar>
+
+  
+  <!-- <sui-sidebar  class="ui bottom attached segment" *ngFor="let p of appPages; let i = index">
+      <ion-item button (click)="navigate(p.url)">
+        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+        <ion-label>
+          {{p.title}}
+        </ion-label>
+      </ion-item>
+
+  </sui-sidebar> -->
+
+  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+      <div class="ui basic segment">
+          <!-- <h3 class="ui header">Content</h3>
+          <p>Example content beside the sidebar</p>
+          <button class="ui button" (click)="sidebar.open()">Open Sidebar</button> -->
+          <router-outlet></router-outlet>
+      </div>
+  </sui-sidebar-sibling>
+</sui-sidebar-container>
 

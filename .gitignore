@@ -41,3 +41,4 @@ Thumbs.db
 
 # Kubuntu .directory file
 .directory
+package-lock.json
