@@ -6,6 +6,9 @@ import {SuiModule} from 'ng2-semantic-ui';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+// import { WebStorageModule } from 'ngx-store';
+import { HttpClientModule } from '@angular/common/http';
 
 import { LoginComponent } from './pages/login/login.component';
 
@@ -16,9 +19,11 @@ import { LoginComponent } from './pages/login/login.component';
   ],
   imports: [
     BrowserModule,
-    // HttpClientModule,
+    HttpClientModule,
     AppRoutingModule,
     SuiModule,
+    ReactiveFormsModule,
+    // WebStorageModule,
   ],
   providers: [
     // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

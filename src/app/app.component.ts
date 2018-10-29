@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from './providers/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'app';
+  isLoggedIn$: Observable<boolean>;
+
   appPages = [
     {
       title: 'Login',
@@ -26,23 +30,17 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  loggedIn = false;
-
-  constructor( ) {
-    this.initializeApp();
-
-    // this.authService.handleAuthentication();
-  }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    // this.checkLoginStatus();
-    // this.listenForLoginEvents();
+    this.initializeApp();
   }
 
-  initializeApp() {
-    // this.platform.ready().then(() => {
-    //   this.statusBar.styleDefault();
-    //   this.splashScreen.hide();
-    // });
+  async initializeApp() {
+    this.isLoggedIn$ = this.authService.isLoggedInObs;
+  }
+
+  async logout() {
+    this.authService.logout();
   }
 }

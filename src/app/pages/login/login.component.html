@@ -1,3 +1,39 @@
-<p>
-  login works!
-</p>
+<!-- <div class="ui container" *ngIf='isLoggedIn'> -->
+<div class="ui container">
+    <h1>Log In</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="ui big form segment">
+        <!-- <div [ngClass]="{ 'field error is-invalid': usernameError, 'field ': !usernameError }"> -->
+        <div [ngClass]="submitted && f.username.errors ? 'field error':'field'">
+          <label for="Username">Korisničko ime</label>
+          <input id="username" formControlName="username" type="text" [ngClass]="{ 'field error is-invalid': submitted && f.username.errors }" placeholder="Korisničko ime" >
+          <div *ngIf="submitted && f.username.errors" class="ui yellow message invalid-feedback">
+              <div *ngIf="f.username.errors.required">Unesite vaše korisničko ime</div>
+              <div *ngIf="f.password.errors.minlength">Username must be at least 2 characters</div>
+          </div>
+        </div>
+    
+        <div [ngClass]="submitted && f.password.errors ? 'field error':'field'">
+          <label for="Password">Šifra</label>
+          <input id="password" formControlName="password" type="password" [ngClass]="{ 'field error is-invalid': passwordError }" placeholder="Šifra">
+          <div *ngIf="submitted && f.password.errors" class="ui yellow message invalid-feedback">
+            <div *ngIf="f.password.errors.required">Unesite vašu šifru</div>
+            <div *ngIf="f.password.errors.minlength">Šifra mora imati najmanje 4 karaketera</div>
+          </div>
+        </div>
+
+        <!-- login api error - wrong credentials ? -->
+        <div class="ui negative message" [hidden]="!loginApiError">
+          <i class="close icon"></i>
+          <div class="header">
+            Neuspešno logovanje
+          </div>
+          <p>Pogrešno korisničko ime i\ili šifra</p>
+        </div>
+
+        <div class="form-group">
+            <button [disabled]="loading" class="ui blue button">Login</button>
+        </div>
+      </div>
+    </form>   
+  </div>
