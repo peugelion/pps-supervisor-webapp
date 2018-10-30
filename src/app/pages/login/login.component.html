@@ -2,7 +2,7 @@
 <div class="ui container">
     <h1>Log In</h1>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="ui big form segment">
+      <div class="ui big form raised segment">
         <!-- <div [ngClass]="{ 'field error is-invalid': usernameError, 'field ': !usernameError }"> -->
         <div [ngClass]="submitted && f.username.errors ? 'field error':'field'">
           <label for="Username">Korisničko ime</label>
