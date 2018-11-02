@@ -44,11 +44,8 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.loginForm.value.username, this.loginForm.value.password)
         .then((isLoggedIn) => {
           this.loginApiError = !isLoggedIn;
-          // this.router.navigate(['/route-details/', {
-          //   id : '50127',
-          //   date : '2018-05-29'
-          // }]);
-          this.router.navigate(['/route-details', '50127', 'uhu7h', '2018-05-29']);
+          // this.router.navigate(['/route-details', '50127', '2018-05-29']);
+          this.router.navigate(['/dashboard']);
           alert();
         }).catch(err => this.loginApiError = false);
   }

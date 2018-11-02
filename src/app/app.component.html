@@ -1,23 +1,27 @@
 <!-- <body class="ui middle aligned center aligned grid" *ngIf="loggedIn; else loggedOut"> -->
-  <div class="ui top attached demo menu" *ngIf="isLoggedIn$ | async; else loggedOut">
-    <a class="item" (click)="sidebar.toggle()">
-        <i class="sidebar icon"></i> Menu
-    </a>
-      <div class="right menu">
-        <div class="ui right aligned category search item">
-          <div class="ui transparent icon input">
-            <input class="prompt" type="text" placeholder="Radnik...">
-            <i class="search link icon"></i>
-          </div>
-          <div class="results"></div>
-        </div>
-        <div class="ui right aligned">
-          <a class="item" (click)="logout()">
-            <i class="icon"></i> Logout
-          </a>
-        </div>
+    <!-- <div class="ui top attached demo menu" *ngIf="isLoggedIn$ | async; else loggedOut"> -->
+<!-- <div class="ui top attached menu">
+  <a class="item">
+      <i class="sidebar icon"></i> Menu
+  </a>
+  <div class="right menu">
+    <div class="ui right aligned category search item">
+      <div class="ui transparent icon input">
+        <input class="prompt" type="text" placeholder="Radnik...">
+        <i class="search link icon"></i>
       </div>
+      <div class="results"></div>
+    </div>
+    <div class="ui right aligned">
+      <a class="item" (click)="logout()">
+        <i class="icon"></i> Logout
+      </a>
+    </div>
   </div>
+</div> 
+<div class="ui basic segment">-->
+  <router-outlet></router-outlet>
+<!-- </div> -->
   <!-- <sui-sidebar-container class="ui bottom attached segment">
     <sui-sidebar class="inverted vertical" #sidebar>
       <div *ngFor="let p of appPages; let i = index">
@@ -26,12 +30,5 @@
         </a>
       </div>
     </sui-sidebar>
-
-    <sui-sidebar-sibling [isDimmedWhenVisible]="true"> -->
-      <div class="ui basic segment">
-
-          <router-outlet></router-outlet>
-
-      </div>
-    <!-- </sui-sidebar-sibling>
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true"></sui-sidebar-sibling>
   </sui-sidebar-container> -->
