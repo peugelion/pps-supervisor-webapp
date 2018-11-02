@@ -13,12 +13,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { RouteDetailsComponent } from './route-details/route-details.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       LoginComponent,
-      DashboardComponent
+      DashboardComponent,
+      RouteDetailsComponent
    ],
    imports: [
       BrowserModule,

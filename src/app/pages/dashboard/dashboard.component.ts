@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-interface InitData {
+interface WorkerData {
   supervisorData: Object;
   subordinates: Array<any>;
+  workerRoutes: Array<any>;
 }
 
 @Component({
@@ -17,24 +18,26 @@ export class DashboardComponent implements OnInit {
   apiUrl: string;
   supervisor: any;
   subordinates: any;
-  selectedWorker: any = null;
   selectedDate: Date = null;
+  workerRoutes: Array<any> = null;
+  segmentDimmed: boolean;
 
   constructor(private _http: HttpClient) {
     this.apiUrl = environment.apiUrl;
   }
 
   ngOnInit() {
-    this._http.get<InitData>(this.apiUrl + '/dashboard', { withCredentials: true })
+    this._http.get<WorkerData>(this.apiUrl + '/dashboard', { withCredentials: true })
     .subscribe(data => {
       this.supervisor = data.supervisorData;
       this.subordinates = data.subordinates;
+      this.segmentDimmed = false;
     });
   }
 
   searchEmployeeRoutes(selection: any) {
-    console.log('selectedWorker = ', selection);
-    console.log('selectedDate = ', this.selectedDate.toISOString());
+    // console.log('selectedWorker = ', selection);
+    // console.log('selectedDate = ', this.selectedDate.toISOString());
     if (this.selectedDate === null || this.selectedDate === undefined) {
       this.popup.open();
       return false;
@@ -43,15 +46,18 @@ export class DashboardComponent implements OnInit {
     formatedDate = formatedDate.substring(0, formatedDate.indexOf('T'));
     const configObj = {
       params: {
-        'Fk_Radnik': selection.Fk_Radnik,
+        'Fk_Radnik': selection,
         'datum': formatedDate
       },
       withCredentials: true
     };
-    console.log('configObj = ', configObj);
-    this._http.get(this.apiUrl + '/dashboard/workerRoutes', configObj)
+    this.segmentDimmed = !this.segmentDimmed;
+    // console.log('configObj = ', configObj);
+    this._http.get<WorkerData>(this.apiUrl + '/dashboard/workerRoutes', configObj)
     .subscribe(data => {
       console.log('routes data = ', data);
+      this.workerRoutes = data.workerRoutes;
+      this.segmentDimmed = !this.segmentDimmed;
     });
     return true;
   }

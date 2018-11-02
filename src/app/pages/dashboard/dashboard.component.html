@@ -1,16 +1,16 @@
-<div class="ui top attached menu">
-  <div class="item">
+<div class="ui three item menu"> 
+  <!-- <div class="item">  ui top attached menu
     <div class="ui teal horizontal label">Sifra</div>
     {{supervisor?.Sifra}}
-  </div>
+  </div> -->
   <div class="item">
     <div class="ui olive horizontal label">Korisnik</div>
     {{supervisor?.Naziv}}
   </div>
   <div class="item" suiPopup #popup="suiPopup"
-       popupText="Morate uneti datum pretrage"
+       popupText="Unesite datum pretrage"
        popupInverted 
-       [popupPlacement]="bottom-left">
+       [popupPlacement]="bottom-right">
     <div class="ui form">
       <div class="inline field">
         <label>Datum</label>
@@ -30,9 +30,9 @@
       <div class="inline field">
         <label>Radnik</label>
         <sui-select class="selection"
-                    [(ngModel)]="selectedWorker"
                     [options]="subordinates"
                     labelField="ImeIprezimeRadnik"
+                    valueField="Fk_Radnik"
                     (selectedOptionChange)="searchEmployeeRoutes($event)"
                     #select>
           <div class="ui icon search input">
@@ -51,11 +51,21 @@
       </div>
     </div>
   </div>
-  <div class="right menu">
-    <div class="ui right aligned">
-      <a class="item" (click)="logout()">
-        <i class="icon"></i> Logout
-      </a>
+  <!-- <div class="ui right aligned item">
+    <a class="ui inverted red button" (click)="logout()">Logout</a>
+  </div> -->
+</div>
+<sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
+    <div class="ui text loader">Učitavanje ruta!</div>
+</sui-dimmer>
+<div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container">
+  <p *ngIf="!workerRoutes; else elseBlock">Odaberite radnika da biste videli njegove rute.</p>
+  <ng-template #elseBlock><p>Ne postoje unete rute za odabranog radnika.</p></ng-template>
+</div>
+<div class="ui segment" *ngIf="workerRoutes != null && workerRoutes.length > 0">
+  <div class="ui grid">
+    <div class="sixteen wide tablet eight wide computer column" *ngFor="let route of workerRoutes">
+      <app-route-details [route]="route"></app-route-details>
     </div>
   </div>
 </div>
