@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DatepickerMode } from 'ng2-semantic-ui';
 import { environment } from '../../../environments/environment';
 
 interface WorkerData {
@@ -16,6 +17,7 @@ interface WorkerData {
 export class DashboardComponent implements OnInit {
   @ViewChild('popup') popup; // reference to suiPopup element
   apiUrl: string;
+  dateMode: DatepickerMode;
   supervisor: any;
   subordinates: any;
   selectedDate: Date = null;
@@ -24,6 +26,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private _http: HttpClient) {
     this.apiUrl = environment.apiUrl;
+    this.dateMode = DatepickerMode.Date;
   }
 
   ngOnInit() {
