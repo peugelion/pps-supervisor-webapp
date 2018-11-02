@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://10.11.2.55',
+  apiUrl: 'http://localhost:3000',
+  DATE_TIME_FMT: `dd.MM.yy H:mm`,
+  DATE_FMT: `date`
 };
 
 /*

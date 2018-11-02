@@ -1,0 +1,66 @@
+.item.padding_top {
+    padding-top: 30px;
+}
+
+.item.padding_top_minus {
+    margin-top: -25px;
+}
+
+.card__fullwidth {
+    width: 100%;
+}
+
+.ui.bottom.attached.segment.tab.active.tab__nobottommargin {
+    margin-bottom: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* .slide__arrowscontainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} */
+
+.slide__arrowcontainer_left {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* right: 25px; */
+}
+.slide__arrowcontainer_right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /* left: 25px; */
+    right: 0;
+}
+
+.slides .angle {
+    color: lightblue;
+    cursor: pointer;
+    position: relative;
+    top: calc(50% - 20px);
+    transform: scale(1);
+    transition: all .2s ease-in-out;
+    z-index: 10;
+}
+
+.slides .angle:hover {
+    transform: scale(1.7);
+}
+
+.slides .angle.left {
+    float: left;
+    margin-left: 1rem;
+}
+
+.slides .angle.right {
+    float: right;
+    margin-right: 1rem;
+}

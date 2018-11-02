@@ -18,7 +18,7 @@
         </div>
       </div>
   </div>
-  <sui-sidebar-container class="ui bottom attached segment">
+  <!-- <sui-sidebar-container class="ui bottom attached segment">
     <sui-sidebar class="inverted vertical" #sidebar>
       <div *ngFor="let p of appPages; let i = index">
         <a class="item" [routerLink]=[p.route]  (click)="sidebar.close()">
@@ -27,11 +27,11 @@
       </div>
     </sui-sidebar>
 
-    <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+    <sui-sidebar-sibling [isDimmedWhenVisible]="true"> -->
       <div class="ui basic segment">
 
           <router-outlet></router-outlet>
 
       </div>
-    </sui-sidebar-sibling>
-  </sui-sidebar-container>
+    <!-- </sui-sidebar-sibling>
+  </sui-sidebar-container> -->

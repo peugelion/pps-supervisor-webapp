@@ -11,11 +11,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { LoginComponent } from './pages/login/login.component';
+import { RouteDetailsComponent } from './pages/route-details/route-details.component';
+import { DateTimeFormatPipe } from './pipes/date-time-format.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    RouteDetailsComponent,
+    DateTimeFormatPipe
   ],
   imports: [
     BrowserModule,

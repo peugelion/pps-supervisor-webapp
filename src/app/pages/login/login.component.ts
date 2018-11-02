@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../providers/auth.service';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,12 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.loginForm.value.username, this.loginForm.value.password)
         .then((isLoggedIn) => {
           this.loginApiError = !isLoggedIn;
+          // this.router.navigate(['/route-details/', {
+          //   id : '50127',
+          //   date : '2018-05-29'
+          // }]);
+          this.router.navigate(['/route-details', '50127', 'uhu7h', '2018-05-29']);
+          alert();
         }).catch(err => this.loginApiError = false);
   }
 

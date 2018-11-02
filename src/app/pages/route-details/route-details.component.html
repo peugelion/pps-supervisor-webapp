@@ -1,0 +1,135 @@
+<div class="ui doubling stackable container">
+
+  <!-- datum -->
+  <div class="item">
+    <div class="ui right floated buttons">
+      <button class="ui icon button" (click)="changeDay(-1)">
+        <i class="left chevron icon"></i>
+      </button>
+      <button class="ui button">
+        <i class="calendar alternate outline icon"></i>
+        {{ dateString | date : 'dd. MMM. yyyy.' }}
+      </button>
+      <button class="ui right icon button" (click)="changeDay(+1)">
+        <i class="right chevron icon"></i>
+      </button>
+    </div>
+  </div>
+  <!-- <button class="ui primary button right">
+    {{ dateString | date : 'dd. MMM. yyyy.' }}
+  </button> -->
+  
+  <div class="ui divider"></div>
+  <div class="item padding_top">
+    <p></p>
+  </div>
+
+  <!-- zalihe -->
+  <div *ngIf="zaliheData && zaliheData.length"  class="item padding_top_minus">
+    {{ zaliheData[0]?.Naziv_Partner }},
+    {{ zaliheData[0]?.Ulica_i_Broj }}
+  </div>
+  <table *ngIf="zaliheData && zaliheData.length" class="ui red table">
+    <thead>
+      <tr><th>Šifra</th>
+      <th>Naziv</th>
+      <th>Ambalaža</th>
+      <th>BC</th>
+      <th>Ulaz</th>
+      <th>Izlaz</th>
+      <th>Stanje</th>
+    </tr></thead><tbody>
+      <tr *ngFor="let zaliha of zaliheData; let j = index">
+        <td>{{ zaliha.Sifra_Artikal }}</td>
+        <td>{{ zaliha.Naziv_Artikal }}</td>
+        <td>{{ zaliha.RgNaziv }}</td>
+        <td>{{ zaliha.BC || "-" }}</td>
+        <td>{{ zaliha.ulaz }}</td>
+        <td>{{ zaliha.Izlaz }}</td>
+        <td>{{ zaliha.stanje }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- slike tabovi -->
+  <ng-template #no_images_msg_template>
+    <div class="ui bottom attached red segment">
+      Nema slika na datum {{ dateString | date : 'dd. MMM. yyyy.' }} ...
+    </div>
+  </ng-template>
+  <sui-tabset *ngIf="pozicijeData?.length && pozicijeData as tabs;else no_images_msg_template">
+      <div class="ui top attached tabular menu">
+        <a class="item" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]" (click)="loadSinglePositionData(tab.Sifra)"><i class="file image red outline icon"></i> {{ tab.Naziv }} </a>
+        <a class="item" suiTabHeader="zalihe" [isDisabled]="zaliheDisabled">Zalihe</a>
+      </div>
+
+      <div class="ui bottom attached segment  tab__nobottommargin" *ngFor="let tab of tabs; let i = index" [suiTabContent]="i">
+        <div *ngFor="let image of imagesData; let j = index">
+          <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth">
+            <div class="red card slides">
+              <a class="slide__arrowcontainer_left" (click)="moveToPrevImage()">
+                <i class="huge left angle icon"></i>
+              </a>
+              <div class="slide__arrowcontainer_right" (click)="moveToNextImage()">
+                <i class="huge right angle icon"></i>
+              </div>
+              <!-- <div class="image" (click)="moveToNextImage()"> -->
+              <div class="image">
+                <a class="ui left corner label">
+                  <i class="icon">{{ tab.Sifra }}</i>
+                </a>
+                <img *ngIf="image.Slika" class="ui centered fluid image" [src]="image.Slika" >
+                <div class="ui top right attached label">{{ image.DatumPosete | dateTimeFormat }}
+                  <span *ngIf="imagesData.length != 1" class="detail blue">{{ j + 1 }} od {{ imagesData.length }} SLIKE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui bottom attached segment" suiTabContent="zalihe">
+
+        <div *ngIf="zaliheData && zaliheData.length">
+          {{ zaliheData[0]?.Naziv_Partner }},
+          {{ zaliheData[0]?.Ulica_i_Broj }}
+        </div>
+
+        <div class="ui card" *ngFor="let zaliha of zaliheData; let j = index">
+          <div class="content">
+            <div class="header">{{ zaliha.Naziv_Artikal }}</div>
+            <div class="meta">
+              <span class="category">{{ zaliha.RgNaziv }}</span>
+            </div>
+            <div class="description">
+              <table class="ui very basic collapsing celled table">
+                <thead><tr>
+                    <th *ngIf="zaliha.BC">Barkod</th>
+                    <th>Ulaz</th>
+                    <th>Izlaz</th>
+                    <th>Stanje</th>
+                </tr></thead>
+                <tbody>
+                  <tr>
+                    <td *ngIf="zaliha.BC">{{ zaliha.BC }}</td>
+                    <td>{{ zaliha.stanje }}</td>
+                    <td>{{ zaliha.ulaz }}</td>
+                    <td>{{ zaliha.Izlaz }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="extra content">
+            <div class="right floated author">
+              <!-- <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> -->
+              {{ zaliha.Naziv_Partner }}
+              
+              {{ zaliha.Ulica_i_Broj }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </sui-tabset>
+</div>

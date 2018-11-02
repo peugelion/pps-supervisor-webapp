@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+// import { Headers } from '@angular/http';
+
 
 const apiUrl = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
 
@@ -12,38 +14,69 @@ const apiUrl = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
 export class AuthService {
   HAS_LOGGED_IN = 'hasLoggedIn';
 
-  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
-
-  private loginUrl = '/api/login';  // URL to web api
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  private httpOptions = {
+    withCredentials: true
+  };
+  private loginUrl = '/login';  // URL to web api
+  private logoutUrl = '/logout';  // URL to web api
 
   constructor(
     private http: HttpClient,
     public router: Router,
-  ) { }
+  ) {}
 
   async login(username: string, password: string): Promise<any> {
-    // return this.http.post(apiUrl + this.loginUrl, {username, password}).subscribe(() => {
-      localStorage.setItem(this.HAS_LOGGED_IN, 'true');
-      // this.setUserId  (auth['user']['id']);
-      // this.setUsername(auth['user']['username']);
-      this.loggedIn.next(true);
-      // this.router.navigate(['/']);
-      this.router.navigateByUrl('/');
-      return true;
-    // });
+    const body = {
+      'username': username,
+      'password': password,
+      'remember_me': 'true'
+    };
+    return this.http.post(apiUrl + this.loginUrl, body, this.httpOptions)
+      .subscribe(
+        response => {
+            console.log('login success');
+            localStorage.setItem(this.HAS_LOGGED_IN, 'true');
+            // localStorage.setItem('id_token', response.json().id_token);
+            // this.router.navigate(['home']);
+            this.loggedIn.next(true);
+            return true;
+        },
+        error => {
+          // alert(error.text());
+          console.log('this.http.post error', error.text());
+          return false;
+        }
+      );
   }
 
-  logout(): Promise<any> {
-    localStorage.setItem(this.HAS_LOGGED_IN, 'false');
-    // localStorage.removeItem('userid');
-    // localStorage.removeItem('username');
-    // localStorage.removeItem('jwt');
-    this.loggedIn.next(false);
-    this.router.navigate(['/login']);
-    return;
+  async logout(): Promise<any> {
+    // return this.http.get(apiUrl + this.logoutUrl, { headers: this.contentHeaders, withCredentials: true })
+    return this.http.get(apiUrl + this.logoutUrl, this.httpOptions)
+    .subscribe(
+      response => {
+          console.log('logout success');
+          localStorage.setItem(this.HAS_LOGGED_IN, 'false');
+          // localStorage.removeItem('userid');
+          // localStorage.removeItem('username');
+          // localStorage.removeItem('jwt');
+          this.loggedIn.next(false);
+          this.router.navigateByUrl('/login');
+          return true;
+      },
+      error => {
+        // alert(error.text());
+        console.log('this.http.post error', error.text());
+        return false;
+      }
+    );
   }
 
   get isLoggedInObs() {
+    // this.isLoggedIn().then(() => {
+    //   this.loggedIn.next(true) : this.loggedIn.next(false);
+    // })
+    // console.log('this.isLoggedIn()', this.isLoggedIn());
     return this.loggedIn.asObservable(); // https://loiane.com/2017/08/angular-hide-navbar-login-page/
   }
 
