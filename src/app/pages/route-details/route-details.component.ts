@@ -39,24 +39,28 @@ export class RouteDetailsComponent implements OnInit {
   ngOnInit() {
     // let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.sub = this.route.params.subscribe(params => {
-      console.log('route params', params);
       this.url  = apiUrl + routedetailsApiUrl + '/' + params['id'];
-      // eg '2018-05-29', today date if not input
-      this.dateString = params['date'] ? params['date'] : new Date().toISOString().split('T')[0];
+      if (params['date'].includes(' ')) {
+        // eg '29.05.2018 10:30:45'
+        this.dateString = params['date'].split(' ')[0].split('.').reverse().join('-');
+      } else {
+        // eg '2018-05-29', today date if not input
+        this.dateString = params['date'] ? params['date'] : new Date().toISOString().split('T')[0];
+      }
     });
     this.activeImageIndex = 0;
-    this.activeTabArr = [true]; // first tab active eg. [true, false, false]
+    this.activeTabArr = [true]; // eg. if 1st tab of 3 tabs is active: [true, false, false]
     this.zaliheDisabled = true;
 
-    this.loadPositionImageGroupsData(); // image tabs
-    this.loadZaliheData(); // zalihe tab
+    if (!this.auth.isLoggedIn) {
+      this.router.navigateByUrl('/login');
+      return;
+    }
+    this.loadPositionImageGroupsData(); // load image tabs
+    this.loadZaliheData();              // laod zalihe tab\section
   }
 
   loadPositionImageGroupsData() {
-    if (!this.auth.isLoggedIn) {
-      this.router.navigateByUrl('/login');
-    }
-    // this.router.navigate(['login']);
     return this.http.get<any[]>(this.url, {
       withCredentials: true,
       params: { 'date': this.dateString }
@@ -108,12 +112,11 @@ export class RouteDetailsComponent implements OnInit {
     };
     return this.http.get<any[]>(this.url, httpOptions).subscribe(
       response => {
-          console.log('zaliheData success', response[0]);
           this.zaliheData = response;
           if (response.length) {
             this.zaliheDisabled = false;
+            this.cdRef.detectChanges(); // force change detection (zone lost)
           }
-          this.cdRef.detectChanges(); // force change detection (zone lost)
       },
       error => console.log('loadZaliheData(), http.get error', error.text())
     );
@@ -160,4 +163,7 @@ export class RouteDetailsComponent implements OnInit {
     return currentDate.toISOString().split('T')[0];
   }
 
+  getMaxTabWidth(active) {
+    return active ? null : 80 / this.pozicijeData.length + 'vw';
+  }
 }

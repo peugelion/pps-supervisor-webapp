@@ -64,3 +64,17 @@
     float: right;
     margin-right: 1rem;
 }
+
+
+.tab__ellipsis {
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* .ui.tabular.menu .item {
+    max-width: 150px;
+    max-width: 14vw;
+} */
+.ui.tabular.menu .active.item {
+    max-width: 250px;
+}

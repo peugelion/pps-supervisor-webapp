@@ -59,8 +59,12 @@
   </ng-template>
   <sui-tabset *ngIf="pozicijeData?.length && pozicijeData as tabs;else no_images_msg_template">
       <div class="ui top attached tabular menu">
-        <a class="item" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]" (click)="loadSinglePositionData(tab.Sifra)"><i class="file image red outline icon"></i> {{ tab.Naziv }} </a>
-        <a class="item" suiTabHeader="zalihe" [isDisabled]="zaliheDisabled">Zalihe</a>
+        <a class="item tab__ellipsis" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]"
+          (click)="loadSinglePositionData(tab.Sifra)"
+          [style.maxWidth]="getMaxTabWidth(activeTabArr[i])" >
+          <i class="file image red outline icon"></i>
+          {{ tab.Naziv }}</a>
+        <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="zaliheDisabled" [style.maxWidth]="getMaxTabWidth(activeTabArr[i])">Zalihe</a>
       </div>
 
       <div class="ui bottom attached segment  tab__nobottommargin" *ngFor="let tab of tabs; let i = index" [suiTabContent]="i">
@@ -73,8 +77,8 @@
               <div class="slide__arrowcontainer_right" (click)="moveToNextImage()">
                 <i class="huge right angle icon"></i>
               </div>
-              <!-- <div class="image" (click)="moveToNextImage()"> -->
-              <div class="image">
+              <div class="image" (click)="moveToNextImage()">
+              <!-- <div class="image"> -->
                 <a class="ui left corner label">
                   <i class="icon">{{ tab.Sifra }}</i>
                 </a>
