@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RouteDetailsComponent } from './pages/route-details/route-details.component';
-import { WorkerRouteComponent } from './route-details/worker-route.component';
+import { WorkerRouteComponent } from './worker-route/worker-route.component';
 import { DateTimeFormatPipe } from './pipes/date-time-format.pipe';
 
 @NgModule({
