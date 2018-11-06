@@ -68,7 +68,7 @@
   <sui-tabset *ngIf="pozicijeData?.length && pozicijeData as tabs;else no_images_msg_template">
       <div class="ui top attached tabular menu">
         <a class="item tab__ellipsis" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]"
-          (click)="loadSinglePositionData(tab.Sifra)"
+          (click)="loadSinglePosition(Fk_Partner, tab.Sifra, dateString)"
           [style.maxWidth]="getMaxTabWidth(activeTabArr[i])" >
           <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="file image red outline icon"></i>
           {{ tab.Naziv }}</a>

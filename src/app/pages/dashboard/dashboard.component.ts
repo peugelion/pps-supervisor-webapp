@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   supervisor: any;
   subordinates: any;
   selectedDate: Date = null;
+  selectedSubordinate: any = null;
   workerRoutes: Array<any> = null;
   segmentDimmed: boolean;
 
@@ -37,14 +38,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.subordinates = data.subordinates;
       this.segmentDimmed = false;
     });
+    if (this.dataService.selectedSubordinate) {
+      this.selectedDate = this.dataService.selectedDate;
+      this.selectedSubordinate = this.dataService.selectedSubordinate;  // postavlja odabrani element u sui pick listi
+      this.searchEmployeeRoutes(this.selectedSubordinate);              // rute ...
+    }
   }
 
   ngOnDestroy() {
     this.dataService.workerRoutes = this.workerRoutes;
     this.dataService.selectedDate = this.selectedDate;
- }
+    this.dataService.selectedSubordinate = this.selectedSubordinate;
+    console.log('ngOnDestroy', this.selectedDate);
+  }
 
   searchEmployeeRoutes(selection: any) {
+    this.selectedSubordinate = selection;
     // console.log('selectedWorker = ', selection);
     // console.log('selectedDate = ', this.selectedDate.toISOString());
     if (this.selectedDate === null || this.selectedDate === undefined) {
@@ -60,13 +69,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       withCredentials: true
     };
-    this.segmentDimmed = !this.segmentDimmed;
+    this.segmentDimmed = true;
     // console.log('configObj = ', configObj);
     this._http.get<WorkerData>(this.apiUrl + '/dashboard/workerRoutes', configObj)
     .subscribe(data => {
       console.log('routes data = ', data);
       this.workerRoutes = data.workerRoutes;
-      this.segmentDimmed = !this.segmentDimmed;
+      this.segmentDimmed = false;
     });
     return true;
   }

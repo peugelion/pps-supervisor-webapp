@@ -9,8 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { WebStorageModule } from 'ngx-store';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxLiquidCacheModule } from 'ngx-liquid-cache';
 
-// import { LoginComponentModule } from './pages/login/login.component.module';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RouteDetailsComponentModule } from './pages/route-details/route-details.component.module';
@@ -37,6 +37,7 @@ import { environment } from '../environments/environment';
       SuiModule,
       FormsModule,
       ReactiveFormsModule,
+      NgxLiquidCacheModule.forRoot(),
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     //   LoginComponentModule,
       RouteDetailsComponentModule,

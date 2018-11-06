@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../providers/auth.service';
 import { Router } from '@angular/router';
 import { DataService } from '../../providers/data.service';
+import { LiquidCache } from 'ngx-liquid-cache';
 
 const apiUrl = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
 const routedetailsApiUrl = '/dashboard/route-details';  // URL to web api
@@ -57,7 +58,9 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
 
     this.workerRoutes = this.dataService.workerRoutes;
     this.dateString = this.parseDateParam(this.dataService.getFormatDate());
-    console.log('onInit dataService', this.dataService, this.dateString, this.dataService.getFormatDate());
+    console.log('onInit dataService                 ', this.dataService);
+    console.log('onInit dataService.getFormatDate() ', this.dataService.getFormatDate());
+    console.log('onInit dateString                  ', this.dateString);
   }
 
   ngOnInit() {
@@ -69,39 +72,42 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/login');
       return;
     }
-    this.loadPositionImageGroupsData(); // load image tabs
-    this.loadZaliheData();              // laod zalihe tab\section
+    this.loadPositionsList(this.apiEndpointUrl, this.dateString); // load image tabs
+    this.loadZaliheData(this.apiEndpointUrl, this.dateString);              // laod zalihe tab\section
   }
 
   ngOnDestroy() {
+    // this.dataService.selectedDate = new Date(this.dateString);
     this.dataService.selectedDate = new Date(this.dateString);
   }
 
-  loadPositionImageGroupsData() {
+  // @LiquidCache('loadPositionsList{Fk_Partner, dateString}', { duration: 60 * 1 }) // kesira api rezulat 1 minut
+  loadPositionsList(Fk_Partner, dateString) {
     return this.http.get<any[]>(this.apiEndpointUrl, {
       withCredentials: true,
-      params: { 'date': this.dateString }
+      params: { 'date': dateString }
     }).subscribe(
       response => {
           this.pozicijeData = response;
           if (this.pozicijeData.length) {
             // load first tab data
-            // console.log(' loadPositionImageGroupsData ', this.pozicijeData);
-            this.loadSinglePositionData(this.pozicijeData[0].Sifra);
+            // console.log(' loadPositionsList ', this.pozicijeData);
+            this.loadSinglePosition(this.apiEndpointUrl, this.pozicijeData[0].Sifra, dateString);
           }
           this.cdRef.detectChanges(); // force change detection (zone lost)
       },
-      error => console.log('loadPositionImageGroupsData(), http.get error', error.text())
+      error => console.log('loadPositionsList(), http.get error', error.text())
     );
   }
 
-  /* slike na klik */
-  loadSinglePositionData(Fk_Pozicija) {
+  /* ucitaba tab - listu slika za taj tab */
+  // @LiquidCache('loadSinglePosition{Fk_Partner, Fk_Pozicija, dateString}', { duration: 60 * 3 }) // kesira api rezulat 3 minuta
+  loadSinglePosition(Fk_Partner, Fk_Pozicija, dateString) {
     this.activeImageIndex = 0; // vrati na prvu sliku u nizu
     const httpOptions = {
       withCredentials: true,
       params: {
-        'date': this.dateString,
+        'date': dateString,
         'Fk_Pozicija': Fk_Pozicija
       }
     };
@@ -114,15 +120,16 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
           });
           this.cdRef.detectChanges(); // force change detection (zone lost)
       },
-      error => console.log('loadSinglePositionData(), http.get error', error.text())
+      error => console.log('loadSinglePosition(), http.get error', error.text())
     );
   }
 
-  loadZaliheData() {
+  // @LiquidCache('loadZaliheData{Fk_Partner, dateString}', { duration: 60 * 1 }) // kesira api rezulat 1 minut
+  loadZaliheData(Fk_Partner, dateString) {
     const httpOptions = {
       withCredentials: true,
       params: {
-        'date': this.dateString,
+        'date': dateString,
         'Zalihe': 'true'
       }
     };
@@ -145,7 +152,7 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
       const activeTabIndex = this.activeTabArr.findIndex(el => el);
       const nexTab = (activeTabIndex !== this.activeTabArr.length - 1) ? activeTabIndex + 1 : 0;
       this.activeTabArr[nexTab] = true; // next tab (header)
-      this.loadSinglePositionData(this.pozicijeData[nexTab].Sifra); // load prev tab content
+      this.loadSinglePosition(this.apiEndpointUrl, this.pozicijeData[nexTab].Sifra, this.dateString); // load prev tab content
     } else {
       this.activeImageIndex++; // next image
     }
@@ -156,7 +163,7 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
       const activeTabIndex = this.activeTabArr.findIndex(el => el);
       const prevTab = (activeTabIndex) ? activeTabIndex - 1 : this.activeTabArr.length - 1;
       this.activeTabArr[prevTab] = true; // prev tab (header)
-      this.loadSinglePositionData(this.pozicijeData[prevTab].Sifra); // load prev tab content
+      this.loadSinglePosition(this.apiEndpointUrl, this.pozicijeData[prevTab].Sifra, this.dateString); // load prev tab content
     } else {
       this.activeImageIndex--; // prev image
     }
@@ -167,7 +174,7 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
   changeDay(daysPrior) { // +1 ili -1 dan
     // console.log('changeDay', daysPrior, 'old date', this.dateString);
     this.dateString = this.changeDate(daysPrior);
-    this.loadPositionImageGroupsData(); // image tabs
+    this.loadPositionsList(this.apiEndpointUrl, this.dateString); // image tabs
     // this.router.navigate(['/route-details', this.Fk_Partner, this.changeDate(daysPrior), this.Mesto, this.Naziv], {
     //   relativeTo: this.route
     // });
@@ -178,8 +185,9 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
   changeDate(daysPrior) {
     const currentDate = new Date(this.dateString);
     currentDate.setDate(currentDate.getDate() + daysPrior);
-    // console.log(this.dateString, currentDate.toISOString().split('T')[0]);
-    return currentDate.toISOString().split('T')[0];
+    // provera da ne ide u buducnost
+    const now = new Date();
+    return (currentDate <= now ) ? currentDate.toISOString().split('T')[0] : this.dateString;
     // return currentDate.toISOString();
   }
 
@@ -191,6 +199,7 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
 
   /* ulaz date u srpskoj ili full iso formi, vraca '2018-05-29' */
   parseDateParam(date) {
+    console.log('parseDateParam input date:', date);
     if (date && date.includes(' ')) {
       return date.split(' ')[0].split('.').reverse().join('-');     // eg '29.05.2018' ili '29.05.2018 10:30:45'
     } else if (date && date.includes('T')) {
@@ -199,4 +208,9 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
       return date ? date : new Date().toISOString().split('T')[0];  // eg '2018-05-29', todays date if not input
     }
   }
+
+  // reverseParseDateParam(dateStr) {
+  //   console.log('dateStr input', dateStr);
+  //   return new Date(dateStr);
+  // }
 }

@@ -24,6 +24,7 @@
     "@angular/service-worker": "^6.0.3",
     "core-js": "^2.5.4",
     "ng2-semantic-ui": "^0.9.7",
+    "ngx-liquid-cache": "^1.1.2",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
