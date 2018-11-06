@@ -7,7 +7,11 @@
 }
 
 .card__fullwidth {
-    width: 100%;
+    width: auto;
+}
+/* img.ui.centered.image, */
+.image__fullheight {
+    max-height: calc(100vh - 160px);
 }
 
 .ui.bottom.attached.segment.tab.active.tab__nobottommargin {

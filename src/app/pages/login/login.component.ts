@@ -1,9 +1,10 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { AuthService } from '../../providers/auth.service';
-import { debug } from 'util';
+// import { debug } from 'util';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   // isLoggedIn = false;
 
   loginApiError = false;
+  loading = false; // disable login button after click\submit while waiting for loggin api reponse - no double login
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,8 +43,10 @@ export class LoginComponent implements OnInit {
           return;
       }
 
+      this.loading = true;
       this.auth.login(this.loginForm.value.username, this.loginForm.value.password)
         .then((isLoggedIn) => {
+          this.loading = !isLoggedIn;
           this.loginApiError = !isLoggedIn;
           // this.router.navigate(['/route-details', '50127', '2018-05-29']);
           this.router.navigate(['/dashboard']);

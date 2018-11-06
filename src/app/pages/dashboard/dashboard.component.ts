@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatepickerMode } from 'ng2-semantic-ui';
 import { environment } from '../../../environments/environment';
+import { DataService } from '../../providers/data.service';
 
 interface WorkerData {
   supervisorData: Object;
@@ -14,7 +15,7 @@ interface WorkerData {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('popup') popup; // reference to suiPopup element
   apiUrl: string;
   dateMode: DatepickerMode;
@@ -24,7 +25,7 @@ export class DashboardComponent implements OnInit {
   workerRoutes: Array<any> = null;
   segmentDimmed: boolean;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private dataService: DataService) {
     this.apiUrl = environment.apiUrl;
     this.dateMode = DatepickerMode.Date;
   }
@@ -37,6 +38,11 @@ export class DashboardComponent implements OnInit {
       this.segmentDimmed = false;
     });
   }
+
+  ngOnDestroy() {
+    this.dataService.workerRoutes = this.workerRoutes;
+    this.dataService.selectedDate = this.selectedDate;
+ }
 
   searchEmployeeRoutes(selection: any) {
     // console.log('selectedWorker = ', selection);

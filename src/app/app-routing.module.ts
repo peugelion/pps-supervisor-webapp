@@ -1,4 +1,4 @@
-import { NgModule, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './providers/auth.service';
 import { Observable } from 'rxjs';
@@ -7,14 +7,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RouteDetailsComponent } from './pages/route-details/route-details.component';
 
-
-let isLoggedIn$: Observable<boolean>;
-
 const routes: Routes = [
   {
     path: '',
-    redirectTo: isLoggedIn$ ? '/dashboard' : '/login',
-    pathMatch: 'full'
+    component: DashboardComponent,
+    canActivate: [AuthService]
   },
   {
     path: 'login',
@@ -22,31 +19,28 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthService]
   },
   {
-    path: 'route-details/:id/:date',
-    component: RouteDetailsComponent
-  },
-  {
-    path: 'route-details/:id',
-    component: RouteDetailsComponent
+    path: 'route-details/:Fk_Partner',
+    component: RouteDetailsComponent,
+    canActivate: [AuthService]
   },
   {
     path: '**',
-     component: LoginComponent
+    component: DashboardComponent,
+    canActivate: [AuthService]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    AuthService
+  ]
 })
-export class AppRoutingModule implements OnInit {
-
+export class AppRoutingModule {
   constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    isLoggedIn$ = this.authService.isLoggedInObs;
-  }
 }

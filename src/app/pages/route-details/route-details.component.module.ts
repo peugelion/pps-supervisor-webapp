@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import {SuiModule} from 'ng2-semantic-ui';
 
 // import {AppPipesModule} from '../pipes/pipes.module';
+import {DateTimeFormatPipeModule} from '../../pipes/date-time-format.pipe.module';
 
 import { RouteDetailsComponent } from './route-details.component';
 
@@ -20,6 +21,7 @@ import { RouteDetailsComponent } from './route-details.component';
       }
     ]),
     // AppPipesModule,
+    DateTimeFormatPipeModule,
     SuiModule
   ],
   declarations: [RouteDetailsComponent]

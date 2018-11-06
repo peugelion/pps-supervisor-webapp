@@ -25,9 +25,11 @@
   </div>
 
   <!-- zalihe -->
-  <div *ngIf="zaliheData && zaliheData.length"  class="item padding_top_minus">
-    {{ zaliheData[0]?.Naziv_Partner }},
-    {{ zaliheData[0]?.Ulica_i_Broj }}
+  <div *ngIf="zaliheData && zaliheData.length;else no_zalihe_template"  class="item padding_top_minus">
+    <div class="ui right floated buttons">
+      {{ zaliheData[0]?.Naziv_Partner }},
+      {{ zaliheData[0]?.Ulica_i_Broj }}
+    </div>
   </div>
   <table *ngIf="zaliheData && zaliheData.length" class="ui red table">
     <thead>
@@ -40,16 +42,22 @@
       <th>Stanje</th>
     </tr></thead><tbody>
       <tr *ngFor="let zaliha of zaliheData; let j = index">
-        <td>{{ zaliha.Sifra_Artikal }}</td>
-        <td>{{ zaliha.Naziv_Artikal }}</td>
-        <td>{{ zaliha.RgNaziv }}</td>
+        <td>{{ zaliha.Sifra_Artikal || "-" }}</td>
+        <td>{{ zaliha.Naziv_Artikal || "-" }}</td>
+        <td>{{ zaliha.RgNaziv || "-" }}</td>
         <td>{{ zaliha.BC || "-" }}</td>
-        <td>{{ zaliha.ulaz }}</td>
-        <td>{{ zaliha.Izlaz }}</td>
-        <td>{{ zaliha.stanje }}</td>
+        <td>{{ zaliha.ulaz || "-" }}</td>
+        <td>{{ zaliha.Izlaz || "-" }}</td>
+        <td>{{ zaliha.stanje || "-" }}</td>
       </tr>
     </tbody>
   </table>
+  <ng-template #no_zalihe_template>
+    <div *ngIf="Naziv">{{ Naziv }},{{ Mesto }}</div>
+    <div class="ui bottom attached red segment">
+      Nema Zaliha ...
+    </div>
+  </ng-template>
 
   <!-- slike tabovi -->
   <ng-template #no_images_msg_template>
@@ -62,7 +70,7 @@
         <a class="item tab__ellipsis" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]"
           (click)="loadSinglePositionData(tab.Sifra)"
           [style.maxWidth]="getMaxTabWidth(activeTabArr[i])" >
-          <i class="file image red outline icon"></i>
+          <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="file image red outline icon"></i>
           {{ tab.Naziv }}</a>
         <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="zaliheDisabled" [style.maxWidth]="getMaxTabWidth(activeTabArr[i])">Zalihe</a>
       </div>
@@ -82,7 +90,7 @@
                 <a class="ui left corner label">
                   <i class="icon">{{ tab.Sifra }}</i>
                 </a>
-                <img *ngIf="image.Slika" class="ui centered fluid image" [src]="image.Slika" >
+                <img *ngIf="image.Slika" class="ui centered image  image__fullheight" [src]="image.Slika" >
                 <div class="ui top right attached label">{{ image.DatumPosete | dateTimeFormat }}
                   <span *ngIf="imagesData.length != 1" class="detail blue">{{ j + 1 }} od {{ imagesData.length }} SLIKE</span>
                 </div>

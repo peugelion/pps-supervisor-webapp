@@ -2,24 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+// https://stackoverflow.com/questions/34660263/angular2-conditional-routing
+import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot} from '@angular/router';
 // import { Headers } from '@angular/http';
 
 
-const apiUrl = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
+const API_ROOT_URL = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
+const LOGIN_PATH = '/login';  // URL to web api
+const LOGOUT_PATH = '/logout';  // URL to web api
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements CanActivate {
   HAS_LOGGED_IN = 'hasLoggedIn';
 
   private loggedIn = new BehaviorSubject<boolean>(false);
   private httpOptions = {
     withCredentials: true
   };
-  private loginUrl = '/login';  // URL to web api
-  private logoutUrl = '/logout';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -32,7 +33,7 @@ export class AuthService {
       'password': password,
       'remember_me': 'true'
     };
-    return this.http.post(apiUrl + this.loginUrl, body, this.httpOptions)
+    return this.http.post(API_ROOT_URL + LOGIN_PATH, body, this.httpOptions)
       .subscribe(
         response => {
             console.log('login success');
@@ -51,8 +52,8 @@ export class AuthService {
   }
 
   async logout(): Promise<any> {
-    // return this.http.get(apiUrl + this.logoutUrl, { headers: this.contentHeaders, withCredentials: true })
-    return this.http.get(apiUrl + this.logoutUrl, this.httpOptions)
+    // return this.http.get(API_ROOT_URL + this.LOGOUT_PATH, { headers: this.contentHeaders, withCredentials: true })
+    return this.http.get(API_ROOT_URL + LOGOUT_PATH, this.httpOptions)
     .subscribe(
       response => {
           console.log('logout success');
@@ -83,6 +84,16 @@ export class AuthService {
   async isLoggedIn(): Promise<boolean> {
     return JSON.parse(localStorage.getItem(this.HAS_LOGGED_IN));
     // return isLoggedIn && await this.isSessionExpired();
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    // const isLoggedIn = false; // ... your login logic here
+    if (this.loggedIn) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
 
   async setUserId(userid: string) {

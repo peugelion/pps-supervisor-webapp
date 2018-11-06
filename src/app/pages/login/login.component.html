@@ -15,7 +15,8 @@
     
         <div [ngClass]="submitted && f.password.errors ? 'field error':'field'">
           <label for="Password">Šifra</label>
-          <input id="password" formControlName="password" type="password" [ngClass]="{ 'field error is-invalid': passwordError }" placeholder="Šifra">
+          <!-- <input id="password" formControlName="password" type="password" [ngClass]="{ 'field error is-invalid': passwordError }" placeholder="Šifra"> -->
+          <input id="password" formControlName="password" type="password" placeholder="Šifra">
           <div *ngIf="submitted && f.password.errors" class="ui yellow message invalid-feedback">
             <div *ngIf="f.password.errors.required">Unesite vašu šifru</div>
             <div *ngIf="f.password.errors.minlength">Šifra mora imati najmanje 4 karaketera</div>
@@ -32,7 +33,8 @@
         </div>
 
         <div class="form-group">
-            <button [disabled]="loading" class="ui blue button">Login</button>
+          <button [disabled]="loading" class="ui blue button">Login</button>
+          <!-- <button class="ui blue button">Login</button> -->
         </div>
       </div>
     </form>   

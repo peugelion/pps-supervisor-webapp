@@ -6,33 +6,41 @@ import {SuiModule} from 'ng2-semantic-ui';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { WebStorageModule } from 'ngx-store';
 import { HttpClientModule } from '@angular/common/http';
 
+// import { LoginComponentModule } from './pages/login/login.component.module';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { RouteDetailsComponent } from './pages/route-details/route-details.component';
+import { RouteDetailsComponentModule } from './pages/route-details/route-details.component.module';
 import { WorkerRouteComponent } from './worker-route/worker-route.component';
-import { DateTimeFormatPipe } from './pipes/date-time-format.pipe';
+import { DateTimeFormatPipeModule } from './pipes/date-time-format.pipe.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
+    exports: [
+      FormsModule,
+      ReactiveFormsModule
+    ],
    declarations: [
       AppComponent,
-      LoginComponent,
       DashboardComponent,
-      RouteDetailsComponent,
       WorkerRouteComponent,
-      DateTimeFormatPipe
+      LoginComponent,
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       AppRoutingModule,
       SuiModule,
+      FormsModule,
       ReactiveFormsModule,
-      FormsModule
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    //   LoginComponentModule,
+      RouteDetailsComponentModule,
+      DateTimeFormatPipeModule
    ],
    providers: [],
    bootstrap: [

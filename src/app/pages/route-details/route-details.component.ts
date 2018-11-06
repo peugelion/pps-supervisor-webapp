@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../providers/auth.service';
 import { Router } from '@angular/router';
+import { DataService } from '../../providers/data.service';
 
 const apiUrl = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
 const routedetailsApiUrl = '/dashboard/route-details';  // URL to web api
@@ -13,15 +14,19 @@ const routedetailsApiUrl = '/dashboard/route-details';  // URL to web api
   templateUrl: './route-details.component.html',
   styleUrls: ['./route-details.component.css']
 })
-export class RouteDetailsComponent implements OnInit {
-  // id: number;
+export class RouteDetailsComponent implements OnInit, OnDestroy {
+  Fk_Partner: number;
   private sub: any;
-  private url: string;
-  private dateString: string;
+  public dateString: string;
+  private Mesto: string;
+  private Naziv: string;
+  private apiEndpointUrl: string;
 
-  private pozicijeData: any = null;
+  private workerRoutes;
+
   private imagesData: any = null;
-  private zaliheData: any = null;
+  public pozicijeData: any = null;
+  public zaliheData: any = null;
 
   private activeImageIndex: number;
   public activeTabArr: Array<boolean> = []; // pomocni, cuva aktivni sui tab, eg. [true, false, false]
@@ -34,20 +39,28 @@ export class RouteDetailsComponent implements OnInit {
     public router: Router,
     private cdRef: ChangeDetectorRef,
     private auth: AuthService,
-  ) { }
+    private dataService: DataService
+  ) {
+    // override the route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+
+    // let id = parseInt(this.route.snapshot.paramMap.get('Fk_Partner'));
+    this.sub = this.route.params.subscribe(params => {  console.log(params);
+      this.Fk_Partner = params['Fk_Partner'];
+      // this.dateString = this.parseDateParam(params['date']);
+      // this.Mesto = params['Mesto'] || '';
+      // this.Naziv = params['Naziv'] || '';
+      this.apiEndpointUrl  = apiUrl + routedetailsApiUrl + '/' + params['Fk_Partner'];      // console.log('Fk_Partner', params.id, params);
+    });
+
+    this.workerRoutes = this.dataService.workerRoutes;
+    this.dateString = this.parseDateParam(this.dataService.getFormatDate());
+    console.log('onInit dataService', this.dataService, this.dateString, this.dataService.getFormatDate());
+  }
 
   ngOnInit() {
-    // let id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.sub = this.route.params.subscribe(params => {
-      this.url  = apiUrl + routedetailsApiUrl + '/' + params['id'];
-      if (params['date'].includes(' ')) {
-        // eg '29.05.2018 10:30:45'
-        this.dateString = params['date'].split(' ')[0].split('.').reverse().join('-');
-      } else {
-        // eg '2018-05-29', today date if not input
-        this.dateString = params['date'] ? params['date'] : new Date().toISOString().split('T')[0];
-      }
-    });
     this.activeImageIndex = 0;
     this.activeTabArr = [true]; // eg. if 1st tab of 3 tabs is active: [true, false, false]
     this.zaliheDisabled = true;
@@ -60,8 +73,12 @@ export class RouteDetailsComponent implements OnInit {
     this.loadZaliheData();              // laod zalihe tab\section
   }
 
+  ngOnDestroy() {
+    this.dataService.selectedDate = new Date(this.dateString);
+  }
+
   loadPositionImageGroupsData() {
-    return this.http.get<any[]>(this.url, {
+    return this.http.get<any[]>(this.apiEndpointUrl, {
       withCredentials: true,
       params: { 'date': this.dateString }
     }).subscribe(
@@ -69,7 +86,7 @@ export class RouteDetailsComponent implements OnInit {
           this.pozicijeData = response;
           if (this.pozicijeData.length) {
             // load first tab data
-            console.log(' loadPositionImageGroupsData ', this.pozicijeData);
+            // console.log(' loadPositionImageGroupsData ', this.pozicijeData);
             this.loadSinglePositionData(this.pozicijeData[0].Sifra);
           }
           this.cdRef.detectChanges(); // force change detection (zone lost)
@@ -88,9 +105,8 @@ export class RouteDetailsComponent implements OnInit {
         'Fk_Pozicija': Fk_Pozicija
       }
     };
-    return this.http.get<any[]>(this.url, httpOptions).subscribe(
+    return this.http.get<any[]>(this.apiEndpointUrl, httpOptions).subscribe(
       response => {
-          console.log('singlePosition success', response);
           this.imagesData = response.map(item => {
             item.Slika = apiUrl + (item.Slika ? item.Slika : '/assets/images/404.svg');
             // item.Slika = item.Slika ? apiUrl + item.Slika : null;
@@ -110,7 +126,7 @@ export class RouteDetailsComponent implements OnInit {
         'Zalihe': 'true'
       }
     };
-    return this.http.get<any[]>(this.url, httpOptions).subscribe(
+    return this.http.get<any[]>(this.apiEndpointUrl, httpOptions).subscribe(
       response => {
           this.zaliheData = response;
           if (response.length) {
@@ -149,21 +165,38 @@ export class RouteDetailsComponent implements OnInit {
   //
 
   changeDay(daysPrior) { // +1 ili -1 dan
-    console.log('changeDay', daysPrior);
+    // console.log('changeDay', daysPrior, 'old date', this.dateString);
     this.dateString = this.changeDate(daysPrior);
     this.loadPositionImageGroupsData(); // image tabs
+    // this.router.navigate(['/route-details', this.Fk_Partner, this.changeDate(daysPrior), this.Mesto, this.Naziv], {
+    //   relativeTo: this.route
+    // });
   }
 
-  /* pomere datum za X dana (plus ili minus), eg. -1 menja this.dateString sa '2018-05-28' na '2018-05-27' ... */
+  /* pomere datum za X dana (plus ili minus), eg. -1 menja sa '2018-05-28' na '2018-05-27' ... */
   // https://community.apigee.com/questions/51354/how-to-write-a-javascript-for-subtracting-days-fro.html
   changeDate(daysPrior) {
     const currentDate = new Date(this.dateString);
     currentDate.setDate(currentDate.getDate() + daysPrior);
-    console.log(this.dateString, currentDate.toISOString().split('T')[0]);
+    // console.log(this.dateString, currentDate.toISOString().split('T')[0]);
     return currentDate.toISOString().split('T')[0];
+    // return currentDate.toISOString();
   }
 
   getMaxTabWidth(active) {
     return active ? null : 80 / this.pozicijeData.length + 'vw';
+  }
+
+  //
+
+  /* ulaz date u srpskoj ili full iso formi, vraca '2018-05-29' */
+  parseDateParam(date) {
+    if (date && date.includes(' ')) {
+      return date.split(' ')[0].split('.').reverse().join('-');     // eg '29.05.2018' ili '29.05.2018 10:30:45'
+    } else if (date && date.includes('T')) {
+      return date.split('T')[0].split('.').reverse().join('-');     // eg '2018-05-28T00:00:00.000Z'
+    } else {
+      return date ? date : new Date().toISOString().split('T')[0];  // eg '2018-05-29', todays date if not input
+    }
   }
 }
