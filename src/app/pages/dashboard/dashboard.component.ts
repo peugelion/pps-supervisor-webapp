@@ -45,12 +45,12 @@ export class DashboardComponent implements OnInit {
       this.popup.open();
       return false;
     }
-    let formatedDate = this.selectedDate.toISOString();
-    formatedDate = formatedDate.substring(0, formatedDate.indexOf('T'));
+    // let formatedDate = this.selectedDate.toISOString();
+    // formatedDate = formatedDate.substring(0, formatedDate.indexOf('T'));
     const configObj = {
       params: {
         'Fk_Radnik': selection,
-        'datum': formatedDate
+        'datum': this.selectedDate.toISOString()
       },
       withCredentials: true
     };
