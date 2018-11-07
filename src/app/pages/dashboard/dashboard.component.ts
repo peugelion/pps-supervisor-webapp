@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
     if (this.dataService.selectedSubordinate) {
       this.selectedDate = this.dataService.selectedDate;
-      this.searchEmployeeRoutes(this.selectedSubordinate);              // rute ...
+      this.searchEmployeeRoutes(this.selectedSubordinate);                // rute ...
     }
   }
 
