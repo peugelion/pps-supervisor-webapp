@@ -37,10 +37,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.supervisor = data.supervisorData;
       this.subordinates = data.subordinates;
       this.segmentDimmed = false;
+      if (this.dataService.selectedSubordinate) {
+        this.selectedSubordinate = this.dataService.selectedSubordinate;  // postavlja odabrani element u sui pick listi
+      }
     });
     if (this.dataService.selectedSubordinate) {
       this.selectedDate = this.dataService.selectedDate;
-      this.selectedSubordinate = this.dataService.selectedSubordinate;  // postavlja odabrani element u sui pick listi
       this.searchEmployeeRoutes(this.selectedSubordinate);              // rute ...
     }
   }
