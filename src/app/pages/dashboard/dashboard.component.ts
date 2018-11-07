@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('popup') popup; // reference to suiPopup element
   apiUrl: string;
   dateMode: DatepickerMode;
+  datePopupPosition: any = 'bottom-right';
   supervisor: any;
   subordinates: any;
   selectedDate: Date = null;
