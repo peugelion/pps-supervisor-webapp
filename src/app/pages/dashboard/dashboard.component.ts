@@ -33,26 +33,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._http.get<WorkerData>(this.apiUrl + '/dashboard', { withCredentials: true })
+    this.selectedDate = this.dataService.getSelectedDate();
+    this.selectedSubordinate = this.dataService.getSelectedSubordinate(); // postavlja odabrani element u sui pick listi
+    if (this.selectedSubordinate) {
+      this.searchEmployeeRoutes(this.selectedSubordinate);
+    }
+    this._http.get<WorkerData>(this.apiUrl + '/api/dashboard', { withCredentials: true })
     .subscribe(data => {
       this.supervisor = data.supervisorData;
       this.subordinates = data.subordinates;
-      this.segmentDimmed = false;
-      if (this.dataService.selectedSubordinate) {
-        this.selectedSubordinate = this.dataService.selectedSubordinate;  // postavlja odabrani element u sui pick listi
-      }
+      // this.segmentDimmed = false;
     });
-    if (this.dataService.selectedSubordinate) {
-      this.selectedDate = this.dataService.selectedDate;
-      this.searchEmployeeRoutes(this.selectedSubordinate);                // rute ...
-    }
   }
 
   ngOnDestroy() {
-    this.dataService.workerRoutes = this.workerRoutes;
-    this.dataService.selectedDate = this.selectedDate;
-    this.dataService.selectedSubordinate = this.selectedSubordinate;
-    console.log('ngOnDestroy', this.selectedDate);
+    this.dataService.setSelectedDate(this.selectedDate);
+    this.dataService.setWorkerRoutes(this.workerRoutes);
+    this.dataService.setSelectedSubordinate(this.selectedSubordinate);
   }
 
   searchEmployeeRoutes(selection: any) {
@@ -74,7 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
     this.segmentDimmed = true;
     // console.log('configObj = ', configObj);
-    this._http.get<WorkerData>(this.apiUrl + '/dashboard/workerRoutes', configObj)
+    this._http.get<WorkerData>(this.apiUrl + '/api/dashboard/workerRoutes', configObj)
     .subscribe(data => {
       console.log('routes data = ', data);
       this.workerRoutes = data.workerRoutes;

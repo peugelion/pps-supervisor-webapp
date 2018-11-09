@@ -52,7 +52,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pps-supervisor-webapp:build"
+            "browserTarget": "pps-supervisor-webapp:build",
+            "sslKey": "ssl/server.key",
+            "sslCert": "ssl/server.crt",
+            "ssl": false
           },
           "configurations": {
             "production": {

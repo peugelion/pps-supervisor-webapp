@@ -8,7 +8,7 @@ import { DataService } from '../../providers/data.service';
 import { LiquidCache } from 'ngx-liquid-cache';
 
 const apiUrl = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
-const routedetailsApiUrl = '/dashboard/route-details';  // URL to web api
+const routedetailsApiUrl = '/api/dashboard/route-details';  // URL to web api
 
 @Component({
   selector: 'app-route-details',
@@ -56,11 +56,8 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
       this.apiEndpointUrl  = apiUrl + routedetailsApiUrl + '/' + params['Fk_Partner'];      // console.log('Fk_Partner', params.id, params);
     });
 
-    this.workerRoutes = this.dataService.workerRoutes;
+    this.workerRoutes = this.dataService.getWorkerRoutes();
     this.dateString = this.parseDateParam(this.dataService.getFormatDate());
-    console.log('onInit dataService                 ', this.dataService);
-    console.log('onInit dataService.getFormatDate() ', this.dataService.getFormatDate());
-    console.log('onInit dateString                  ', this.dateString);
   }
 
   ngOnInit() {
@@ -78,7 +75,8 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // this.dataService.selectedDate = new Date(this.dateString);
-    this.dataService.selectedDate = new Date(this.dateString);
+    // this.dataService.selectedDate = new Date(this.dateString);
+    this.dataService.setSelectedDate(new Date(this.dateString));
   }
 
   // @LiquidCache('loadPositionsList{Fk_Partner, dateString}', { duration: 60 * 1 }) // kesira api rezulat 1 minut
@@ -114,8 +112,9 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
     return this.http.get<any[]>(this.apiEndpointUrl, httpOptions).subscribe(
       response => {
           this.imagesData = response.map(item => {
-            item.Slika = apiUrl + (item.Slika ? item.Slika : '/assets/images/404.svg');
-            // item.Slika = item.Slika ? apiUrl + item.Slika : null;
+            if (!item.Slika) {
+              item.Slika = '/assets/404.svg';
+            }
             return item;
           });
           this.cdRef.detectChanges(); // force change detection (zone lost)
@@ -199,7 +198,7 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
 
   /* ulaz date u srpskoj ili full iso formi, vraca '2018-05-29' */
   parseDateParam(date) {
-    console.log('parseDateParam input date:', date);
+    // console.log('parseDateParam input date:', date);
     if (date && date.includes(' ')) {
       return date.split(' ')[0].split('.').reverse().join('-');     // eg '29.05.2018' ili '29.05.2018 10:30:45'
     } else if (date && date.includes('T')) {
@@ -208,9 +207,4 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
       return date ? date : new Date().toISOString().split('T')[0];  // eg '2018-05-29', todays date if not input
     }
   }
-
-  // reverseParseDateParam(dateStr) {
-  //   console.log('dateStr input', dateStr);
-  //   return new Date(dateStr);
-  // }
 }

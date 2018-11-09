@@ -5,11 +5,12 @@ import { BehaviorSubject } from 'rxjs';
 // https://stackoverflow.com/questions/34660263/angular2-conditional-routing
 import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot} from '@angular/router';
 // import { Headers } from '@angular/http';
+import { CookieService } from 'ngx-cookie-service';
 
 
 const API_ROOT_URL = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
-const LOGIN_PATH = '/login';  // URL to web api
-const LOGOUT_PATH = '/logout';  // URL to web api
+const LOGIN_PATH = '/api/login';  // URL to web api
+const LOGOUT_PATH = '/api/logout';  // URL to web api
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class AuthService implements CanActivate {
   constructor(
     private http: HttpClient,
     public router: Router,
+    public cookieService: CookieService
   ) {}
 
   async login(username: string, password: string): Promise<any> {
@@ -33,20 +35,29 @@ export class AuthService implements CanActivate {
       'password': password,
       'remember_me': 'true'
     };
-    return this.http.post(API_ROOT_URL + LOGIN_PATH, body, this.httpOptions)
-      .subscribe(
-        response => {
-            console.log('login success');
+    this.cookieService.set( 'hubieLoginUsername', username );
+    this.cookieService.set( 'hubieLoginPassword', password );
+    // return this.http.post(API_ROOT_URL + LOGIN_PATH, body, this.httpOptions)
+    //   .subscribe(
+    return this.http.post(API_ROOT_URL + LOGIN_PATH, body, this.httpOptions).toPromise()
+      .then(response => {
+          // localStorage.setItem('id_token', response.json().id_token);
+          // this.router.navigate(['home']);
             localStorage.setItem(this.HAS_LOGGED_IN, 'true');
-            // localStorage.setItem('id_token', response.json().id_token);
-            // this.router.navigate(['home']);
             this.loggedIn.next(true);
-            return true;
+            // return true;
+            return response;
         },
-        error => {
-          // alert(error.text());
-          console.log('this.http.post error', error.text());
-          return false;
+        err => {
+          console.log('error', err);
+          localStorage.setItem(this.HAS_LOGGED_IN, 'false');
+          this.loggedIn.next(false);
+          console.log('login error localStorage', localStorage.getItem(this.HAS_LOGGED_IN));
+          if (err.error === 'Unauthorized') {
+            console.log('Unauthorized');
+            // this.router.navigateByUrl('/login');
+            return false;
+          }
         }
       );
   }
@@ -81,14 +92,16 @@ export class AuthService implements CanActivate {
     return this.loggedIn.asObservable(); // https://loiane.com/2017/08/angular-hide-navbar-login-page/
   }
 
-  async isLoggedIn(): Promise<boolean> {
+  isLoggedIn(): Promise<boolean> {
     return JSON.parse(localStorage.getItem(this.HAS_LOGGED_IN));
     // return isLoggedIn && await this.isSessionExpired();
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     // const isLoggedIn = false; // ... your login logic here
-    if (this.loggedIn) {
+    const isLoggedIn = this.isLoggedIn();
+    console.log('canActivate', isLoggedIn);
+    if (isLoggedIn) {
       return true;
     } else {
       this.router.navigate(['/login']);

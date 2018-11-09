@@ -18,6 +18,7 @@ import { WorkerRouteComponent } from './worker-route/worker-route.component';
 import { DateTimeFormatPipeModule } from './pipes/date-time-format.pipe.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
     exports: [
@@ -43,7 +44,9 @@ import { environment } from '../environments/environment';
       RouteDetailsComponentModule,
       DateTimeFormatPipeModule
    ],
-   providers: [],
+   providers: [
+    CookieService
+   ],
    bootstrap: [
       AppComponent
    ]

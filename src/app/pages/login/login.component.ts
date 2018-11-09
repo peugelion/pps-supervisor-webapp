@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } 
 import { Router } from '@angular/router';
 import { AuthService } from '../../providers/auth.service';
 // import { debug } from 'util';
+import { DataService } from '../../providers/data.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private dataService: DataService
   ) { }
 
   ngOnInit() {
@@ -32,6 +34,10 @@ export class LoginComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
+
+  // ngOnDestroy() {
+  //   this.dataService.setSelectedDate(new Date(this.dateString));
+  // }
 
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
@@ -43,14 +49,16 @@ export class LoginComponent implements OnInit {
           return;
       }
 
-      this.loading = true;
+      this.loading = true; // block login btn
       this.auth.login(this.loginForm.value.username, this.loginForm.value.password)
-        .then((isLoggedIn) => {
-          this.loading = !isLoggedIn;
-          this.loginApiError = !isLoggedIn;
-          // this.router.navigate(['/route-details', '50127', '2018-05-29']);
-          this.router.navigate(['/dashboard']);
-          alert();
+        .then((respData) => {
+          console.log('data', respData);
+          this.loading = false;
+          this.loginApiError = !respData;
+          if (respData) {
+            this.dataService.setUserData(respData);
+            this.router.navigate(['']);
+          }
         }).catch(err => this.loginApiError = false);
   }
 

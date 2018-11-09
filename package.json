@@ -3,12 +3,18 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npx http-server -a 0.0.0.0 -p 80 -g true dist/pps-supervisor-webapp/",
-    "serve": "ng serve --host 0.0.0.0 --port 80 --ssl false",
-    "build": "ng build --prod --aot --output-hashing=all",
+    "start": "ng serve  --host 0.0.0.0  --port 4200  --proxy-config proxy.conf.js",
+    "build": "ng build  --prod",
+    "build-fast": "ng build  --prod  --optimization=false",
+    "dev": "light-server -s dist/pps-supervisor-webapp/ -p 80 -x http://localhost:3000 -w \"src/**/*.js, src/**/*.ts, src/**/*.html # npm run build-fast\"",
+    "prod": "light-server -s dist/pps-supervisor-webapp/ -p 80 -x http://localhost:3000 -w \"src/**/*.js, src/**/*.ts, src/**/*.html # npm run build\"",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start-staro": "ng serve  --host 0.0.0.0  --port 80  --proxy-config proxy.conf.json  --ssl false",
+    "start-staro-2": "ng serve  --host 0.0.0.0  --port 4200  --proxy-config proxy.conf.js  --base-href /",
+    "build-staro": "ng build  --prod  --aot  --output-hashing=all  --optimization=false",
+    "http-server-staro": "npx http-server -p 80 -g true  dist/pps-supervisor-webapp/"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +31,8 @@
     "@angular/service-worker": "^6.0.3",
     "core-js": "^2.5.4",
     "ng2-semantic-ui": "^0.9.7",
-    "ngx-liquid-cache": "^1.1.2",
+    "ngx-cookie-service": "^2.0.0",
+    "ngx-liquid-cache": "^1.2.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
