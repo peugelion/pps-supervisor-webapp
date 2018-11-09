@@ -20,7 +20,8 @@
             [(ngModel)]="selectedDate"
             [pickerMode]="dateMode"
             [pickerFirstDayOfWeek]="0"
-            [pickerUseNativeOnMobile]="false">
+            [pickerUseNativeOnMobile]="false"
+            (pickerSelectedDateChange)="searchEmployeeRoutes($event)">
         </div>
       </div>
     </div>
@@ -60,8 +61,14 @@
     <div class="ui text loader">Učitavanje ruta!</div>
 </sui-dimmer>
 <div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container">
-  <p *ngIf="!workerRoutes; else elseBlock">Odaberite radnika da biste videli njegove rute.</p>
-  <ng-template #elseBlock><p>Ne postoje unete rute za odabranog radnika.</p></ng-template>
+  <div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
+    Morate odabrati datum i radnika da biste videli njegove rute.
+  </div>
+  <ng-template #elseBlock>
+      <div class="ui black attached big red message">
+        Ne postoje unete rute za odabranog radnika.
+      </div>
+  </ng-template>
 </div>
 <div class="ui segment" *ngIf="workerRoutes != null && workerRoutes.length > 0">
   <div class="ui grid">
