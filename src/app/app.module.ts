@@ -13,12 +13,20 @@ import { NgxLiquidCacheModule } from 'ngx-liquid-cache';
 
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { RouteDetailsComponentModule } from './pages/route-details/route-details.component.module';
-import { WorkerRouteComponent } from './worker-route/worker-route.component';
+// import { RouteDetailsComponentModule } from './pages/route-details/route-details.component.module';
+import { RouteDetailsComponent } from './pages/route-details/route-details.component';
+
+import { WorkerRouteComponent } from './@dashboard/worker-route/worker-route.component';
 import { DateTimeFormatPipeModule } from './pipes/date-time-format.pipe.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import 'hammerjs';
+import { TabsComponent } from './@route-detail/tabs/tabs.component';
+import { ZaliheTableComponent } from './@route-detail/zalihe-table/zalihe-table.component';
+import { ChoicesModalComponent } from './@modal/choices-modal.component';
+import { TableLayoutComponent } from './@dashboard/table-layout/table-layout.component';
+import { CardLayoutComponent } from './@dashboard/card-layout/card-layout.component';
 
 @NgModule({
     exports: [
@@ -30,6 +38,12 @@ import { CookieService } from 'ngx-cookie-service';
       DashboardComponent,
       WorkerRouteComponent,
       LoginComponent,
+      RouteDetailsComponent,
+      TabsComponent,
+      ZaliheTableComponent,
+      ChoicesModalComponent,
+      TableLayoutComponent,
+      CardLayoutComponent,
    ],
    imports: [
       BrowserModule,
@@ -40,15 +54,17 @@ import { CookieService } from 'ngx-cookie-service';
       ReactiveFormsModule,
       NgxLiquidCacheModule.forRoot(),
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    //   LoginComponentModule,
-      RouteDetailsComponentModule,
-      DateTimeFormatPipeModule
+      // RouteDetailsComponentModule,
+      DateTimeFormatPipeModule,
    ],
    providers: [
     CookieService
    ],
-   bootstrap: [
-      AppComponent
+   bootstrap: [AppComponent],
+
+   entryComponents: [
+      ChoicesModalComponent,
+      // RouteUnblockModal
    ]
 })
 export class AppModule { }

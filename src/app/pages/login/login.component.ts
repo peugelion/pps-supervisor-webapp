@@ -5,7 +5,8 @@ import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } 
 import { Router } from '@angular/router';
 import { AuthService } from '../../providers/auth.service';
 // import { debug } from 'util';
-import { DataService } from '../../providers/data.service';
+import { StateService } from '../../providers/state.service';
+import { ApiService } from '../../providers/api.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     public router: Router,
     private auth: AuthService,
-    private dataService: DataService
+    private stateService: StateService,
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   // ngOnDestroy() {
-  //   this.dataService.setSelectedDate(new Date(this.dateString));
+  //   this.stateService.setSelectedDate(new Date(this.dateString));
   // }
 
   // convenience getter for easy access to form fields
@@ -50,16 +52,37 @@ export class LoginComponent implements OnInit {
       }
 
       this.loading = true; // block login btn
-      this.auth.login(this.loginForm.value.username, this.loginForm.value.password)
+      this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
         .then((respData) => {
           console.log('data', respData);
           this.loading = false;
           this.loginApiError = !respData;
           if (respData) {
-            this.dataService.setUserData(respData);
             this.router.navigate(['']);
+            this.stateService.setUserData(respData);
           }
         }).catch(err => this.loginApiError = false);
+
+      // const login = this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
+      //   .unsubscribe( x => {});
+      // console.log('login', login);
+        // .subscribe(
+        //   (data) => {
+        //     // this.auth._saveJwt(data.id_token);
+        //     console.log('subs data', data);
+        //     this.loading = false;
+        //     if (data) {
+        //       this.router.navigate(['']);
+        //       this.stateService.setUserData(data);
+        //     }
+        //   },  // not necessary to call _saveJwt from here now.
+        //   (err) => {
+        //     console.log(err);
+        //     this.loading = false;
+        //     this.loginApiError = true;
+        //   },
+        //   () => console.log('Done [login cmp]')
+        // );
   }
 
   login(event, username, password) {

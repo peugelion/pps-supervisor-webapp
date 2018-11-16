@@ -4,38 +4,19 @@ import { NgModule } from '@angular/core';
 // import { RouterModule } from '@angular/router';
 // import {SuiModule} from 'ng2-semantic-ui';
 
-import { DateTimeFormatPipe } from './date-time-format.pipe';
+import { DateTimeFormatPipe, TimeFormatPipe } from './date-time-format.pipe';
 
 
 @NgModule({
-  imports: [
-    // CommonModule,
-    // FormsModule,
-    // RouterModule.forChild([
-    //   {
-    //     path: '',
-    //     component: DateTimeFormatPipe
-    //   }
-    // ]),
-    // AppPipesModule,
-    // DateTimeFormatPipe,
-    // SuiModule
+  imports: [],
+  declarations: [
+    DateTimeFormatPipe,
+    TimeFormatPipe
   ],
-  declarations: [DateTimeFormatPipe],
-  exports: [DateTimeFormatPipe]
+  exports: [
+    DateTimeFormatPipe,
+    TimeFormatPipe
+  ]
 })
 export class DateTimeFormatPipeModule {}
-
-// import { NgModule } from '@angular/core';
-// import { DateTimeFormatPipe } from './date-time-format/date-time-format';
-// @NgModule({
-// 	declarations: [
-// 		DateTimeFormatPipe
-// 	],
-// 	imports: [],
-// 	exports: [
-// 		DateTimeFormatPipe
-// 	]
-// })
-// export class PipesModule {}
 

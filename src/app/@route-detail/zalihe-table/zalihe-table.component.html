@@ -1,0 +1,38 @@
+<div *ngIf="zalihe && zalihe.length" class="margin__bottom">
+<!-- <div *ngIf="zalihe && zalihe.length;else no_zalihe_template"> -->
+  <div class="item">
+    <!-- <div class="ui right floated buttons"> -->
+    <div class="">
+      {{ zalihe[0]?.Naziv_Partner }},
+      {{ zalihe[0]?.Ulica_i_Broj }}
+    </div>
+  </div>
+  <table class="ui red table">
+    <thead>
+      <tr><th>Šifra</th>
+      <th>Naziv</th>
+      <th>Ambalaža</th>
+      <th>BC</th>
+      <th>Ulaz</th>
+      <th>Izlaz</th>
+      <th>Stanje</th>
+    </tr></thead><tbody>
+      <tr *ngFor="let artikal of zalihe; let j = index">
+        <td>{{ artikal.Sifra_Artikal || "-" }}</td>
+        <td>{{ artikal.Naziv_Artikal || "-" }}</td>
+        <td>{{ artikal.RgNaziv || "-" }}</td>
+        <td>{{ artikal.BC || "-" }}</td>
+        <td>{{ artikal.ulaz || "-" }}</td>
+        <td>{{ artikal.Izlaz || "-" }}</td>
+        <td>{{ artikal.stanje || "-" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- <ng-template #no_zalihe_template>
+  <div *ngIf="Naziv">{{ Naziv }},{{ Mesto }}</div>
+  <div class="ui bottom attached red segment">
+    Nema Zaliha ...
+  </div>
+</ng-template> -->

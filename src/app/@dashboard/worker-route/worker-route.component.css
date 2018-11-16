@@ -1,0 +1,8 @@
+.ui.label__nopadding {
+  padding: 0;
+  border: none;
+}
+
+/* .ui.menu.smaller__padding__menu .item {
+  padding: .4em .5em;
+} */

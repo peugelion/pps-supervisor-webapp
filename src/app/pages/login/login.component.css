@@ -1,0 +1,13 @@
+.custom__container {
+    height: 100%;
+    background-color: #DADADA;
+}
+.custom__container > .grid {
+    height: 100%;
+}
+.image {
+    margin-top: -100px;
+}
+.column {
+    max-width: 450px;
+}

@@ -8,6 +8,7 @@ import {SuiModule} from 'ng2-semantic-ui';
 import {DateTimeFormatPipeModule} from '../../pipes/date-time-format.pipe.module';
 
 import { RouteDetailsComponent } from './route-details.component';
+import { TabsComponent } from '../../@route-detail/tabs/tabs.component';
 
 
 @NgModule({
@@ -20,9 +21,9 @@ import { RouteDetailsComponent } from './route-details.component';
         component: RouteDetailsComponent
       }
     ]),
-    // AppPipesModule,
     DateTimeFormatPipeModule,
-    SuiModule
+    SuiModule,
+    TabsComponent
   ],
   declarations: [RouteDetailsComponent]
 })

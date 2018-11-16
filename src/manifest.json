@@ -1,7 +1,7 @@
 {
   "name": "Europos supervisor app",
   "short_name": "Supervisor",
-  "theme_color": "#db2828",
+  "theme_color": "#e0e1e2",
   "background_color": "#e0e1e2",
   "description": "Pepsi supervisors application",
   "display": "standalone",

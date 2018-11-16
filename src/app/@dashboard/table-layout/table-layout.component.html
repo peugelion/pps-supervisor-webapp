@@ -1,0 +1,82 @@
+<!-- <table class="ui  selectable  celled  unstackable  red table">
+  <thead>
+    <tr>
+      <th>Mesto / Objekat</th>
+      <th>Opis</th>
+      <th class="right aligned">Poč.</th>
+      <th class="right aligned">Zav.</th>
+      <th class="right aligned">Dužina</th>
+      <th class="right aligned">Pauza</th>
+      <th class="right aligned positive">T(m)</th>
+      <th class="right aligned positive">P(m)</th>
+      <th class="right aligned">T(d)</th>
+      <th class="right aligned">P(d)</th>
+      <th class="right aligned">Način</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let route of workerRoutes; let j = index"  [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event, route)">
+      <td><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
+      <td>{{ route.Opis_542 }}</td>
+      <td class="right aligned ">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
+      <td class="right aligned ">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
+      <td class="right aligned ">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
+      <td class="right aligned ">{{ route.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-" }}</td>
+      <td class="right aligned warning">{{ route.TargetMesec || "-" }}</td>
+      <td class="right aligned warning">{{ route.ProdajaMesec || "-" }}</td>
+      <td class="right aligned positive">{{ route.TargetDan || "-" }}</td>
+      <td class="right aligned positive">{{ route.ProdajaDan || "-" }}</td>
+      <td class="right aligned ">{{ route.TelPlan || "-" }}</td>
+      <span class="hidden unblock__button__holder" (click)="click(route.Fk_Partner)">
+        <button class="ui inverted blue button unblock__button">Odblokiraj</button>
+      </span>
+    </tr>
+  </tbody>
+</table> -->
+
+
+
+<!-- <table class="ui  selectable  celled  unstackable red table"> -->
+<!-- <table class="ui very basic collapsing celled unstackable red table"> -->
+<table [class]="tableCssClass">
+  <thead>
+    <tr>
+      <th *ngIf="!isSingleRow">Mesto / Objekat</th>
+      <!-- <th>Mesto</th>
+      <th>Objekat</th> -->
+      <th>Opis</th>
+      <th class="right aligned">Poč.</th>
+      <th class="right aligned">Zav.</th>
+      <th class="right aligned">Dužina</th>
+      <th class="right aligned">Pauza</th>
+      <!-- <th class="right aligned">Razlog</th> -->
+      <th class="right aligned positive">T(m)</th>
+      <th class="right aligned positive">P(m)</th>
+      <th class="right aligned">T(d)</th>
+      <th class="right aligned">P(d)</th>
+      <th class="right aligned">Način</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let route of workerRoutes" [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)">
+      <td *ngIf="!isSingleRow"><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
+      <td>{{ route.Opis_542 }}</td>
+      <td class="right aligned ">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
+      <td class="right aligned ">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
+      <td class="right aligned ">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
+      <td class="right aligned ">{{ route.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-" }}</td>
+      <!-- <td class="right aligned">{{ route.Razlog_542 || "-" }}</td> -->
+      <td class="right aligned warning">{{ route.TargetMesec || "-" }}</td>
+      <td class="right aligned warning">{{ route.ProdajaMesec || "-" }}</td>
+      <td class="right aligned positive">{{ route.TargetDan || "-" }}</td>
+      <td class="right aligned positive">{{ route.ProdajaDan || "-" }}</td>
+      <td class="right aligned ">{{ route.TelPlan || "-" }}</td>
+      <!-- <span *ngIf="!isSingleRow" class="unblock__button__holder" [class.hidden]="!isSingleRow" [class.singlerow]="isSingleRow" (click)="click(route.Fk_Partner)"> -->
+      <!-- <span class="unblock__button__holder" [className]="isSingleRow ? 'singlerow' : 'hidden'"  (click)="click(route.Fk_Partner)"> -->
+      <!-- <span class="unblock__button__holder" [ngClass]="{'hidden': !isSingleRow}" (click)="click(route.Fk_Partner)"> -->
+      <span class="unblock__button__holder hidden" (click)="click(route.Fk_Partner)">
+        <button class="ui inverted blue button unblock__button">Odblokiraj</button>
+      </span>
+    </tr>
+  </tbody>
+</table>

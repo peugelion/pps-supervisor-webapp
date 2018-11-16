@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { DatepickerMode } from 'ng2-semantic-ui';
-import { environment } from '../../../environments/environment';
-import { DataService } from '../../providers/data.service';
+import { Router } from '@angular/router';
+import { StateService } from '../../providers/state.service';
+import { ApiService } from '../../providers/api.service';
+import { AuthService } from '../../providers/auth.service';
 
 interface WorkerData {
   supervisorData: Object;
@@ -27,57 +28,54 @@ export class DashboardComponent implements OnInit, OnDestroy {
   workerRoutes: Array<any> = null;
   segmentDimmed: boolean;
 
-  constructor(private _http: HttpClient, private dataService: DataService) {
-    this.apiUrl = environment.apiUrl;
+  constructor(
+    private stateService: StateService,
+    public router: Router,
+    private apiService: ApiService,
+    private authService: AuthService
+  ) {
     this.dateMode = DatepickerMode.Date;
   }
 
   ngOnInit() {
-    this.selectedDate = this.dataService.getSelectedDate();
-    this.selectedSubordinate = this.dataService.getSelectedSubordinate(); // postavlja odabrani element u sui pick listi
-    if (this.selectedSubordinate) {
-      this.searchEmployeeRoutes(this.selectedSubordinate);
-    }
-    this._http.get<WorkerData>(this.apiUrl + '/api/dashboard', { withCredentials: true })
-    .subscribe(data => {
-      this.supervisor = data.supervisorData;
-      this.subordinates = data.subordinates;
-      // this.segmentDimmed = false;
-    });
+    this.supervisor   = this.stateService.getSupervisor();
+    this.subordinates = this.stateService.getSubordinates();
+    this.selectedSubordinate = this.stateService.getSelectedSubordinate(); // postavlja odabrani element u sui pick listi
+    this.selectedDate        = this.stateService.getSelectedDate();
   }
 
   ngOnDestroy() {
-    this.dataService.setSelectedDate(this.selectedDate);
-    this.dataService.setWorkerRoutes(this.workerRoutes);
-    this.dataService.setSelectedSubordinate(this.selectedSubordinate);
+    this.stateService.setSelectedDate(this.selectedDate);
+    this.stateService.setSelectedSubordinate(this.selectedSubordinate);
+    this.stateService.setWorkerRoutes(this.workerRoutes);
   }
 
-  searchEmployeeRoutes(selection: any) {
-    this.selectedSubordinate = selection;
-    // console.log('selectedWorker = ', selection);
-    // console.log('selectedDate = ', this.selectedDate.toISOString());
-    if (this.selectedDate === null || this.selectedDate === undefined) {
-      this.popup.open();
+  searchEmployeeRoutes(selection: any) {  // console.log('searchEmployeeRoutes USO');
+    if (!this.selectedDate || !this.selectedSubordinate || this.segmentDimmed) {
       return false;
     }
-    // let formatedDate = this.selectedDate.toISOString();
-    // formatedDate = formatedDate.substring(0, formatedDate.indexOf('T'));
-    const configObj = {
-      params: {
-        'Fk_Radnik': selection,
-        'datum': this.selectedDate.toISOString()
-      },
-      withCredentials: true
-    };
-    this.segmentDimmed = true;
-    // console.log('configObj = ', configObj);
-    this._http.get<WorkerData>(this.apiUrl + '/api/dashboard/workerRoutes', configObj)
-    .subscribe(data => {
-      console.log('routes data = ', data);
-      this.workerRoutes = data.workerRoutes;
-      this.segmentDimmed = false;
-    });
+    this.segmentDimmed = true;            // console.log('searchEmployeeRoutes PROSO', selection);
+    this.apiService.getWorkerRoutes(this.selectedSubordinate, this.selectedDate)
+      .subscribe(data => {
+        this.workerRoutes = data['workerRoutes'];
+        this.segmentDimmed = false;
+      }, error => {
+        console.log(error.status, error.error);
+        if (error.status === 401) { this.router.navigate(['login']); }
+      });
+    /* save selected worker state */
+    this.stateService.setSelectedSubordinate(selection); //
+    const selectedSubordinateObj = this.subordinates.find(obj => obj['Fk_Radnik'] === selection); /* SifraRadnik za Fk_Radnik */
+    this.stateService.setSelectedSubordinate_SifraRadnik(selectedSubordinateObj['SifraRadnik']); //
     return true;
+  }
+
+  searchEmployeeRoutes_dateChange(date: any) {
+    this.searchEmployeeRoutes(this.selectedSubordinate);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

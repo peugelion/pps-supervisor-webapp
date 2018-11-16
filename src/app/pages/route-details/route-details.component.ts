@@ -1,14 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { AuthService } from '../../providers/auth.service';
 import { Router } from '@angular/router';
-import { DataService } from '../../providers/data.service';
-import { LiquidCache } from 'ngx-liquid-cache';
-
-const apiUrl = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
-const routedetailsApiUrl = '/api/dashboard/route-details';  // URL to web api
+import { StateService } from '../../providers/state.service';
+import { ApiService } from '../../providers/api.service';
 
 @Component({
   selector: 'app-route-details',
@@ -18,29 +13,21 @@ const routedetailsApiUrl = '/api/dashboard/route-details';  // URL to web api
 export class RouteDetailsComponent implements OnInit, OnDestroy {
   Fk_Partner: number;
   private sub: any;
-  public dateString: string;
-  private Mesto: string;
-  private Naziv: string;
-  private apiEndpointUrl: string;
+  public dateStr: string;
+  public pozicije: Array<any> = []; // sve pozicije (tabovi)
+  public zalihe: any = null;
 
-  private workerRoutes;
-
-  private imagesData: any = null;
-  public pozicijeData: any = null;
-  public zaliheData: any = null;
-
-  private activeImageIndex: number;
-  public activeTabArr: Array<boolean> = []; // pomocni, cuva aktivni sui tab, eg. [true, false, false]
-
-  private zaliheDisabled;
+  public workerRoutes: Array<any> = []; // sve rute (za radnika, na dan)
+  public activeRouteIndex;  // redni broj rute\lokacije
+  public activeRoute: any = {};  // aktivna ruta\lokacija
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient,
     public router: Router,
-    private cdRef: ChangeDetectorRef,
     private auth: AuthService,
-    private dataService: DataService
+    private stateService: StateService,
+    private apiService: ApiService,
+    private cdRef: ChangeDetectorRef
   ) {
     // override the route reuse strategy
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
@@ -48,163 +35,119 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
     };
 
     // let id = parseInt(this.route.snapshot.paramMap.get('Fk_Partner'));
-    this.sub = this.route.params.subscribe(params => {  console.log(params);
-      this.Fk_Partner = params['Fk_Partner'];
-      // this.dateString = this.parseDateParam(params['date']);
-      // this.Mesto = params['Mesto'] || '';
-      // this.Naziv = params['Naziv'] || '';
-      this.apiEndpointUrl  = apiUrl + routedetailsApiUrl + '/' + params['Fk_Partner'];      // console.log('Fk_Partner', params.id, params);
+    this.sub = this.route.params.subscribe(params => {
+      this.Fk_Partner = parseInt(this.route.snapshot.paramMap.get('Fk_Partner'), 10);
     });
 
-    this.workerRoutes = this.dataService.getWorkerRoutes();
-    this.dateString = this.parseDateParam(this.dataService.getFormatDate());
+    this.workerRoutes = this.stateService.getWorkerRoutes();
+    this.dateStr = this.parseSrbDateParam(this.stateService.getFormatDate());
   }
 
   ngOnInit() {
-    this.activeImageIndex = 0;
-    this.activeTabArr = [true]; // eg. if 1st tab of 3 tabs is active: [true, false, false]
-    this.zaliheDisabled = true;
-
     if (!this.auth.isLoggedIn) {
-      this.router.navigateByUrl('/login');
+      // this.router.navigateByUrl('/login');
+      this.router.navigate(['login']);
       return;
     }
-    this.loadPositionsList(this.apiEndpointUrl, this.dateString); // load image tabs
-    this.loadZaliheData(this.apiEndpointUrl, this.dateString);              // laod zalihe tab\section
+    this.loadPositionsList(); // image tabs
+    this.loadZaliheData();    // zalihe tab\section
+    // const activeRoute = this.workerRoutes.find(obj => obj['Fk_Partner'] === this.Fk_Partner);
+    // this.Naziv = activeRoute.Naziv;
+    // this.Mesto = activeRoute.Mesto;
+
+    /* https://stackoverflow.com/questions/7364150/find-object-by-id-in-an-array-of-javascript-objects */
+    this.activeRouteIndex  = this.workerRoutes.findIndex(obj => obj['Fk_Partner'] === this.Fk_Partner); // redni broj rute
+    this.activeRoute       = this.workerRoutes[this.activeRouteIndex]; // aktivna ruta
   }
 
   ngOnDestroy() {
-    // this.dataService.selectedDate = new Date(this.dateString);
-    // this.dataService.selectedDate = new Date(this.dateString);
-    this.dataService.setSelectedDate(new Date(this.dateString));
+    this.stateService.setSelectedDate(new Date(this.dateStr));
+    this.cdRef.detach(); /* https://stackoverflow.com/questions/37849453/attempt-to-use-a-destroyed-view-detectchanges */
   }
 
-  // @LiquidCache('loadPositionsList{Fk_Partner, dateString}', { duration: 60 * 1 }) // kesira api rezulat 1 minut
-  loadPositionsList(Fk_Partner, dateString) {
-    return this.http.get<any[]>(this.apiEndpointUrl, {
-      withCredentials: true,
-      params: { 'date': dateString }
-    }).subscribe(
-      response => {
-          this.pozicijeData = response;
-          if (this.pozicijeData.length) {
-            // load first tab data
-            // console.log(' loadPositionsList ', this.pozicijeData);
-            this.loadSinglePosition(this.apiEndpointUrl, this.pozicijeData[0].Sifra, dateString);
-          }
-          this.cdRef.detectChanges(); // force change detection (zone lost)
-      },
-      error => console.log('loadPositionsList(), http.get error', error.text())
-    );
+  // loadPositionsList() {
+  //   return this.apiService.getPositionsList(this.Fk_Partner, this.dateStr).subscribe(response => {
+  //       this.pozicije = response;
+  //       if (this.pozicije.length) {
+  //         this.loadSinglePosition(this.pozicije[0].Sifra); // load first tab data
+  //       }
+  //       this.cdRef.detectChanges(); // force change detection (zone lost)
+  //     },
+  //     error => this.handleHttpError(error)
+  //   );
+  // }
+
+  // loadZaliheData() {
+  //   return this.apiService.getZalihe(this.Fk_Partner, this.dateStr).subscribe(response => {
+  //       this.zalihe = response;
+  //       if (response.length) {
+  //         this.zaliheDisabled = false;
+  //         this.cdRef.detectChanges(); // force change detection (zone lost)
+  //       }
+  //     },
+  //     error => this.handleHttpError(error)
+  //   );
+  // }
+
+  async loadPositionsList() {
+    this.pozicije = await this.apiService.getPositionsList(this.Fk_Partner, this.dateStr);
+    this.cdRef.detectChanges();
   }
 
-  /* ucitaba tab - listu slika za taj tab */
-  // @LiquidCache('loadSinglePosition{Fk_Partner, Fk_Pozicija, dateString}', { duration: 60 * 3 }) // kesira api rezulat 3 minuta
-  loadSinglePosition(Fk_Partner, Fk_Pozicija, dateString) {
-    this.activeImageIndex = 0; // vrati na prvu sliku u nizu
-    const httpOptions = {
-      withCredentials: true,
-      params: {
-        'date': dateString,
-        'Fk_Pozicija': Fk_Pozicija
-      }
-    };
-    return this.http.get<any[]>(this.apiEndpointUrl, httpOptions).subscribe(
-      response => {
-          this.imagesData = response.map(item => {
-            if (!item.Slika) {
-              item.Slika = '/assets/404.svg';
-            }
-            return item;
-          });
-          this.cdRef.detectChanges(); // force change detection (zone lost)
-      },
-      error => console.log('loadSinglePosition(), http.get error', error.text())
-    );
-  }
-
-  // @LiquidCache('loadZaliheData{Fk_Partner, dateString}', { duration: 60 * 1 }) // kesira api rezulat 1 minut
-  loadZaliheData(Fk_Partner, dateString) {
-    const httpOptions = {
-      withCredentials: true,
-      params: {
-        'date': dateString,
-        'Zalihe': 'true'
-      }
-    };
-    return this.http.get<any[]>(this.apiEndpointUrl, httpOptions).subscribe(
-      response => {
-          this.zaliheData = response;
-          if (response.length) {
-            this.zaliheDisabled = false;
-            this.cdRef.detectChanges(); // force change detection (zone lost)
-          }
-      },
-      error => console.log('loadZaliheData(), http.get error', error.text())
-    );
-  }
-
-  //
-
-  moveToNextImage() {
-    if (this.imagesData.length - 1 <= this.activeImageIndex) {
-      const activeTabIndex = this.activeTabArr.findIndex(el => el);
-      const nexTab = (activeTabIndex !== this.activeTabArr.length - 1) ? activeTabIndex + 1 : 0;
-      this.activeTabArr[nexTab] = true; // next tab (header)
-      this.loadSinglePosition(this.apiEndpointUrl, this.pozicijeData[nexTab].Sifra, this.dateString); // load prev tab content
-    } else {
-      this.activeImageIndex++; // next image
-    }
-  }
-
-  moveToPrevImage() {
-    if (this.activeImageIndex === 0) {
-      const activeTabIndex = this.activeTabArr.findIndex(el => el);
-      const prevTab = (activeTabIndex) ? activeTabIndex - 1 : this.activeTabArr.length - 1;
-      this.activeTabArr[prevTab] = true; // prev tab (header)
-      this.loadSinglePosition(this.apiEndpointUrl, this.pozicijeData[prevTab].Sifra, this.dateString); // load prev tab content
-    } else {
-      this.activeImageIndex--; // prev image
+  async loadZaliheData() {
+    this.zalihe = await this.apiService.getZalihe(this.Fk_Partner, this.dateStr);
+    // if (!this.zalihe.length) { // fake zalihe ...
+    //   const artikal = {
+    //     'Naziv_Partner' : 'Djura Promet', 'Ulica_i_Broj' : 'Bulevar Umetnosti 123 b',
+    //     'Sifra_Artikal' : 123, 'Naziv_Artikal' : 'Asdddd', 'RgNaziv' : 'xxxxxxxx', 'BC' : '-',
+    //     'ulaz' : 120, 'Izlaz' : 90, 'stanje' : 30
+    //   };
+    //   this.zalihe.push(artikal, artikal, artikal, artikal, artikal);   // console.log(this.zalihe);
+    // }
+    if (this.zalihe && this.zalihe.length) {
+      this.cdRef.detectChanges();
     }
   }
 
   //
 
-  changeDay(daysPrior) { // +1 ili -1 dan
-    // console.log('changeDay', daysPrior, 'old date', this.dateString);
-    this.dateString = this.changeDate(daysPrior);
-    this.loadPositionsList(this.apiEndpointUrl, this.dateString); // image tabs
-    // this.router.navigate(['/route-details', this.Fk_Partner, this.changeDate(daysPrior), this.Mesto, this.Naziv], {
-    //   relativeTo: this.route
-    // });
+  moveToNextRoute() {
+    const newIndex = (this.workerRoutes.length - 1 <= this.activeRouteIndex) ? 0 : this.activeRouteIndex + 1;
+    const newFk_Partner = this.workerRoutes[newIndex].Fk_Partner;
+    this.router.navigate(['/route-details', newFk_Partner]);
   }
 
-  /* pomere datum za X dana (plus ili minus), eg. -1 menja sa '2018-05-28' na '2018-05-27' ... */
-  // https://community.apigee.com/questions/51354/how-to-write-a-javascript-for-subtracting-days-fro.html
-  changeDate(daysPrior) {
-    const currentDate = new Date(this.dateString);
-    currentDate.setDate(currentDate.getDate() + daysPrior);
-    // provera da ne ide u buducnost
-    const now = new Date();
-    return (currentDate <= now ) ? currentDate.toISOString().split('T')[0] : this.dateString;
-    // return currentDate.toISOString();
-  }
-
-  getMaxTabWidth(active) {
-    return active ? null : 80 / this.pozicijeData.length + 'vw';
+  moveToPrevRoute() {
+    const newIndex = (this.activeRouteIndex === 0) ? this.workerRoutes.length - 1 : this.activeRouteIndex - 1;
+    const newFk_Partner = this.workerRoutes[newIndex].Fk_Partner;
+    this.router.navigate(['/route-details', newFk_Partner]);
   }
 
   //
 
   /* ulaz date u srpskoj ili full iso formi, vraca '2018-05-29' */
-  parseDateParam(date) {
-    // console.log('parseDateParam input date:', date);
+  parseSrbDateParam(date) {
     if (date && date.includes(' ')) {
       return date.split(' ')[0].split('.').reverse().join('-');     // eg '29.05.2018' ili '29.05.2018 10:30:45'
     } else if (date && date.includes('T')) {
       return date.split('T')[0].split('.').reverse().join('-');     // eg '2018-05-28T00:00:00.000Z'
     } else {
-      return date ? date : new Date().toISOString().split('T')[0];  // eg '2018-05-29', todays date if not input
+      return date ? date : new Date().toISOString().split('T')[0];  // eg '2018-05-29', today if no input
     }
   }
+
+  // changeDay(daysPrior) { // +1 ili -1 dan
+  //   this.dateStr = this.changeDate(daysPrior);
+  //   this.loadPositionsList(); // image tabs
+  // }
+
+  /* pomere datum za X dana (plus ili minus), eg. -1 menja sa '2018-05-28' na '2018-05-27' ... */
+  /* https://community.apigee.com/questions/51354/how-to-write-a-javascript-for-subtracting-days-fro.html */
+  // changeDate(daysPrior) {
+  //   const currentDate = new Date(this.dateStr);
+  //   currentDate.setDate(currentDate.getDate() + daysPrior);
+  //   // provera da ne ide u buducnost
+  //   const now = new Date();
+  //   return (currentDate <= now ) ? currentDate.toISOString().split('T')[0] : this.dateStr;
+  // }
 }

@@ -1,0 +1,94 @@
+
+<!-- slike tabovi -->
+<ng-template #no_images_msg_template>
+  <div class="ui bottom attached red segment">
+    Nema slika na datum {{ dateStr | date : 'dd. MMM. yyyy.' }} ...
+  </div>
+</ng-template>
+
+<sui-tabset *ngIf="pozicije?.length && pozicije as tabs;else no_images_msg_template">
+  <!-- tab header -->
+  <div class="ui top attached tabular menu">
+    <a class="item tab__ellipsis" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]"
+      (click)="loadSinglePosition(tab.Sifra)"
+      [style.maxWidth]="getMaxTabWidth(activeTabArr[i])" >
+      <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="file image red outline icon"></i>
+      {{ tab.Naziv }}</a>
+    <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="!(zalihe && zalihe.length)" [style.maxWidth]="getMaxTabWidth(activeTabArr[i])">Zalihe</a>
+  </div>
+
+  <!-- image tab content -->
+  <div class="ui bottom attached segment  tab__nobottommargin" *ngFor="let tab of tabs; let i = index" [suiTabContent]="i">
+    <div *ngFor="let image of singlePosition; let j = index">
+      <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth">
+        <div class="red card slides"  (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()">
+          <a class="slide__arrowcontainer_left" (click)="moveToPrevImage()" *ngIf="singlePosition.length > 1 || tabs.length > 1">
+            <i class="big left angle icon"></i>
+          </a>
+          <a class="slide__arrowcontainer_right" (click)="moveToNextImage()" *ngIf="singlePosition.length > 1 || tabs.length > 1">
+            <i class="big right angle icon"></i>
+          </a>
+          <!-- <div class="image" (click)="moveToNextImage()"> -->
+          <div class="image">
+            <a class="ui left corner label">
+              <i class="icon">{{ tab.Sifra }}</i>
+            </a>
+            <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!image.Slika" [src]="image.Slika || '/assets/404.svg'" >
+
+            <div class="ui top right attached red label">{{ image.DatumPosete | timeFormat }} h
+              <span *ngIf="singlePosition.length != 1" class="detail blue">{{ j + 1 }} od {{ singlePosition.length }} SLIKE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- zalihe tab content -->
+  <div class="ui bottom attached segment" suiTabContent="zalihe">
+
+    <div *ngIf="zalihe && zalihe.length">
+      {{ zalihe[0]?.Naziv_Partner }},
+      {{ zalihe[0]?.Ulica_i_Broj }}
+    </div>
+
+    <div class="ui link cards">
+      <div class="ui card" *ngFor="let artikal of zalihe; let j = index">
+        <div class="content">
+          <div class="header">{{ artikal.Naziv_Artikal }}</div>
+          <div class="meta">
+            <span class="category">{{ artikal.RgNaziv }}</span>
+          </div>
+          <div class="description">
+            <table class="ui very basic collapsing celled table">
+              <thead><tr>
+                  <th *ngIf="artikal.BC">Barkod</th>
+                  <th>Ulaz</th>
+                  <th>Izlaz</th>
+                  <th>Stanje</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td *ngIf="artikal.BC">{{ artikal.BC }}</td>
+                  <td>{{ artikal.stanje }}</td>
+                  <td>{{ artikal.ulaz }}</td>
+                  <td>{{ artikal.Izlaz }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="right floated author">
+            <!-- <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> -->
+            {{ artikal.Naziv_Partner }}
+            
+            {{ artikal.Ulica_i_Broj }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</sui-tabset>

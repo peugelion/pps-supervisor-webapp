@@ -14,3 +14,15 @@ export class DateTimeFormatPipe extends DatePipe implements PipeTransform {
     return super.transform(value, environment.DATE_TIME_FMT);
   }
 }
+
+@Pipe({
+  name: 'timeFormat',
+})
+export class TimeFormatPipe extends DatePipe implements PipeTransform {
+  /**
+   * Takes a DATE_TIME_FMT value and make it default date format.
+   */
+  transform(value: any, args?: any): any {
+    return super.transform(value, environment.TIME_FMT);
+  }
+}

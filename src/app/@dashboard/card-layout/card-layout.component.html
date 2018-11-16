@@ -1,0 +1,51 @@
+<!-- <div class="ui grid">
+  <div class="sixteen wide tablet eight wide computer column" *ngFor="let route of workerRoutes"> -->
+<div class="three column stackable doubling ui grid">
+  <div class="column" *ngFor="let route of workerRoutes">
+    <div class="ui fluid card">
+      <div class="content">
+        <a class="ui right floated inverted red button" [routerLink]="['/route-details/', route.Fk_Partner]">Detalji</a>
+        {{route.Mesto}}
+        <div class="header ellipsis">{{route.Naziv.split(route.Mesto)[0]}}</div>
+      </div>
+      <div class="content">
+        <div class="ui grid">
+          <div class="row">
+            <div class="eight wide column">
+              <div class="description">
+                <p><a>Početak: </a> {{route.DatumPocetka.split(' ')[1].slice(0, -3)}}</p>
+                <p><a>Završetak: </a> {{route.DatumZavrsetka.split(' ')[1].slice(0, -3)}}</p>
+                <p><a>Dužina: </a> {{route.DuzinaPosete}}</p>
+                <p><a>Pauza: </a> {{route.PauzaMinuta}}</p>
+                <p><a>Razlog: </a> {{route.Razlog_542}}</p>
+              </div>
+            </div>
+            <div class="eight wide column">
+              <div class="description">
+                <p><a>Target(mesec): </a> {{route.TargetMesec | number:'.2-2'}}</p>
+                <p><a>Prodaja(mesec): </a> {{route.ProdajaMesec | number:'.2-2'}}</p>
+                <p><a>Target(dan): </a> {{route.TargetDan | number:'.2-2'}}</p>
+                <p><a>Prodaja(dan): </a> {{route.ProdajaDan | number:'.2-2'}}</p>
+                <p><a>Način: </a> {{route.TelPlan}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="sixteen wide column">
+              <div class="description">
+                <p class="ellipsis"><a>Opis: </a> {{route.Opis_542}}
+                  <!-- <button (click)="insertKomercijalistaPravo(route.Fk_Partner)">Aktiviraj xx</button> -->
+                  <!-- <a class="ui right floated inverted blue button" (click)="insertKomercijalistaPravo(route.Fk_Partner)">Odblokiraj</a> -->
+                  <a class="ui right floated inverted blue button" (click)="click(route.Fk_Partner)">Odblokiraj</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="extra content">
+        <button class="ui inverted red button">Detalji o ruti</button>
+      </div> -->
+    </div>
+  </div>
+</div>

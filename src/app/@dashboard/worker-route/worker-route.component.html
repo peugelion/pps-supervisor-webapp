@@ -1,0 +1,18 @@
+<div class="ui top right attached label  label__nopadding">
+  <div class="ui buttons">
+    <button class="ui icon button" [class.active]="!tableLayoutActive" (click)="setTableLayoutActive(false)">
+      <i class="large table icon"></i>
+    </button>
+    <button class="ui icon button" [class.active]="tableLayoutActive" (click)="setTableLayoutActive(true)">
+      <i class="large clipboard list icon"></i>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="tableLayoutActive">
+  <app-table-layout [workerRoutesInput]="workerRoutes" (btnClick)="insertKomercijalistaPravo($event)"></app-table-layout>
+</div>
+
+<div *ngIf="!tableLayoutActive">
+    <app-card-layout [workerRoutesInput]="workerRoutes" (btnClick)="insertKomercijalistaPravo($event)"></app-card-layout>
+</div>

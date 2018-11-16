@@ -1,0 +1,22 @@
+<div class="header">{{ modal.context.title }}</div>
+<div class="content">
+    <div class="ui form">
+        <div class="grouped fields">
+            <label>{{ modal.context.question }}</label>
+            <div class="field"  *ngFor="let choice of modal.context.choicesArr;">
+                <sui-radio-button name="example" [value]="choice.choice" [(ngModel)]="eRadio">{{ choice.label }}</sui-radio-button>
+            </div>
+            <!-- <div class="field">
+                <sui-radio-button name="example" value="world" [(ngModel)]="eRadio">Value: "world"</sui-radio-button>
+            </div>
+            <div class="field">
+                <sui-radio-button name="example" value="example" [(ngModel)]="eRadio">Value: "example"</sui-radio-button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="actions">
+    <span *ngIf="eRadio">Odabrana vrednost {{ eRadio | json }}</span>
+    <!-- <button class="ui red button" (click)="modal.deny(undefined)">Otkaži</button> -->
+    <button class="ui green button" (click)="modal.approve(eRadio)" [disabled]="!eRadio" autofocus>OK</button>
+</div>

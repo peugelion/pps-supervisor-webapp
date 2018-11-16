@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
   }
 
   async initializeApp() {
+    // this.isLoggedIn$ = this.authService.isLoggedInObs();
     this.isLoggedIn$ = this.authService.isLoggedInObs;
   }
 

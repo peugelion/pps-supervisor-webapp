@@ -1,147 +1,54 @@
-<div class="ui doubling stackable container">
-
-  <!-- datum -->
+<div class="ui top  pointing menu menu__custom__styles">
+  <!-- <span class="ui   top left attached label">
+      {{ activeRouteIndex + 1 }} \ {{ this.workerRoutes.length }}
+  </span> -->
+  <!-- back to dashboard link -->
   <div class="item">
-    <div class="ui right floated buttons">
-      <button class="ui icon button" (click)="changeDay(-1)">
-        <i class="left chevron icon"></i>
-      </button>
-      <button class="ui button">
-        <i class="calendar alternate outline icon"></i>
-        {{ dateString | date : 'dd. MMM. yyyy.' }}
-      </button>
-      <button class="ui right icon button" (click)="changeDay(+1)">
-        <i class="right chevron icon"></i>
-      </button>
-    </div>
+    <button class="ui right icon button" [routerLink]="['/dashboard']">
+      <i class="large left chevron icon"></i>
+    </button>
   </div>
-  <!-- <button class="ui primary button right">
-    {{ dateString | date : 'dd. MMM. yyyy.' }}
-  </button> -->
-  
-  <div class="ui divider"></div>
-  <div class="item padding_top">
-    <p></p>
-  </div>
+  <div class="right menu">
+    <!-- datum -->
+    <div class="item">
 
-  <!-- zalihe -->
-  <div *ngIf="zaliheData && zaliheData.length;else no_zalihe_template"  class="item padding_top_minus">
-    <div class="ui right floated buttons">
-      {{ zaliheData[0]?.Naziv_Partner }},
-      {{ zaliheData[0]?.Ulica_i_Broj }}
-    </div>
-  </div>
-  <table *ngIf="zaliheData && zaliheData.length" class="ui red table">
-    <thead>
-      <tr><th>Šifra</th>
-      <th>Naziv</th>
-      <th>Ambalaža</th>
-      <th>BC</th>
-      <th>Ulaz</th>
-      <th>Izlaz</th>
-      <th>Stanje</th>
-    </tr></thead><tbody>
-      <tr *ngFor="let zaliha of zaliheData; let j = index">
-        <td>{{ zaliha.Sifra_Artikal || "-" }}</td>
-        <td>{{ zaliha.Naziv_Artikal || "-" }}</td>
-        <td>{{ zaliha.RgNaziv || "-" }}</td>
-        <td>{{ zaliha.BC || "-" }}</td>
-        <td>{{ zaliha.ulaz || "-" }}</td>
-        <td>{{ zaliha.Izlaz || "-" }}</td>
-        <td>{{ zaliha.stanje || "-" }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <ng-template #no_zalihe_template>
-    <div *ngIf="Naziv">{{ Naziv }},{{ Mesto }}</div>
-    <div class="ui bottom attached red segment">
-      Nema Zaliha ...
-    </div>
-  </ng-template>
-
-  <!-- slike tabovi -->
-  <ng-template #no_images_msg_template>
-    <div class="ui bottom attached red segment">
-      Nema slika na datum {{ dateString | date : 'dd. MMM. yyyy.' }} ...
-    </div>
-  </ng-template>
-  <sui-tabset *ngIf="pozicijeData?.length && pozicijeData as tabs;else no_images_msg_template">
-      <div class="ui top attached tabular menu">
-        <a class="item tab__ellipsis" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]"
-          (click)="loadSinglePosition(Fk_Partner, tab.Sifra, dateString)"
-          [style.maxWidth]="getMaxTabWidth(activeTabArr[i])" >
-          <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="file image red outline icon"></i>
-          {{ tab.Naziv }}</a>
-        <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="zaliheDisabled" [style.maxWidth]="getMaxTabWidth(activeTabArr[i])">Zalihe</a>
+      <div class="ui right floated buttons">
+        <button class="ui icon button" (click)="moveToPrevRoute()">
+          <i class="left chevron icon"></i>
+        </button>
+        <button class="ui button  location__name__btn">
+          <i class="map marker alternate icon"></i>
+          {{ activeRoute?.Naziv.split(activeRoute?.Mesto)[0] }}, {{ activeRoute?.Mesto }}
+        </button>
+        <button class="ui right icon button" (click)="moveToNextRoute()">
+          <i class="right chevron icon"></i>
+        </button>
       </div>
 
-      <div class="ui bottom attached segment  tab__nobottommargin" *ngFor="let tab of tabs; let i = index" [suiTabContent]="i">
-        <div *ngFor="let image of imagesData; let j = index">
-          <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth">
-            <div class="red card slides">
-              <a class="slide__arrowcontainer_left" (click)="moveToPrevImage()">
-                <i class="huge left angle icon"></i>
-              </a>
-              <div class="slide__arrowcontainer_right" (click)="moveToNextImage()">
-                <i class="huge right angle icon"></i>
-              </div>
-              <div class="image" (click)="moveToNextImage()">
-              <!-- <div class="image"> -->
-                <a class="ui left corner label">
-                  <i class="icon">{{ tab.Sifra }}</i>
-                </a>
-                <img *ngIf="image.Slika" class="ui centered image  image__fullheight" [src]="image.Slika" >
-                <div class="ui top right attached label">{{ image.DatumPosete | dateTimeFormat }}
-                  <span *ngIf="imagesData.length != 1" class="detail blue">{{ j + 1 }} od {{ imagesData.length }} SLIKE</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
+</div>
 
-      <div class="ui bottom attached segment" suiTabContent="zalihe">
+<div class="ui bottom attached segment stackable   container__main__content">
 
-        <div *ngIf="zaliheData && zaliheData.length">
-          {{ zaliheData[0]?.Naziv_Partner }},
-          {{ zaliheData[0]?.Ulica_i_Broj }}
-        </div>
+  <div class="ui doubling stackable container">
 
-        <div class="ui card" *ngFor="let zaliha of zaliheData; let j = index">
-          <div class="content">
-            <div class="header">{{ zaliha.Naziv_Artikal }}</div>
-            <div class="meta">
-              <span class="category">{{ zaliha.RgNaziv }}</span>
-            </div>
-            <div class="description">
-              <table class="ui very basic collapsing celled table">
-                <thead><tr>
-                    <th *ngIf="zaliha.BC">Barkod</th>
-                    <th>Ulaz</th>
-                    <th>Izlaz</th>
-                    <th>Stanje</th>
-                </tr></thead>
-                <tbody>
-                  <tr>
-                    <td *ngIf="zaliha.BC">{{ zaliha.BC }}</td>
-                    <td>{{ zaliha.stanje }}</td>
-                    <td>{{ zaliha.ulaz }}</td>
-                    <td>{{ zaliha.Izlaz }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="extra content">
-            <div class="right floated author">
-              <!-- <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> -->
-              {{ zaliha.Naziv_Partner }}
-              
-              {{ zaliha.Ulica_i_Broj }}
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- zalihe tabela -->
+    <!-- <div *ngIf="zalihe;else no_zalihe_template"> -->
+    <div *ngIf="zalihe">
+      <app-zalihe-table [zaliheInput]="zalihe"></app-zalihe-table>
+    </div>
 
-  </sui-tabset>
+    <div>
+      <app-table-layout [workerRoutesInput]="[workerRoutes[activeRouteIndex]]"></app-table-layout>
+    </div>
+
+    <!-- tabovi -->
+    <app-tabs *ngIf="pozicije" [pozicijeInput]="pozicije" [zaliheInput]="zalihe" [Fk_Partner]="Fk_Partner" [dateStr]="dateStr" ></app-tabs>
+    <!-- redni broj aktivne rute \ ukupno ruta -->
+    <span class="ui top right attached label">
+      ruta {{ activeRouteIndex + 1 }} \ {{ this.workerRoutes.length }}
+    </span>
+
+  </div>
 </div>
