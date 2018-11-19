@@ -48,7 +48,9 @@ export class AuthService implements CanActivate {
           localStorage.setItem(this.HAS_LOGGED_IN, 'false');
           this._authed.next(false);
           console.warn(err.status);
-          return false;
+          // return false;
+          // return err.status;
+          throw err;
         }
       );
   }

@@ -13,6 +13,7 @@ const ROUTE_DETAILS_PATH = '/api/dashboard/route-details'; // + Fk_Partner
 const API_ROUTE_DETAILS = `${API_ROOT}${ROUTE_DETAILS_PATH}`;
 
 const INSERT_KOMECIJALISTA_PRAVO_PATH = '/api/dashboard/insertKomercijalistaPravo';
+const DAILY_SALES_KPIs_REPORT_PATH = '/api/dashboard/dailySalesKPIsReportByCustomerBySKU';
 
 @Injectable({
   providedIn: 'root'
@@ -106,6 +107,24 @@ export class ApiService {
         'Fk_St_670': Fk_St_670
       };
       return await this._http.post(`${API_ROOT}${INSERT_KOMECIJALISTA_PRAVO_PATH}`, body, httpOptions).toPromise();
+    } catch (e) {
+      return this.handleHttpError(e);
+    }
+  }
+
+  //
+
+  async dailySalesKPIsReportByCustomerBySKU(SifraPARTNER: string, Datum_do: Date) {
+    try {
+      const apiURL = `${API_ROOT}${DAILY_SALES_KPIs_REPORT_PATH}`;
+      const httpOptions = {
+        withCredentials: true,
+        params: {
+          'Datum_do' : Datum_do.toISOString(),
+          'SifraPARTNER': SifraPARTNER
+        }
+      };
+      return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
     } catch (e) {
       return this.handleHttpError(e);
     }

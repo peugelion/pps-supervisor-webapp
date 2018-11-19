@@ -46,3 +46,16 @@ tr .unblock__button__holder {
   /* display: none; */
   opacity: 0;
 }
+
+.min_width_15vw {
+  min-width: 15vw;
+}
+
+/* material: https://material.angular.io/components/table/overview */
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

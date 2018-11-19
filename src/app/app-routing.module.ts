@@ -6,11 +6,13 @@ import { Observable } from 'rxjs';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RouteDetailsComponent } from './pages/route-details/route-details.component';
+import { IzvestajKpisComponent } from './pages/izvestaj-kpis/izvestaj-kpis.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: HomeComponent,
     canActivate: [AuthService]
   },
   {
@@ -28,8 +30,13 @@ const routes: Routes = [
     canActivate: [AuthService]
   },
   {
+    path: 'izvestaj-kpis',
+    component: IzvestajKpisComponent,
+    canActivate: [AuthService]
+  },
+  {
     path: '**',
-    component: DashboardComponent,
+    component: HomeComponent,
     canActivate: [AuthService]
   }
 ];

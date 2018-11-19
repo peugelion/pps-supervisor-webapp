@@ -14,6 +14,8 @@ export class StateService {
   selectedSubordinate_SifraRadnik;
   workerRoutes;
 
+  sifraPartner_KPIs;
+
   constructor() {}
 
   // posle login-a
@@ -139,6 +141,24 @@ export class StateService {
     }
     const workerRoutes = localStorage.getItem('workerRoutes');
     return JSON.parse(workerRoutes);
+  }
+
+  //
+
+  setSifraPartner_KPIs(sifraPartner_KPIs) {
+    if (!sifraPartner_KPIs) {
+      return;
+    }
+    localStorage.setItem('sifraPartner_KPIs', JSON.stringify(sifraPartner_KPIs));
+    this.sifraPartner_KPIs = sifraPartner_KPIs;
+  }
+
+  getSifraPartner_KPIs() {
+    if (this.sifraPartner_KPIs) {
+      return this.sifraPartner_KPIs;
+    }
+    const sifraPartner_KPIs = localStorage.getItem('sifraPartner_KPIs');
+    return JSON.parse(sifraPartner_KPIs);
   }
 
 }

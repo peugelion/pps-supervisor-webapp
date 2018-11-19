@@ -28,6 +28,13 @@ import { ChoicesModalComponent } from './@modal/choices-modal.component';
 import { TableLayoutComponent } from './@dashboard/table-layout/table-layout.component';
 import { CardLayoutComponent } from './@dashboard/card-layout/card-layout.component';
 
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { IzvestajKpisComponent } from './pages/izvestaj-kpis/izvestaj-kpis.component';
+import { HomeComponent } from './pages/home/home.component';
+// import {MatTableModule} from '@angular/material/table';
+
+
+
 @NgModule({
     exports: [
       FormsModule,
@@ -44,6 +51,8 @@ import { CardLayoutComponent } from './@dashboard/card-layout/card-layout.compon
       ChoicesModalComponent,
       TableLayoutComponent,
       CardLayoutComponent,
+      IzvestajKpisComponent,
+      HomeComponent,
    ],
    imports: [
       BrowserModule,
@@ -56,6 +65,8 @@ import { CardLayoutComponent } from './@dashboard/card-layout/card-layout.compon
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
       // RouteDetailsComponentModule,
       DateTimeFormatPipeModule,
+      NoopAnimationsModule,
+      // MatTableModule
    ],
    providers: [
     CookieService

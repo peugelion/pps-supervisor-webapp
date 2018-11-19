@@ -80,7 +80,8 @@
         <div class="header">
           Neuspešno logovanje
         </div>
-        <p>Pogrešno korisničko ime i\ili šifra</p>
+        <!-- <p>Pogrešno korisničko ime i\ili šifra</p> -->
+        <p>{{ loginApiError }}</p>
       </div>
 
       <div class="ui error message" *ngIf="submitted && (f.username?.errors || f.password?.errors)">

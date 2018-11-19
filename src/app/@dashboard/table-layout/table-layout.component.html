@@ -34,22 +34,15 @@
   </tbody>
 </table> -->
 
-
-
-<!-- <table class="ui  selectable  celled  unstackable red table"> -->
-<!-- <table class="ui very basic collapsing celled unstackable red table"> -->
 <table [class]="tableCssClass">
   <thead>
     <tr>
       <th *ngIf="!isSingleRow">Mesto / Objekat</th>
-      <!-- <th>Mesto</th>
-      <th>Objekat</th> -->
       <th>Opis</th>
       <th class="right aligned">Poč.</th>
       <th class="right aligned">Zav.</th>
       <th class="right aligned">Dužina</th>
       <th class="right aligned">Pauza</th>
-      <!-- <th class="right aligned">Razlog</th> -->
       <th class="right aligned positive">T(m)</th>
       <th class="right aligned positive">P(m)</th>
       <th class="right aligned">T(d)</th>
@@ -60,23 +53,71 @@
   <tbody>
     <tr *ngFor="let route of workerRoutes" [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)">
       <td *ngIf="!isSingleRow"><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
-      <td>{{ route.Opis_542 }}</td>
+      <td class="left aligned min_width_15vw">{{ route.Opis_542 }}</td>
       <td class="right aligned ">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
       <td class="right aligned ">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
       <td class="right aligned ">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
       <td class="right aligned ">{{ route.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-" }}</td>
-      <!-- <td class="right aligned">{{ route.Razlog_542 || "-" }}</td> -->
       <td class="right aligned warning">{{ route.TargetMesec || "-" }}</td>
       <td class="right aligned warning">{{ route.ProdajaMesec || "-" }}</td>
       <td class="right aligned positive">{{ route.TargetDan || "-" }}</td>
       <td class="right aligned positive">{{ route.ProdajaDan || "-" }}</td>
       <td class="right aligned ">{{ route.TelPlan || "-" }}</td>
-      <!-- <span *ngIf="!isSingleRow" class="unblock__button__holder" [class.hidden]="!isSingleRow" [class.singlerow]="isSingleRow" (click)="click(route.Fk_Partner)"> -->
-      <!-- <span class="unblock__button__holder" [className]="isSingleRow ? 'singlerow' : 'hidden'"  (click)="click(route.Fk_Partner)"> -->
-      <!-- <span class="unblock__button__holder" [ngClass]="{'hidden': !isSingleRow}" (click)="click(route.Fk_Partner)"> -->
-      <span class="unblock__button__holder hidden" (click)="click(route.Fk_Partner)">
+      <span *ngIf="!isSingleRow" class="unblock__button__holder hidden" (click)="click(route.Fk_Partner)">
         <button class="ui inverted blue button unblock__button">Odblokiraj</button>
       </span>
     </tr>
   </tbody>
 </table>
+
+<!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"> -->
+<!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" [class]="tableCssClass">
+
+    <ng-container matColumnDef="objekat">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mesto / Objekat </th>
+      <td mat-cell *matCellDef="let element"> {{element.objekat}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="poc">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Poč. </th>
+      <td mat-cell *matCellDef="let element"> {{element.poc}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="zav">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Zav. </th>
+      <td mat-cell *matCellDef="let element"> {{element.zav}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="duz">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Dužina </th>
+      <td mat-cell *matCellDef="let element"> {{element.duz}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="pauza">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pauza </th>
+      <td mat-cell *matCellDef="let element"> {{element.pauza}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="targetMesec">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> T(m) </th>
+      <td mat-cell *matCellDef="let element"> {{element.targetMesec}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="prodajaMesec">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> P(m) </th>
+      <td mat-cell *matCellDef="let element"> {{element.prodajaMesec}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="targetDan">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> T(d) </th>
+      <td mat-cell *matCellDef="let element"> {{element.targetDan}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="prodajaDan">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> T(d) </th>
+      <td mat-cell *matCellDef="let element"> {{element.prodajaDan}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table> -->

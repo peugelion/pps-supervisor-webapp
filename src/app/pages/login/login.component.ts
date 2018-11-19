@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../providers/auth.service';
 // import { debug } from 'util';
 import { StateService } from '../../providers/state.service';
-import { ApiService } from '../../providers/api.service';
+// import { ApiService } from '../../providers/api.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   // isLoggedIn = false;
 
-  loginApiError = false;
+  loginApiError: any = false; // bool or string
   loading = false; // disable login button after click\submit while waiting for loggin api reponse - no double login
 
   constructor(
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     public router: Router,
     private auth: AuthService,
     private stateService: StateService,
-    private apiService: ApiService
+    // private apiService: ApiService
   ) { }
 
   ngOnInit() {
@@ -53,15 +53,14 @@ export class LoginComponent implements OnInit {
 
       this.loading = true; // block login btn
       this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
-        .then((respData) => {
-          console.log('data', respData);
+        .then((respData) => {          // console.log('data', respData);
           this.loading = false;
           this.loginApiError = !respData;
           if (respData) {
             this.router.navigate(['']);
             this.stateService.setUserData(respData);
           }
-        }).catch(err => this.loginApiError = false);
+        }).catch(err => this.handleLoginError(err));
 
       // const login = this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
       //   .unsubscribe( x => {});
@@ -83,6 +82,20 @@ export class LoginComponent implements OnInit {
         //   },
         //   () => console.log('Done [login cmp]')
         // );
+  }
+
+  handleLoginError(e) {
+    this.loading = false;
+    if (e.status === 401) {
+      this.loginApiError = 'Pogrešno korisničko ime i\ili šifra ' + e.status;
+    } else {
+      this.loginApiError = e.error + ' (' +  e.status + ' ' + e.statusText + ')';
+    }
+    // if (e.status === 504) {
+    //   this.loginApiError_text = e.message;
+    // }
+    // this.loginApiError_text = e;
+    // console.log('login err', e);
   }
 
   login(event, username, password) {

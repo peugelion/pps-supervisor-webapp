@@ -64,6 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (error.status === 401) { this.router.navigate(['login']); }
       });
     /* save selected worker state */
+    this.stateService.setSelectedDate(this.selectedDate); //
     this.stateService.setSelectedSubordinate(selection); //
     const selectedSubordinateObj = this.subordinates.find(obj => obj['Fk_Radnik'] === selection); /* SifraRadnik za Fk_Radnik */
     this.stateService.setSelectedSubordinate_SifraRadnik(selectedSubordinateObj['SifraRadnik']); //
