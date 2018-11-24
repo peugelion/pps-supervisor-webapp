@@ -1,0 +1,12 @@
+<label class="mobile hidden">{{label}}</label>
+<sui-search [placeholder]="placeholder" class="item"
+  retainSelectedResult="true"
+  [optionsField]="labelField"
+  [optionsLookup]="optionsLookup"
+  (resultSelected)="isSelectedAction($event)"
+  [resultTemplate]="resultTemplate"
+  (resultFormatter)="resultFormatter" #searchBox></sui-search>
+<ng-template let-result let-query="query" #resultTemplate>
+  <!-- {{ result.Naziv }} <b>({{ result.FK_Partner }})</b> -->
+  {{ result[labelField] }} <b>({{ result[valueField] }})</b>
+</ng-template>

@@ -14,7 +14,7 @@ export class StateService {
   selectedSubordinate_SifraRadnik;
   workerRoutes;
 
-  sifraPartner_KPIs;
+  selectedSifraPartner_KPIs;
 
   constructor() {}
 
@@ -145,20 +145,20 @@ export class StateService {
 
   //
 
-  setSifraPartner_KPIs(sifraPartner_KPIs) {
-    if (!sifraPartner_KPIs) {
+  setSelectedSifraPartner_KPIs(selectedSifraPartner_KPIs) {
+    if (!selectedSifraPartner_KPIs) {
       return;
     }
-    localStorage.setItem('sifraPartner_KPIs', JSON.stringify(sifraPartner_KPIs));
-    this.sifraPartner_KPIs = sifraPartner_KPIs;
+    localStorage.setItem('selectedSifraPartner_KPIs', JSON.stringify(selectedSifraPartner_KPIs));
+    this.selectedSifraPartner_KPIs = selectedSifraPartner_KPIs;
   }
 
-  getSifraPartner_KPIs() {
-    if (this.sifraPartner_KPIs) {
-      return this.sifraPartner_KPIs;
+  getSelectedSifraPartner_KPIs() {
+    if (this.selectedSifraPartner_KPIs) {
+      return this.selectedSifraPartner_KPIs;
     }
-    const sifraPartner_KPIs = localStorage.getItem('sifraPartner_KPIs');
-    return JSON.parse(sifraPartner_KPIs);
+    const selectedSifraPartner_KPIs = localStorage.getItem('selectedSifraPartner_KPIs');
+    return JSON.parse(selectedSifraPartner_KPIs);
   }
 
 }

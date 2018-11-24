@@ -1,26 +1,61 @@
-<!-- <div class="ui three item fixed menu  menu__gray_bg"> -->
-  <div class="ui fixed menu  menu__gray_bg">
-    <!-- <div class="item">  ui top attached menu
-      <div class="ui teal horizontal label">Sifra</div>
-      {{supervisor?.Sifra}}
-    </div> -->
-    <div class="item   mobile hidden">
-      <div class="ui olive horizontal label">Korisnik</div>
-      {{supervisor?.Naziv.split(' -')[0]}}
-      <a title="logout"><button class="ui button" (click)="logout()"><i class="log out large icon"></i></button></a>
-    </div>
+<!-- <sui-sidebar-container class="ui bottom attached segment  segment__nobottommargin"> -->
+<sui-sidebar-container class="segment__nobottommargin">
+    <!-- <sui-sidebar class="inverted vertical thin " #sidebar transition="overlay"  direction="left"> -->
+    <sui-sidebar class="inverted vertical menu" #sidebar transition="overlay"  direction="left">  <!-- transition: overlay, uncover, scale down, push, slide along & slide out -->
+        <a class="item" [routerLink]="['/dashboard']">Dashboard<i class="world large icon"></i></a>
+        <a class="item" [routerLink]="['/izvestaj-kpis']">Izveštaj KPIs<i class="newspaper outline large icon"></i></a>
+        <div class="ui hidden divider"></div>
+        <a class="item flex-container" (click)="logout()" title="logout">Log out <i class="log out large icon"></i></a>
+    </sui-sidebar>
+    <sui-sidebar-sibling [isDimmedWhenVisible]="false">
+        <!-- <div class="ui basic segment"> -->
+        <div class="">
+            <!-- <h3 class="ui header">Content</h3> -->
+            <!-- <p>Example content beside the sidebar</p> -->
+            <!-- <div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container segment__main__content">
+                <div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
+                Morate odabrati datum i partnera.
+                </div>
+                <ng-template #elseBlock>
+                    <div class="ui black attached big red message">
+                    Nema podataka za odabranog partnera.
+                    </div>
+                </ng-template>
+            </div> -->
     
+            <div class="ui basic segment  segment__main__content" *ngIf="dataSource != null && dataSource.length > 0">
+            <!-- <div class="ui segment__main__content" *ngIf="dataSource != null && dataSource.length > 0"> -->
+                <app-table-sorting [rptDataInput]="dataSource"></app-table-sorting>
+            </div>
+    
+        </div>
+    </sui-sidebar-sibling>
+</sui-sidebar-container>
+        
+<!-- <div class="ui top attached demo menu  menu__gray_bg"> -->
+<div class="ui top fixed menu  menu__gray_bg">
+    <a class="item" (click)="sidebar.toggle()">
+        <i class="sidebar icon"></i>
+        <!-- Menu -->
+    </a>
+    <div class="item   mobile hidden">
+        <div class="ui olive horizontal label">Korisnik</div>
+        {{supervisor?.Naziv.split(' -')[0]}}
+        <!-- <a title="logout"><button class="ui button" (click)="logout()"><i class="log out large icon"></i></button></a> -->
+    </div>
+        
     <div class="right menu">
-      <div class="item" suiPopup #popup="suiPopup"
-          popupText="Unesite datum pretrage"
-          popupInverted
-          [popupPlacement]="datePopupPosition">
+    
+        <!-- <div class="item" suiPopup #popup="suiPopup"
+            popupText="Unesite datum pretrage"
+            popupInverted
+            [popupPlacement]="datePopupPosition">
         <div class="ui form">
-          <div class="inline field">
-            <label>Datum</label>
+            <div class="inline field">
+            <label class="mobile hidden">Datum</label>
             <div class="ui left icon input">
-              <i class="calendar icon"></i>
-              <input suiDatepicker
+                <i class="calendar icon"></i>
+                <input suiDatepicker
                 [(ngModel)]="selectedDate"
                 [pickerMode]="dateMode"
                 [pickerFirstDayOfWeek]="0"
@@ -28,61 +63,51 @@
                 (pickerSelectedDateChange)="loadReportData_dateChange($event)"
                 readonly>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
-      <div class="item">
-        <div class="ui form">
-          <div class="inline field">
-            <label>Radnik</label>
-            <sui-select class="selection"
-                        [(ngModel)]="selectedSubordinate"
-                        [options]="subordinates"
-                        labelField="ImeIprezimeRadnik"
-                        valueField="Fk_Radnik"
-                        (selectedOptionChange)="loadReportData($event)"
-                        #select
-                        readonly>
-              <div class="ui icon search input">
-                  <i class="search icon"></i>
-                  <input suiSelectSearch type="text" placeholder="Pretraži radnike...">
-              </div>
-              <div class="divider"></div>
-              <div class="header">
-                  <i class="list icon"></i>
-                  Opcije
-              </div>
-              <div class="scrolling menu">
-                  <sui-select-option *ngFor="let o of select.filteredOptions" [value]="o"></sui-select-option>
-              </div>
-            </sui-select>
-          </div>
+        </div> -->
+        <div class="item">
+            <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadReportData_dateChange($event)"></app-date-picker>
         </div>
-      </div>
+    
+        <div class="item">
+            <!-- <app-select [label]="'Partner'" [placeholder]="'Pretraži partnere...'" [selectedOptionInput]="selectedSifraPartner_KPIs" [optionsInput]="partners" [labelField]="'Naziv'" [valueField]= "'FK_Partner'" (selectedChangeAction)="loadReportData($event)"></app-select> -->
+            <!-- <sui-search [placeholder]="'Pretraži partnere...'"
+                hasIcon="true"
+                [optionsField]="partners.Naziv"
+                [searchDelay]="0"
+                (resultSelected)="loadReportData($event)"></sui-search> -->
+            <!-- <ng-template let-result let-query="query" #template>
+                {{ result.Naziv }} ({{ result.FK_Partner }})
+            </ng-template>
+            <sui-search [options]="partners"
+                        [optionsField]="partners.Naziv"
+                        [resultTemplate]="template"
+                        [retainSelectedResult]="false"
+                        (resultSelected)="alert($event.FK_Partner)"></sui-search> -->
+
+            <!-- <sui-search [placeholder]="'Pretraži partnere...'" class="item" [options]="partners" [optionsFilter]="searchPartnersList" #searchBox></sui-search> -->
+
+            <!-- <label class="mobile hidden">Partner</label>
+            <sui-search [placeholder]="'Pretraži partnere...'" class="item"
+                retainSelectedResult="true"
+                [optionsLookup]="optionsLookup"
+                [optionsField]="'Naziv'"
+                (resultSelected)="loadReportData($event)"
+                [resultTemplate]="resultTemplate"
+                (resultFormatter)="resultFormatter" #searchBox></sui-search>
+            <ng-template let-result let-query="query" #resultTemplate>
+                {{ result.Naziv }} <b>({{ result.FK_Partner }})</b>
+            </ng-template> -->
+            <!-- <app-search [searchPropertyId]="selectedSifraPartner_KPIs" [data]="partners" [labelField]="'Naziv'" [valueField]= "'FK_Partner'" (selectedAction)="loadReportData($event)" ></app-search> -->
+            <app-search [dataInput]="partners" [labelField]="'Naziv'" [valueField]="'FK_Partner'" (selectedAction)="loadReportData($event)"></app-search>
+            
+        </div>
+    
     </div>
-    <!-- <div class="ui right aligned item">
-      <a class="ui inverted red button" (click)="logout()">Logout</a>
-    </div> -->
-  </div>
-  
-  <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
-      <div class="ui text loader">Učitavanje ruta!</div>
-  </sui-dimmer>
-  <div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container segment__main__content">
-    <div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
-      Morate odabrati datum i radnika da biste videli njegove rute.
-    </div>
-    <ng-template #elseBlock>
-        <div class="ui black attached big red message">
-          Ne postoje unete rute za odabranog radnika.
-        </div>
-    </ng-template>
-  </div>
-  <div class="ui segment  segment__main__content" *ngIf="workerRoutes != null && workerRoutes.length > 0">
-    <!-- <div class="ui grid">
-      <div class="sixteen wide tablet eight wide computer column" *ngFor="let route of workerRoutes">
-        <app-worker-route [route]="route"></app-worker-route>
-      </div>
-    </div> -->
-    <app-worker-route [workerRoutes]="workerRoutes"></app-worker-route>
-  </div>
+</div>
+    
+<sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
+    <div class="ui text loader">Učitavanje izveštaja!</div>
+</sui-dimmer>
+              

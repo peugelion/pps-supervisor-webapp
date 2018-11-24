@@ -18,15 +18,15 @@
     <tr *ngFor="let route of workerRoutes; let j = index"  [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event, route)">
       <td><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
       <td>{{ route.Opis_542 }}</td>
-      <td class="right aligned ">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
-      <td class="right aligned ">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
-      <td class="right aligned ">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
-      <td class="right aligned ">{{ route.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-" }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-" }}</td>
       <td class="right aligned warning">{{ route.TargetMesec || "-" }}</td>
       <td class="right aligned warning">{{ route.ProdajaMesec || "-" }}</td>
       <td class="right aligned positive">{{ route.TargetDan || "-" }}</td>
       <td class="right aligned positive">{{ route.ProdajaDan || "-" }}</td>
-      <td class="right aligned ">{{ route.TelPlan || "-" }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.TelPlan || "-" }}</td>
       <span class="hidden unblock__button__holder" (click)="click(route.Fk_Partner)">
         <button class="ui inverted blue button unblock__button">Odblokiraj</button>
       </span>
@@ -34,7 +34,8 @@
   </tbody>
 </table> -->
 
-<table [class]="tableCssClass">
+
+<!-- <table [class]="tableCssClass">
   <thead>
     <tr>
       <th *ngIf="!isSingleRow">Mesto / Objekat</th>
@@ -54,70 +55,107 @@
     <tr *ngFor="let route of workerRoutes" [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)">
       <td *ngIf="!isSingleRow"><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
       <td class="left aligned min_width_15vw">{{ route.Opis_542 }}</td>
-      <td class="right aligned ">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
-      <td class="right aligned ">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
-      <td class="right aligned ">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
-      <td class="right aligned ">{{ route.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-" }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-" }}</td>
       <td class="right aligned warning">{{ route.TargetMesec || "-" }}</td>
       <td class="right aligned warning">{{ route.ProdajaMesec || "-" }}</td>
       <td class="right aligned positive">{{ route.TargetDan || "-" }}</td>
       <td class="right aligned positive">{{ route.ProdajaDan || "-" }}</td>
-      <td class="right aligned ">{{ route.TelPlan || "-" }}</td>
+      <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.TelPlan || "-" }}</td>
       <span *ngIf="!isSingleRow" class="unblock__button__holder hidden" (click)="click(route.Fk_Partner)">
         <button class="ui inverted blue button unblock__button">Odblokiraj</button>
       </span>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+
+<!-- <div mat-form-field class="ui input">
+  <input matInput (keyup)="applyFilter($event.target.value)" type="text" placeholder="Filter" >
+</div> -->
 
 <!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"> -->
-<!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" [class]="tableCssClass">
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" [class]="tableCssClass">
 
-    <ng-container matColumnDef="objekat">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mesto / Objekat </th>
-      <td mat-cell *matCellDef="let element"> {{element.objekat}} </td>
+    <!-- <ng-container matColumnDef="objekat"> -->
+    <ng-container matColumnDef="Mesto" *ngIf="!isSingleRow">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Mesto / Objekat </th>
+      <td mat-cell *matCellDef="let element" class='ui red left aligned'> <b class='ui red left aligned'>{{ element.Mesto }}</b>: {{ element.Naziv.split(element.Mesto)[0] }} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.Mesto}} </td> -->
     </ng-container>
   
-    <ng-container matColumnDef="poc">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Poč. </th>
-      <td mat-cell *matCellDef="let element"> {{element.poc}} </td>
+    <!-- <ng-container matColumnDef="opis"> -->
+    <ng-container matColumnDef="Opis_542">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Opis </th>
+      <td mat-cell *matCellDef="let element" class="left aligned min_width_15vw"> {{element.Opis_542}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="zav">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Zav. </th>
-      <td mat-cell *matCellDef="let element"> {{element.zav}} </td>
+    <!-- <ng-container matColumnDef="poc"> -->
+    <ng-container matColumnDef="DatumPocetka">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Poč. </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.DatumPocetka.split(' ')[1].slice(0, -3)}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.DatumPocetka}} </td> -->
     </ng-container>
   
-    <ng-container matColumnDef="duz">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Dužina </th>
-      <td mat-cell *matCellDef="let element"> {{element.duz}} </td>
+    <!-- <ng-container matColumnDef="zav"> -->
+    <ng-container matColumnDef="DatumZavrsetka">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Zav. </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.DatumZavrsetka.split(' ')[1].slice(0, -3)}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.DatumZavrsetka}} </td> -->
     </ng-container>
   
-    <ng-container matColumnDef="pauza">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pauza </th>
-      <td mat-cell *matCellDef="let element"> {{element.pauza}} </td>
+    <ng-container matColumnDef="DuzinaPosete">
+    <!-- <ng-container matColumnDef="duz"> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Dužina </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.DuzinaPosete.replace('00:', '').replace(0, '') || "-"}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.DuzinaPosete}} </td> -->
     </ng-container>
   
-    <ng-container matColumnDef="targetMesec">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> T(m) </th>
-      <td mat-cell *matCellDef="let element"> {{element.targetMesec}} </td>
+    <ng-container matColumnDef="PauzaMinuta">
+    <!-- <ng-container matColumnDef="pauza"> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Pauza </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.PauzaMinuta.replace(0, '').replace('0:00', '-') || "-"}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.PauzaMinuta}} </td> -->
     </ng-container>
   
-    <ng-container matColumnDef="prodajaMesec">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> P(m) </th>
-      <td mat-cell *matCellDef="let element"> {{element.prodajaMesec}} </td>
+    <ng-container matColumnDef="TargetMesec">
+    <!-- <ng-container matColumnDef="targetMesec"> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> T(m) </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow, 'warning': true}"> {{element.TargetMesec || "-"}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.TargetMesec}} </td> -->
     </ng-container>
   
-    <ng-container matColumnDef="targetDan">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> T(d) </th>
-      <td mat-cell *matCellDef="let element"> {{element.targetDan}} </td>
+    <ng-container matColumnDef="ProdajaMesec">
+    <!-- <ng-container matColumnDef="prodajaMesec"> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> P(m) </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow, 'warning': true}"> {{element.ProdajaMesec || "-"}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.ProdajaMesec}} </td> -->
     </ng-container>
   
-    <ng-container matColumnDef="prodajaDan">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> T(d) </th>
-      <td mat-cell *matCellDef="let element"> {{element.prodajaDan}} </td>
+    <ng-container matColumnDef="TargetDan">
+    <!-- <ng-container matColumnDef="targetDan"> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> T(d) </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow, 'positive': true}"> {{element.TargetDan || "-"}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.TargetDan}} </td> -->
+    </ng-container>
+  
+    <ng-container matColumnDef="ProdajaDan">
+    <!-- <ng-container matColumnDef="prodajaDan"> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> T(d) </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow, 'positive': true}"> {{element.ProdajaDan || "-"}} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.ProdajaDan}} </td> -->
+    </ng-container>
+  
+    <ng-container matColumnDef="TelPlan">
+    <!-- <ng-container matColumnDef="nacin"> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Način </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.TelPlan || "-" }} </td>
+      <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.TelPlan}} </td> -->
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table> -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"  [routerLink]="['/route-details/', row.Fk_Partner]" ></tr>
+    <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="getRecord(row)"></tr> -->
+  </table>

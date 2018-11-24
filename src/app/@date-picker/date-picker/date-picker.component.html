@@ -1,0 +1,20 @@
+<div suiPopup #popup="suiPopup"
+    popupText="Unesite datum pretrage"
+    popupInverted
+    [popupPlacement]="datePopupPosition">
+  <div class="ui form">
+    <div class="inline field">
+      <label class="mobile hidden">Datum</label>
+      <div class="ui left icon input">
+        <i class="calendar icon"></i>
+        <input suiDatepicker
+          [(ngModel)]="selectedDate"
+          [pickerMode]="dateMode"
+          [pickerFirstDayOfWeek]="0"
+          [pickerUseNativeOnMobile]="false"
+          (pickerSelectedDateChange)="dateChange($event)"
+          readonly>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,4 @@
 import { Component } from '@angular/core';
-// @Component({
-//   selector: 'app-route-unblock-modal',
-//   templateUrl: './route-unblock.component.html',
-//   styleUrls: ['./route-unblock.component.css']
-// })
-// export class RouteUnblockModalComponent implements OnInit {
-//   constructor() { }
-//   ngOnInit() {
-//   }
-// }
 
 import {SuiModal, ComponentModalConfig, ModalSize} from 'ng2-semantic-ui';
 

@@ -1,0 +1,28 @@
+<div class="ui form">
+  <div class="inline field">
+    <label class="mobile hidden">{{label}}</label>
+
+    <sui-select class="selection"
+                [(ngModel)]="selectedOption"
+                [options]="options"
+                [labelField]="labelField"
+                [valueField]="valueField"
+                (selectedOptionChange)="selectChange($event)"
+                #select
+                readonly>
+      <div class="ui icon search input">
+          <i class="search icon"></i>
+          <input suiSelectSearch type="text" [placeholder]="placeholder">
+      </div>
+      <div class="divider"></div>
+      <div class="header">
+          <i class="list icon"></i>
+          Opcije
+      </div>
+      <div class="scrolling menu">
+          <sui-select-option *ngFor="let o of select.filteredOptions" [value]="o"></sui-select-option>
+      </div>
+    </sui-select>
+
+  </div>
+</div>

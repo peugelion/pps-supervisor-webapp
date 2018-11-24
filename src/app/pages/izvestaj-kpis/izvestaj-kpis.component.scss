@@ -1,0 +1,134 @@
+$break-small: 320px;
+$break-mobile: 768px;
+$break-tablet: 1024px;
+$break-large: 1200px;
+
+$a: 46px;
+$b: 10px;
+$c: 47px;
+$main-content-margin: $c;
+$main-content-margin-mobile: $c + $b;
+
+
+// height: calc(100% - #{$top-menu-height});
+
+// @media screen and (max-width: $break-mobile) and (orientation:portrait) {
+//   height: calc(100% - #{$top-menu-height} - #{$table-margin-top-mobile});
+//   margin-top: $table-margin-top-mobile;
+// }
+
+.ui.segment__nobottommargin {
+    margin-bottom: 0;
+}
+
+.ui.segment__main__content {
+    /* margin-top: 4.9rem; */
+    margin-top: $main-content-margin;
+    height: calc(100vh - #{$main-content-margin});
+    border-top: 0;
+    // background: #e0e1e22e;
+}
+
+.menu__gray_bg {
+    background: #e0e1e2;
+    max-width: 100vw;
+    max-height: 66px;
+    // max-height: 46px;
+    // max-height: 56px;
+    max-height: calc(#{$main-content-margin} - 1px);
+    @media screen and (max-width: $break-mobile) {
+        max-height: calc(#{$main-content-margin-mobile} - 1px);
+    }
+}
+
+/* https://github.com/edcarroll/ng2-semantic-ui/issues/281 */
+
+sui-sidebar-container {
+//     sui-sidebar-sibling {
+//         position: absolute;
+//         top: 0;
+//         right: 0;
+//         left: 0;
+//     }
+
+//     sui-sidebar,
+//     &.pushable:not(body)>.fixed, 
+//     &.pushable:not(body)>.pusher:after, 
+//     &.pushable:not(body)>.ui.sidebar {
+//         position: sticky;
+//     }
+    sui-sidebar {
+        padding-top: 66px;
+
+        // .flex-container {
+        //     display: flex;
+        //     justify-content: space-between;
+        //     height: 100%;
+        //     // bottom: 0;
+        //     // right: 0;
+        //     // left: 0;
+        //     // position: absolute;
+            
+        //     .bottom-aligned {
+        //         margin: 0px;
+        //         margin-top: auto;
+        //     }
+        // }
+    }
+}
+
+/* Mobile */
+
+@media only screen and (max-width: 767px) {
+
+    .ui.segment__main__content {
+        padding: .1em .1em;
+    }
+    .menu__gray_bg .right.menu {
+        max-width: calc(100vw - 54px);
+    }
+    // .menu__gray_bg .right.menu sui-select.selection.fluid.ui.dropdown,
+    .menu__gray_bg .right.menu sui-select.selection.ui.dropdown {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+    .menu__gray_bg .right.menu .item {
+        padding: .92857143em 1.14285714em;
+        padding: calc(.92857143em / 2) calc(1.14285714em / 2);
+    }
+    /* date picker cmp */
+    .max__width__mobile {
+        width: 150px
+    }
+    .right.menu .item {
+        // max-width: 50vw;
+        // max-width: calc(50vw - 25px); // dodate menu ikonica
+        width: calc(50vw - 25px); // dodate menu ikonica
+    }
+    /* date picker cmp */
+    .ui.left.icon.input,
+    .ui.form .field .ui.input {
+        width: (100% !important);
+    }
+    .ui.menu.transition.hidden,
+    .ui.selection.dropdown .menu {
+        max-height: 8.01428571rem;
+        max-height: 60vh;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    // .item.mobile.hidden,
+    // .ui.menu:not(.vertical) .item.mobile.hidden,
+    // [class*="tablet only"]:not(.mobile),
+    // [class*="computer only"]:not(.mobile),
+    // [class*="large monitor only"]:not(.mobile),
+    // [class*="widescreen monitor only"]:not(.mobile),
+    // [class*="or lower hidden"],
+    // [class*="item mobile hidden"],
+    [class*="mobile hidden"],
+    {
+        display: none !important;
+    }
+}

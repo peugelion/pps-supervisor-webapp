@@ -11,28 +11,13 @@
   </div>
   
   <div class="right menu">
-    <div class="item" suiPopup #popup="suiPopup"
-        popupText="Unesite datum pretrage"
-        popupInverted
-        [popupPlacement]="datePopupPosition">
-      <div class="ui form">
-        <div class="inline field">
-          <label>Datum</label>
-          <div class="ui left icon input">
-            <i class="calendar icon"></i>
-            <input suiDatepicker
-              [(ngModel)]="selectedDate"
-              [pickerMode]="dateMode"
-              [pickerFirstDayOfWeek]="0"
-              [pickerUseNativeOnMobile]="false"
-              (pickerSelectedDateChange)="searchEmployeeRoutes_dateChange($event)"
-              readonly>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="item">
-      <div class="ui form">
+      <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="searchEmployeeRoutes_dateChange($event)"></app-date-picker>
+    </div>
+
+    <div class="item">
+      <!-- <div class="ui form">
         <div class="inline field">
           <label>Radnik</label>
           <sui-select class="selection"
@@ -57,7 +42,8 @@
             </div>
           </sui-select>
         </div>
-      </div>
+      </div> -->
+      <app-select [label]="'Radnik'" [placeholder]="'Pretraži radnike...'" [selectedOptionInput]="selectedSubordinate" [optionsInput]="subordinates" [labelField]="'ImeIprezimeRadnik'" [valueField]= "'Fk_Radnik'" (selectedChangeAction)="searchEmployeeRoutes($event)"></app-select>
     </div>
   </div>
   <!-- <div class="ui right aligned item">

@@ -16,7 +16,7 @@
     </div>
 </div>
 <div class="actions">
-    <span *ngIf="eRadio">Odabrana vrednost {{ eRadio | json }}</span>
+    <!-- <span *ngIf="eRadio">Odabrana vrednost {{ eRadio | json }}</span> -->
     <!-- <button class="ui red button" (click)="modal.deny(undefined)">Otkaži</button> -->
     <button class="ui green button" (click)="modal.approve(eRadio)" [disabled]="!eRadio" autofocus>OK</button>
 </div>

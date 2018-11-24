@@ -1,0 +1,97 @@
+<div class='table__cmp__holder'>
+
+  <div class="custom__table__container__dimensions">
+    <table mat-table *ngIf="displayedColumns && dataSource" [dataSource]="dataSource" class="mat-elevation-z8" [class]="tableCssClass" matSort>
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column"  [sticky]="isStickyCollumn(column)" >
+        <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow">{{ column }}</th> -->
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column | TYvsLY | shortMonth }}</th>
+        <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header>$parseColumnName($column)</th> -->
+        <!-- <td mat-cell *matCellDef="let row"  [ngClass]="{'left aligned': column === 'Opis'}">{{ row[column] }}</td> -->
+        <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [className]="row['Sifra'] === 'AKTIVNI OBJEKTI' || row['Sifra'].substring(0, 3) === 'PET' ? 'active' : 'inactive'"></tr> -->
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [className]="row['Sifra']"></tr> -->
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'right aligned': !isSingleRow}" [className]="!this.isNumber(row['Sifra']) ? 'active' : 'inactive'"></tr> -->
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [className]="(this.isNumber(row.Sifra)) ? 'active' : 'inactive'"></tr> -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.active]="!this.isNumber(row.Sifra)"></tr>
+    </table>
+  </div>
+
+  <div class="footer__paginator">
+
+    <mat-paginator [pageSizeOptions]="[50, 25, 15, 10, 5]" class='paginator__wrapper'></mat-paginator>
+    
+    <div class="custom__input__positioning">
+    <!-- <div class=""> -->
+      <div mat-form-field class="ui icon input  hidden__tablet">
+        <input matInput (keyup)="inputFilter($event.target.value)" type="text" placeholder="Filter" >
+        <i class="search link icon"></i>
+      </div>
+      
+      <div class="ui large tag labels  filter__labels__display__inline__flex">
+        <a class="ui label" [class.active]="filterActive === 0" (click)="clickFilter(0, 'Can')">
+          Can
+        </a>
+        <a class="ui label" [class.active]="filterActive === 1" (click)="clickFilter(1, 'Pet')">
+          Pet
+        </a>
+        <a class="ui label" [class.active]="filterActive === 2" (click)="clickFilter(2, '7UP')">
+          7UP
+        </a>
+        <a class="ui label" [class.active]="filterActive === 3">
+          <span (click)="clickFilter(3, 'Pepsi')">Pepsi</span>
+          <div class="detail" [class.active]="filterActive === 4" (click)="clickFilter(4, 'Max')">Max</div>
+          <div class="detail" [class.active]="filterActive === 5" (click)="clickFilter(5, 'Twist')">Twist</div>
+        </a>
+        <a class="ui label" [class.active]="filterActive === 6" (click)="clickFilter(6, 'Mirinda')">
+          Mirinda
+        </a>
+        <!-- <a class="ui label" [class.active]="filterActive === 1" (click)="clickFilter(1, 'Pet 0.5')"> <span class="tablet__portrait__hidden">Pet </span>0.5L</a>
+        <a class="ui label" [class.active]="filterActive === 2" (click)="clickFilter(2, 'Pet 1L')"> <span class="tablet__portrait__hidden">Pet </span>1L</a>
+        <a class="ui label" [class.active]="filterActive === 3" (click)="clickFilter(3, '1.5')"> <span class="tablet__portrait__hidden">Pet </span>1.5L</a>
+        <a class="ui label" [class.active]="filterActive === 4" (click)="clickFilter(4, 'Pet 2')"> <span class="tablet__portrait__hidden">Pet </span>2L</a> -->
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" [class]="tableCssClass"> -->
+
+    <!-- Generic column definition -->
+    <!-- <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+      <th mat-header-cell *matHeaderCellDef>{{ column.header }}</th>
+      <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
+    </ng-container> -->
+    
+
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container> -->
+
+    <!-- Name Column -->
+    <!-- <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container> -->
+
+    <!-- Weight Column -->
+    <!-- <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container> -->
+
+    <!-- Symbol Column -->
+    <!-- <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container> -->
+
+    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table> -->
+</div>

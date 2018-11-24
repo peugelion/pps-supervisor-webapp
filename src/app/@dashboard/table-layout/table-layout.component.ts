@@ -1,29 +1,40 @@
 import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
-// import {MatSort, MatTableDataSource} from '@angular/material';
+import {MatSort, MatTableDataSource} from '@angular/material';
 
 // export interface PeriodicElement {
-//   objekat: string;
-//   poc: string;
-//   zav: string;
-//   duz: string;
-//   pauza: string;
-//   targetMesec: string;
-//   prodajaMesec: string;
-//   targetDan: string;
-//   prodajaDan: string;
+//   Mesto: string;
+//   Opis_542: string;
+//   DatumPocetka: string;
+//   DatumZavrsetka: string;
+//   DuzinaPosete: string;
+//   PauzaMinuta: string;
+//   TargetMesec: string;
+//   ProdajaMesec: string;
+//   TargetDan: string;
+//   ProdajaDan: string;
 // }
 
 // const ELEMENT_DATA: PeriodicElement[] = [
-//   {objekat: 'H', poc: 'H',  zav: 'H', duz: 'H ', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'He', zav: 'H', duz: 'He', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Li', zav: 'H', duz: 'Li', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Be', zav: 'H', duz: 'Be', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Bo', zav: 'H', duz: 'B ', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Ca', zav: 'H', duz: 'C ', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Ni', zav: 'H', duz: 'N ', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Ox', zav: 'H', duz: 'O ', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Fl', zav: 'H', duz: 'F ', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
-//   {objekat: 'H', poc: 'Ne', zav: 'H', duz: 'Ne', pauza: '123', targetMesec: '123', prodajaMesec: '22', targetDan: '33', prodajaDan: '9'},
+//   {Mesto: 'Ha', Opis_542: '', DatumPocetka: 'H',  DatumZavrsetka: 'H', DuzinaPosete: 'H ', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'Hb', Opis_542: '', DatumPocetka: 'He', DatumZavrsetka: 'H', DuzinaPosete: 'He', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'H1', Opis_542: '', DatumPocetka: 'Li', DatumZavrsetka: 'H', DuzinaPosete: 'Li', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'Hf', Opis_542: '', DatumPocetka: 'Be', DatumZavrsetka: 'H', DuzinaPosete: 'Be', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'He', Opis_542: '', DatumPocetka: 'Bo', DatumZavrsetka: 'H', DuzinaPosete: 'B ', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'Hd', Opis_542: '', DatumPocetka: 'Ca', DatumZavrsetka: 'H', DuzinaPosete: 'C ', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'H', Opis_542: '', DatumPocetka: 'Ni', DatumZavrsetka: 'H', DuzinaPosete: 'N ', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'H', Opis_542: '', DatumPocetka: 'Ox', DatumZavrsetka: 'H', DuzinaPosete: 'O ', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'H', Opis_542: '', DatumPocetka: 'Fl', DatumZavrsetka: 'H', DuzinaPosete: 'F ', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
+//   {Mesto: 'H', Opis_542: '', DatumPocetka: 'Ne', DatumZavrsetka: 'H', DuzinaPosete: 'Ne', PauzaMinuta: '123',
+//    TargetMesec: '123', ProdajaMesec: '22', TargetDan: '33', ProdajaDan: '9'},
 // ];
 
 @Component({
@@ -32,16 +43,31 @@ import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angu
   styleUrls: ['./table-layout.component.css']
 })
 export class TableLayoutComponent implements OnInit {
-  // displayedColumns: string[] = ['objekat', 'poc', 'zav', 'duz', 'pauza', 'targetMesec', 'prodajaMesec', 'targetDan', 'prodajaDan'];
-  // dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   workerRoutes = [];
+  displayedColumns: string[] = [
+    'Mesto', 'Opis_542', 'DatumPocetka', 'DatumZavrsetka', 'DuzinaPosete', 'PauzaMinuta',
+     'TargetMesec', 'ProdajaMesec', 'TargetDan', 'ProdajaDan', 'TelPlan',
+    //  'Fk_Partner'
+  ];
+  // displayedColumns: string[] = [
+  //   'objekat', 'opis', 'poc', 'zav', 'duz', 'pauza', 'targetMesec', 'prodajaMesec', 'targetDan', 'prodajaDan', 'nacin'
+  // ];
+  // dataSource = new MatTableDataSource(ELEMENT_DATA);
+  // dataSource = new MatTableDataSource(this.workerRoutes);
+  dataSource = null;
   @Input() set workerRoutesInput(val: any) {
     this.workerRoutes = val;
     this.isSingleRow = val.length === 1;
     // this.tableCssClass = 'ui unstackable red table mat-elevation-z8 ' + (val.length > 1 ? 'celled selectable' : 'very basic');
     this.tableCssClass = 'ui unstackable red table ' + (val.length > 1 ? 'celled selectable' : 'very basic');
-    // this.dataSource.sort = this.sort;
+    if (this.isSingleRow) {
+      this.displayedColumns.shift(); // remove 'Mesto' collumn
+    }
+    this.dataSource = new MatTableDataSource(this.workerRoutes);
+  }
+  @Input() set filterValueInput(val: string) {
+    this.applyFilter(val);
   }
   @Output() btnClick = new EventEmitter();
 
@@ -50,10 +76,16 @@ export class TableLayoutComponent implements OnInit {
 
   constructor() {}
 
-  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    // this.dataSource.sort = this.sort;
+    if (!this.isSingleRow) {
+      this.dataSource.sort = this.sort;
+    }
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /* https://stackoverflow.com/questions/51727317/angular-6-call-and-pass-a-function-from-parent-to-child-component */
