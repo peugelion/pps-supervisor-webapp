@@ -7,7 +7,7 @@
       <label class="mobile hidden">Datum</label>
       <div class="ui left icon input">
         <i class="calendar icon"></i>
-        <input suiDatepicker
+        <input [placeholder]="placeholder" suiDatepicker
           [(ngModel)]="selectedDate"
           [pickerMode]="dateMode"
           [pickerFirstDayOfWeek]="0"

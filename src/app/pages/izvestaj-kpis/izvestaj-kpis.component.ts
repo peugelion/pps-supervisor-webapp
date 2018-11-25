@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChi
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
 import { AuthService } from '../../providers/auth.service';
+import { AlertComponent } from '../../@alert/alert/alert.component';
 
 @Component({
   selector: 'app-izvestaj-kpis',
@@ -16,14 +17,15 @@ export class IzvestajKpisComponent implements OnInit, OnDestroy, AfterViewInit {
   partners = [];
   dataSource = null;
 
-  public selectedOption =  { id: 2,  name: 'two' };
-  private _options = [{ id: 1,  name: 'one' }, { id: 2,  name: 'two' }, { id: 3,  name: 'three' }];
+  // public selectedOption =  { id: 2,  name: 'two' };
+  // private _options = [{ id: 1,  name: 'one' }, { id: 2,  name: 'two' }, { id: 3,  name: 'three' }];
 
   @ViewChild('searchBox') searchBox;
   constructor(
     private stateService: StateService,
     private apiService: ApiService,
     private authService: AuthService,
+    public ppsAlert: AlertComponent,
     private cdRef: ChangeDetectorRef
   ) { }
 
@@ -64,28 +66,37 @@ export class IzvestajKpisComponent implements OnInit, OnDestroy, AfterViewInit {
   // }
   // // resultFormatter = (result, query: string) => { return 'asd'; }
 
-  async loadReportData(selection: any) {    // console.log('loadReportData USO', this.segmentDimmed, selection);
+  async loadReportData(selection: any) {   // console.log('loadReportData USO', this.segmentDimmed, selection);
+    if (selection) {
+      this.selectedSifraPartner_KPIs = selection;
+    }
     if (!this.selectedDate || !selection || this.segmentDimmed) {
       return false;
     }
-    // this.selectedSifraPartner_KPIs = selection['FK_Partner'] ? selection['FK_Partner'] : selection;
-    this.selectedSifraPartner_KPIs = selection;
     this.segmentDimmed = true;             // console.log('loadReportData PROSO', selection);
     this.cdRef.detectChanges(); // force change detection (zone lost)
-    this.dataSource = await this.apiService.dailySalesKPIsReportByCustomerBySKU(this.selectedSifraPartner_KPIs, this.selectedDate);
-    console.log('new dataSource', this.dataSource);
+    this.dataSource = await this.apiService.dailySalesKPIsRptByCustomerBySKU(this.selectedSifraPartner_KPIs, this.selectedDate);  // console.log('new dataSource', this.dataSource);
     this.segmentDimmed = false;            // console.log('searchEmployeeRoutes PROSO', selection);
     this.saveState(this.selectedDate, selection); /* save state */
     return true;
   }
 
-  loadReportData_dateChange(date: any) {
-    this.selectedDate = date;
-    this.loadReportData(this.selectedSifraPartner_KPIs);
+  loadReportData_dateChange(date: any) {   // console.log('date', date, this.selectedSifraPartner_KPIs);;
+    if (date) {
+      this.selectedDate = date;
+      this.loadReportData(this.selectedSifraPartner_KPIs);
+    }
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.logout().then()
+    .catch(e => {
+      this.ppsAlert.showAlert({
+        'type' : 'error',
+        'text' : e.error + ' (' +  e.status + ' ' + e.statusText + '). ',
+        'duration': 8, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
+      })
+    });
   }
 
   //

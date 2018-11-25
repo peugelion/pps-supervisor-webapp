@@ -27,6 +27,23 @@ import {MatSortModule} from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/Input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+// import LogRocket from 'logrocket';
+// import * as createLogger from 'logrocket';
+import * as LogRocket from 'logrocket';
+
+// Choice 1: CommonJS import
+// import LogRocket = require('logrocket');
+// This is semantically correct and is the preferred method of importing
+
+// Choice 2: ES6 import syntax
+// import * as LogRocket from 'logrocket';
+// This works since Typescript makes it work, but it's not following
+// the ECMAScript Module specification correctly.
+// import LogRocket from 'logrocket';
+LogRocket.init('kdwxer/pps-supervizor');
+
+
+
 
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -46,6 +63,7 @@ import { TableSortingComponent } from './@table/table-sorting/table-sorting.comp
 import { DatePickerComponent } from './@date-picker/date-picker/date-picker.component';
 import { SelectComponent } from './@select/select/select.component';
 import { SearchComponent } from './@search/search/search.component';
+import { AlertComponent } from './@alert/alert/alert.component';
 
 
 
@@ -73,6 +91,7 @@ import { SearchComponent } from './@search/search/search.component';
       DatePickerComponent,
       SelectComponent,
       SearchComponent,
+      AlertComponent,
    ],
    imports: [
       BrowserModule,
@@ -87,16 +106,11 @@ import { SearchComponent } from './@search/search/search.component';
       CustomPipeModule,
       // NoopAnimationsModule,
       BrowserAnimationsModule,
-      MatTableModule,
-      MatSortModule,
-      MatProgressSpinnerModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatPaginatorModule,
-      MatSnackBarModule,
+      MatTableModule, MatSortModule, MatProgressSpinnerModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSnackBarModule,
    ],
    providers: [
-    CookieService
+    CookieService,
+    AlertComponent
    ],
    bootstrap: [AppComponent],
 

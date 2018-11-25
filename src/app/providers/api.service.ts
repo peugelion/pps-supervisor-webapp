@@ -116,8 +116,8 @@ export class ApiService {
 
   //
 
-  // @LiquidCache('dailySalesKPIsReportByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 2 })
-  async dailySalesKPIsReportByCustomerBySKU(SifraPARTNER: string, Datum_do: Date) {
+  // @LiquidCache('dailySalesKPIsRptByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 2 })
+  async dailySalesKPIsRptByCustomerBySKU(SifraPARTNER: string, Datum_do: Date) {
     try {
       const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_PATH}/${SifraPARTNER}`;
       const httpOptions = {
@@ -125,15 +125,14 @@ export class ApiService {
         params: {
           'Datum_do' : Datum_do ? Datum_do.toISOString() : null
         }
-      };
-      console.log('SifraPARTNER', SifraPARTNER, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
+      };      // console.log('SifraPARTNER', SifraPARTNER, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
       return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
     } catch (e) {
       return this.handleHttpError(e);
     }
   }
 
-  // @LiquidCache('dailySalesKPIsReportByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 5 })
+  // @LiquidCache('dailySalesKPIsRptByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 5 })
   async radnikPodredjenPartner() {
     try {
       const apiURL = `${API_ROOT}${KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH}`;

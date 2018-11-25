@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 // import { DatepickerMode } from 'ng2-semantic-ui';
 import { Router } from '@angular/router';
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
 import { AuthService } from '../../providers/auth.service';
+import { AlertComponent } from '../../@alert/alert/alert.component';
 
 interface WorkerData {
   supervisorData: Object;
@@ -18,6 +19,9 @@ interface WorkerData {
 })
 export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('popup') popup; // reference to suiPopup element
+  // @ViewChild(AlertComponent) ppsAlert:AlertComponent;
+  // @ViewChild('AlertComponent') AlertComponent;
+
   // apiUrl: string;
   // dateMode: DatepickerMode;
   // datePopupPosition: any = 'bottom-right';
@@ -33,21 +37,24 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     private stateService: StateService,
     public router: Router,
     private apiService: ApiService,
-    private authService: AuthService
+    private authService: AuthService,
+    public ppsAlert: AlertComponent,
+    private cdr: ChangeDetectorRef
   ) {
     // this.dateMode = DatepickerMode.Date;
     // this.segmentDimmed = false;
   }
 
   ngOnInit() {
+    // this.segmentDimmed = false;
     this.supervisor   = this.stateService.getSupervisor();
     this.subordinates = this.stateService.getSubordinates();
     this.selectedSubordinate = this.stateService.getSelectedSubordinate(); // postavlja odabrani element u sui pick listi
     this.selectedDate        = this.stateService.getSelectedDate();
+    this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {
-    this.segmentDimmed = false;
   }
 
   ngOnDestroy() {
@@ -60,11 +67,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   searchEmployeeRoutes(selection: any) {  console.log('searchEmployeeRoutes USO', selection);
+    if (selection) {
+      this.selectedSubordinate = selection;
+    }
     if (!this.selectedDate || !selection || this.segmentDimmed) {
       return false;
     }
-    this.selectedSubordinate = selection;
     this.segmentDimmed = true;            console.log('searchEmployeeRoutes PROSO', selection);
+    // this.cdr.detectChanges();
     this.apiService.getWorkerRoutes(selection, this.selectedDate)
       .subscribe(data => {
         this.workerRoutes = data['workerRoutes'];
@@ -75,7 +85,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.logout().then()
+    .catch(e => {
+      this.ppsAlert.showAlert({
+        'type' : 'error',
+        'text' : e.error + ' (' +  e.status + ' ' + e.statusText + '). ',
+        'duration': 8, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
+      })
+    });
   }
 
   //

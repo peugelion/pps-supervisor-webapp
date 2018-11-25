@@ -86,16 +86,17 @@ export class LoginComponent implements OnInit {
 
   handleLoginError(e) {
     this.loading = false;
+    this.loginApiError = e.error + ' (' +  e.status + ' ' + e.statusText + '). ';
     if (e.status === 401) {
       this.loginApiError = 'Pogrešno korisničko ime i\ili šifra ' + e.status;
-    } else {
-      this.loginApiError = e.error + ' (' +  e.status + ' ' + e.statusText + ')';
+    } else if (e.status === 400) {
+      this.loginApiError = 'REST API nedostupan... ' + this.loginApiError;
     }
     // if (e.status === 504) {
     //   this.loginApiError_text = e.message;
     // }
     // this.loginApiError_text = e;
-    // console.log('login err', e);
+    console.log('login err', e);
   }
 
   login(event, username, password) {

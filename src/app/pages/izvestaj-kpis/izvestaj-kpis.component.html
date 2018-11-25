@@ -40,7 +40,7 @@
     </a>
     <div class="item   mobile hidden">
         <div class="ui olive horizontal label">Korisnik</div>
-        {{supervisor?.Naziv.split(' -')[0]}}
+        <!-- {{supervisor?.Naziv.split(' -')[0]}} -->
         <!-- <a title="logout"><button class="ui button" (click)="logout()"><i class="log out large icon"></i></button></a> -->
     </div>
         
@@ -68,40 +68,9 @@
         </div> -->
         <div class="item">
             <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadReportData_dateChange($event)"></app-date-picker>
-        </div>
-    
+        </div>    
         <div class="item">
-            <!-- <app-select [label]="'Partner'" [placeholder]="'Pretraži partnere...'" [selectedOptionInput]="selectedSifraPartner_KPIs" [optionsInput]="partners" [labelField]="'Naziv'" [valueField]= "'FK_Partner'" (selectedChangeAction)="loadReportData($event)"></app-select> -->
-            <!-- <sui-search [placeholder]="'Pretraži partnere...'"
-                hasIcon="true"
-                [optionsField]="partners.Naziv"
-                [searchDelay]="0"
-                (resultSelected)="loadReportData($event)"></sui-search> -->
-            <!-- <ng-template let-result let-query="query" #template>
-                {{ result.Naziv }} ({{ result.FK_Partner }})
-            </ng-template>
-            <sui-search [options]="partners"
-                        [optionsField]="partners.Naziv"
-                        [resultTemplate]="template"
-                        [retainSelectedResult]="false"
-                        (resultSelected)="alert($event.FK_Partner)"></sui-search> -->
-
-            <!-- <sui-search [placeholder]="'Pretraži partnere...'" class="item" [options]="partners" [optionsFilter]="searchPartnersList" #searchBox></sui-search> -->
-
-            <!-- <label class="mobile hidden">Partner</label>
-            <sui-search [placeholder]="'Pretraži partnere...'" class="item"
-                retainSelectedResult="true"
-                [optionsLookup]="optionsLookup"
-                [optionsField]="'Naziv'"
-                (resultSelected)="loadReportData($event)"
-                [resultTemplate]="resultTemplate"
-                (resultFormatter)="resultFormatter" #searchBox></sui-search>
-            <ng-template let-result let-query="query" #resultTemplate>
-                {{ result.Naziv }} <b>({{ result.FK_Partner }})</b>
-            </ng-template> -->
-            <!-- <app-search [searchPropertyId]="selectedSifraPartner_KPIs" [data]="partners" [labelField]="'Naziv'" [valueField]= "'FK_Partner'" (selectedAction)="loadReportData($event)" ></app-search> -->
-            <app-search [dataInput]="partners" [labelField]="'Naziv'" [valueField]="'FK_Partner'" (selectedAction)="loadReportData($event)"></app-search>
-            
+            <app-search [dataInput]="partners" [labelField]="'Naziv'" [valueField]="'FK_Partner'" (selectedAction)="loadReportData($event)" [placeholder]="'Pretraži partnere...'"></app-search>
         </div>
     
     </div>

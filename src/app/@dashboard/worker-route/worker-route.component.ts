@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../providers/api.service';
 import { StateService } from '../../providers/state.service';
 import { DatepickerMode, SuiModalService, IPopup } from 'ng2-semantic-ui';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+// import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+import { AlertComponent } from '../../@alert/alert/alert.component';
 import { RouteUnblockModal } from '../../@modal/choices-modal.component';
 
 
@@ -24,7 +25,8 @@ export class WorkerRouteComponent implements OnInit {
     private apiService: ApiService,
     private stateService: StateService,
     private modalService: SuiModalService,
-    public snackBar: MatSnackBar
+    // public snackBar: MatSnackBar,
+    public ppsAlert: AlertComponent
   ) { }
 
   ngOnInit() {
@@ -68,13 +70,27 @@ export class WorkerRouteComponent implements OnInit {
       .onApprove((Fk_St_670) => {
         this.apiService.insertKomercijalistaPravo(Fk_RadnikSifra, Fk_Partner, dateSrpski, Fk_St_670)
         /* https://stackoverflow.com/questions/45439313/angular-2-4-how-to-style-angular-material-design-snackbar */
-          .then( r => this.snackBar.open('Ruta uspesno odblokirana !', 'Zatvori', {
-              'duration' : 3000,
-              'panelClass' : ['ui', 'positive', 'message']
-          })).catch(err => this.snackBar.open(err, 'Zatvori', {
-              'duration' : 3000,
-              'panelClass' : ['ui', 'negative', 'message']
-          }));
+          .then( r => 
+            // this.snackBar.open('Ruta uspesno odblokirana !', 'Zatvori', {
+            //   'duration' : 3000,
+            //   'panelClass' : ['ui', 'positive', 'message']
+            // })
+            this.ppsAlert.showAlert({
+              'type' : 'success',
+              'text' : 'Ruta uspesno odblokirana !',
+              'duration': 4, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
+            })
+          ).catch(err => 
+            // this.snackBar.open(err, 'Zatvori', {
+            //   'duration' : 3000,
+            //   'panelClass' : ['ui', 'negative', 'message']
+            // })
+            this.ppsAlert.showAlert({
+              'type' : 'error',
+              'text' : err,
+              'duration': 4, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
+            })
+          );
       })
       .onDeny(() => console.warn('User has denied.'));
   }

@@ -10,6 +10,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 // export class DatePickerComponent {
   dateMode: DatepickerMode;
   datePopupPosition: any = 'bottom-right';
+  placeholder = 'Datum';
 
   selectedDate: Date = null;
   @Input() set selectedDateInput(val: any) {

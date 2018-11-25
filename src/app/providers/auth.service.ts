@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 // https://stackoverflow.com/questions/34660263/angular2-conditional-routing
@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 // import { Observable, Subject } from 'rxjs';
 import { catchError, map} from 'rxjs/operators';
 import { BehaviorSubject, Observable, of} from 'rxjs';
+import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material';
 
 const API_ROOT = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
 const LOGIN_PATH = '/api/login';  // URL to web api
@@ -16,6 +17,7 @@ const LOGOUT_PATH = '/api/logout';  // URL to web api
   providedIn: 'root'
 })
 export class AuthService implements CanActivate {
+  
   HAS_LOGGED_IN = 'hasLoggedIn';
 
   private _authed = new BehaviorSubject<boolean>(false);
@@ -23,10 +25,15 @@ export class AuthService implements CanActivate {
     withCredentials: true
   };
 
+  // horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  // verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
   constructor(
     private http: HttpClient,
     public router: Router,
-    public cookieService: CookieService
+    public cookieService: CookieService,
+    public snackBar: MatSnackBar,
+    // public ppsAlert: AlertComponent
   ) {}
 
   authentificate(username: string, password: string) {
@@ -93,7 +100,8 @@ export class AuthService implements CanActivate {
   async logout(): Promise<any> {
     // return this.http.get(API_ROOT + this.LOGOUT_PATH, { headers: this.contentHeaders, withCredentials: true })
     return this.http.get(API_ROOT + LOGOUT_PATH, this.httpOptions)
-    .subscribe(
+    // .subscribe(
+    .toPromise().then(
       response => {
           console.log('logout success');
           localStorage.setItem(this.HAS_LOGGED_IN, 'false');
@@ -104,9 +112,18 @@ export class AuthService implements CanActivate {
           this.router.navigateByUrl('/login');
           return true;
       },
-      error => {
-        console.log('this.http.post error', error.text());
-        return false;
+      err => {
+        // const httpErrText = err.error + ' (' +  err.status + ' ' + err.statusText + '). ';
+        // // const horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+        // // const verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+        // this.snackBar.open(httpErrText, 'Zatvori', {
+        //   'duration' : 10000,
+        //   // horizontalPosition:  horizontalPosition,
+        //   // verticalPosition: verticalPosition,
+        //   'panelClass' : ['ui', 'negative', 'message'],
+        // });
+        throw err;
+        // return false;
       }
     );
   }

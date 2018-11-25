@@ -33,6 +33,7 @@
     "@angular/service-worker": "^6.0.3",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "logrocket": "^0.6.17",
     "ng2-semantic-ui": "^0.9.7",
     "ngx-cookie-service": "^2.0.0",
     "ngx-liquid-cache": "^1.2.0",
