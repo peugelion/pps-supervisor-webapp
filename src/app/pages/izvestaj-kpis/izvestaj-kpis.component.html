@@ -1,82 +1,51 @@
-<!-- <sui-sidebar-container class="ui bottom attached segment  segment__nobottommargin"> -->
-<sui-sidebar-container class="segment__nobottommargin">
-    <!-- <sui-sidebar class="inverted vertical thin " #sidebar transition="overlay"  direction="left"> -->
-    <sui-sidebar class="inverted vertical menu" #sidebar transition="overlay"  direction="left">  <!-- transition: overlay, uncover, scale down, push, slide along & slide out -->
-        <a class="item" [routerLink]="['/dashboard']">Dashboard<i class="world large icon"></i></a>
-        <a class="item" [routerLink]="['/izvestaj-kpis']">Izveštaj KPIs<i class="newspaper outline large icon"></i></a>
-        <div class="ui hidden divider"></div>
-        <a class="item flex-container" (click)="logout()" title="logout">Log out <i class="log out large icon"></i></a>
-    </sui-sidebar>
-    <sui-sidebar-sibling [isDimmedWhenVisible]="false">
-        <!-- <div class="ui basic segment"> -->
-        <div class="">
-            <!-- <h3 class="ui header">Content</h3> -->
-            <!-- <p>Example content beside the sidebar</p> -->
-            <!-- <div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container segment__main__content">
-                <div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
-                Morate odabrati datum i partnera.
-                </div>
-                <ng-template #elseBlock>
-                    <div class="ui black attached big red message">
-                    Nema podataka za odabranog partnera.
-                    </div>
-                </ng-template>
-            </div> -->
-    
-            <div class="ui basic segment  segment__main__content" *ngIf="dataSource != null && dataSource.length > 0">
-            <!-- <div class="ui segment__main__content" *ngIf="dataSource != null && dataSource.length > 0"> -->
-                <app-table-sorting [rptDataInput]="dataSource"></app-table-sorting>
-            </div>
-    
-        </div>
-    </sui-sidebar-sibling>
-</sui-sidebar-container>
-        
 <!-- <div class="ui top attached demo menu  menu__gray_bg"> -->
 <div class="ui top fixed menu  menu__gray_bg">
-    <a class="item" (click)="sidebar.toggle()">
-        <i class="sidebar icon"></i>
-        <!-- Menu -->
-    </a>
+    <app-toggle-menu-btn></app-toggle-menu-btn>
     <div class="item   mobile hidden">
-        <div class="ui olive horizontal label">Korisnik</div>
-        <!-- {{supervisor?.Naziv.split(' -')[0]}} -->
-        <!-- <a title="logout"><button class="ui button" (click)="logout()"><i class="log out large icon"></i></button></a> -->
+        <app-korisnik></app-korisnik>
     </div>
         
     <div class="right menu">
-    
-        <!-- <div class="item" suiPopup #popup="suiPopup"
-            popupText="Unesite datum pretrage"
-            popupInverted
-            [popupPlacement]="datePopupPosition">
-        <div class="ui form">
-            <div class="inline field">
-            <label class="mobile hidden">Datum</label>
-            <div class="ui left icon input">
-                <i class="calendar icon"></i>
-                <input suiDatepicker
-                [(ngModel)]="selectedDate"
-                [pickerMode]="dateMode"
-                [pickerFirstDayOfWeek]="0"
-                [pickerUseNativeOnMobile]="false"
-                (pickerSelectedDateChange)="loadReportData_dateChange($event)"
-                readonly>
-            </div>
-            </div>
-        </div>
-        </div> -->
         <div class="item">
             <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadReportData_dateChange($event)"></app-date-picker>
         </div>    
         <div class="item">
-            <app-search [dataInput]="partners" [labelField]="'Naziv'" [valueField]="'FK_Partner'" (selectedAction)="loadReportData($event)" [placeholder]="'Pretraži partnere...'"></app-search>
-        </div>
-    
+            <app-search-remote-api (queryOut)='isSearchQueryShort($event)' [dataInput]="partners" [labelField]="'Naziv'" [valueField]="'Sifra'" [descriptionField]="'Ulica_i_Broj'" (selectedAction)="loadReportData($event)" [placeholder]="'Pretraži partnere...'"></app-search-remote-api>                    
+        </div>            
     </div>
 </div>
-    
+
+<!-- <div class="ui basic segment"> -->
+<div class="page__content__holder">
+
+    <div *ngIf="!dataSource || dataSource.length <= 1" class="ui text container segment__main__content">
+        <div class="ui middle aligned center aligned grid" style="height: 100%;">
+            <div class="column">
+                <div *ngIf="!dataSource; else elseBlock" class="ui success big green message">
+                    <div *ngIf="isQueryShort; else elseBlock2">
+                        Minimalna dužina teksta za pretragu je 3 karaktera
+                    </div>
+                    <ng-template #elseBlock2>
+                        Odaberite datum i partnera.
+                    </ng-template>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="ui big red message">
+                        Nema podataka za odabranog partnera.
+                    </div>
+                </ng-template>
+
+                <app-quick-list [newItem]="selectedPartner" (selectedAction)="loadReportData($event)"></app-quick-list>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="dataSource != null && dataSource.length > 1" class="ui basic segment  segment__main__content">
+        <app-table-sorting [rptDataInput]="dataSource"></app-table-sorting>
+    </div>
+
+</div>
+
 <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
     <div class="ui text loader">Učitavanje izveštaja!</div>
 </sui-dimmer>
-              

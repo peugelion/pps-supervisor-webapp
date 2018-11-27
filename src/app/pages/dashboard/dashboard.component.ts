@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-// import { DatepickerMode } from 'ng2-semantic-ui';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
-import { AuthService } from '../../providers/auth.service';
 import { AlertComponent } from '../../@alert/alert/alert.component';
 
 interface WorkerData {
@@ -17,17 +15,10 @@ interface WorkerData {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('popup') popup; // reference to suiPopup element
-  // @ViewChild(AlertComponent) ppsAlert:AlertComponent;
-  // @ViewChild('AlertComponent') AlertComponent;
-
-  // apiUrl: string;
-  // dateMode: DatepickerMode;
-  // datePopupPosition: any = 'bottom-right';
   segmentDimmed = false;
 
-  supervisor: any;
   subordinates: any;
   selectedDate: Date = null;
   selectedSubordinate: any = null;
@@ -37,7 +28,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     private stateService: StateService,
     public router: Router,
     private apiService: ApiService,
-    private authService: AuthService,
     public ppsAlert: AlertComponent,
     private cdr: ChangeDetectorRef
   ) {
@@ -47,15 +37,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     // this.segmentDimmed = false;
-    this.supervisor   = this.stateService.getSupervisor();
     this.subordinates = this.stateService.getSubordinates();
     this.selectedSubordinate = this.stateService.getSelectedSubordinate(); // postavlja odabrani element u sui pick listi
     this.selectedDate        = this.stateService.getSelectedDate();
     this.cdr.detectChanges();
   }
 
-  ngAfterViewInit() {
-  }
+  // ngAfterViewInit() {
+  // }
 
   ngOnDestroy() {
     this.saveState(this.selectedDate, this.selectedSubordinate, this.workerRoutes); /* save selected worker state */
@@ -82,17 +71,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       }, error => error.status === 401 ? this.router.navigate(['login']) : console.warn(error.status, error.error));
     this.saveState(this.selectedDate, selection, null); /* save selected worker state */
     return true;
-  }
-
-  logout() {
-    this.authService.logout().then()
-    .catch(e => {
-      this.ppsAlert.showAlert({
-        'type' : 'error',
-        'text' : e.error + ' (' +  e.status + ' ' + e.statusText + '). ',
-        'duration': 8, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
-      })
-    });
   }
 
   //

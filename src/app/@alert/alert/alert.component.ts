@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material';
-// import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+// import { Alert } from '@angular/compiler/src/i18n/i18n_ast';
 
 /* https://material.angular.io/components/snack-bar/overview */
 
-export interface Message {
+export interface Alert {
   type: string;
   text: string;
   action: string;
@@ -22,8 +22,8 @@ export class AlertComponent implements OnInit {
 
   // @Input('errorText') errorText: string;
   // @Input('duration') duration: number;
-  // @Input('message') message: Message;
-  message: Message;
+  // @Input('alert') alert: Alert;
+  alert: Alert;
 
   constructor(public snackBar: MatSnackBar) { }
 
@@ -32,38 +32,46 @@ export class AlertComponent implements OnInit {
       // // const verticalPosition: MatSnackBarVerticalPosition = 'bottom';
       // this.snackBar.open(this.errorText, 'Zatvori', {
       //   duration : this.duration,
-      //   panelClass : ['ui', 'negative', 'message'],
+      //   panelClass : ['ui', 'negative', 'alert'],
       //   // horizontalPosition:  horizontalPosition,
       //   // verticalPosition: verticalPosition,
       //   horizontalPosition:  'end',
       //   verticalPosition: 'bottom',
       // });
-      this.showAlert(this.message);
+      this.showAlert(this.alert);
   }
 
-  showAlert(message: Message | any) {
-    if (message != null) {
-      // there is a message to show, so change snackbar style to match the message type
-      message = this.initMsgDefaults(message);
-
-      if (message.type === 'error') {
-        this.snackBar.open(message.text, undefined, { duration: message.duration * 1000, verticalPosition: 'bottom', panelClass: ['ui', 'negative', 'message'] });
-      } else if (message.type === 'success') {
-        this.snackBar.open(message.text, undefined, { duration: message.duration * 1000, verticalPosition: 'bottom', panelClass: ['ui', 'positive', 'message'] });
+  showAlert(alert: Alert | any) {
+    if (alert != null) {
+      // there is a alert to show, so change snackbar style to match the alert type
+      alert = this.initMsgDefaults(alert);
+      console.log(alert);
+      if (alert.type === 'error') {
+        this.snackBar.open(alert.text, undefined, {
+          duration: alert.duration * 1000, verticalPosition: 'bottom', panelClass: ['ui', 'negative', 'message']
+        });
+      } else if (alert.type === 'success') {
+        console.log('success');
+        this.snackBar.open(alert.text, alert.action, {
+          duration: alert.duration * 1000, verticalPosition: 'bottom', panelClass: ['ui', 'positive', 'message']
+        });
       } else {
-        this.snackBar.open(message.text, message.action, { duration: message.duration * 1000, verticalPosition: 'bottom', panelClass: message.panelClass });
+        console.log('else');
+        this.snackBar.open(alert.text, alert.action, {
+          duration: alert.duration * 1000, verticalPosition: 'bottom', panelClass: alert.panelClass
+        });
       }
     }
   }
 
   // pomocna
 
-  initMsgDefaults(message: Message | any) {
-    if (!message.action) message.action = 'Zatvori';
-    if (!message.duration) message.duration = 3;
-    if (!message.verticalPosition) message.verticalPosition = 'bottom';
-    if (!message.panelClass) message.panelClass = ['ui', 'message'];
-    return message;
+  initMsgDefaults(alert: Alert | any) {
+    if (!alert.action) { alert.action = 'Zatvori'; }
+    if (!alert.duration) { alert.duration = 3; }
+    if (!alert.verticalPosition) { alert.verticalPosition = 'bottom'; }
+    if (!alert.panelClass) { alert.panelClass = ['ui', 'message']; }
+    return alert;
   }
 
 }

@@ -1,54 +1,17 @@
 <!-- <div class="ui three item fixed menu  menu__gray_bg"> -->
 <div class="ui fixed menu  menu__gray_bg">
-  <!-- <div class="item">  ui top attached menu
-    <div class="ui teal horizontal label">Sifra</div>
-    {{supervisor?.Sifra}}
-  </div> -->
+  <app-toggle-menu-btn></app-toggle-menu-btn>
   <div class="item   mobile hidden">
-    <div class="ui olive horizontal label">Korisnik</div>
-    {{supervisor?.Naziv.split(' -')[0]}}
-    <a title="logout"><button class="ui button" (click)="logout()"><i class="log out large icon"></i></button></a>
+    <app-korisnik></app-korisnik>
   </div>
-  
   <div class="right menu">
-
     <div class="item">
       <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="searchEmployeeRoutes_dateChange($event)"></app-date-picker>
     </div>
-
     <div class="item">
-      <!-- <div class="ui form">
-        <div class="inline field">
-          <label>Radnik</label>
-          <sui-select class="selection"
-                      [(ngModel)]="selectedSubordinate"
-                      [options]="subordinates"
-                      labelField="ImeIprezimeRadnik"
-                      valueField="Fk_Radnik"
-                      (selectedOptionChange)="searchEmployeeRoutes($event)"
-                      #select
-                      readonly>
-            <div class="ui icon search input">
-                <i class="search icon"></i>
-                <input suiSelectSearch type="text" placeholder="Pretraži radnike...">
-            </div>
-            <div class="divider"></div>
-            <div class="header">
-                <i class="list icon"></i>
-                Opcije
-            </div>
-            <div class="scrolling menu">
-                <sui-select-option *ngFor="let o of select.filteredOptions" [value]="o"></sui-select-option>
-            </div>
-          </sui-select>
-        </div>
-      </div> -->
       <app-select [label]="'Radnik'" [placeholder]="'Pretraži radnike...'" [selectedOptionInput]="selectedSubordinate" [optionsInput]="subordinates" [labelField]="'ImeIprezimeRadnik'" [valueField]= "'Fk_Radnik'" (selectedChangeAction)="searchEmployeeRoutes($event)"></app-select>
     </div>
   </div>
-  <!-- <div class="ui right aligned item">
-    <a class="ui inverted red button" (click)="logout()">Logout</a>
-  </div> -->
 </div>
 
 <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
@@ -60,7 +23,7 @@
   </div>
   <ng-template #elseBlock>
       <div class="ui black attached big red message">
-        Ne postoje unete rute za odabranog radnika.
+        Ne postoje unete rute za odabranog radnika na datum {{ selectedDate | dateFormat }}.
       </div>
   </ng-template>
 </div>

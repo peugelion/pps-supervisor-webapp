@@ -10,21 +10,23 @@ $main-content-margin: $c;
 $main-content-margin-mobile: $c + $b;
 
 
-// height: calc(100% - #{$top-menu-height});
-
-// @media screen and (max-width: $break-mobile) and (orientation:portrait) {
-//   height: calc(100% - #{$top-menu-height} - #{$table-margin-top-mobile});
-//   margin-top: $table-margin-top-mobile;
-// }
-
 .ui.segment__nobottommargin {
     margin-bottom: 0;
+    overflow: hidden;
+}
+
+.page__content__holder {
+    height: calc(100% - #{$main-content-margin});
+    min-height: calc(100% - #{$main-content-margin});
+    max-height: calc(100% - #{$main-content-margin});
 }
 
 .ui.segment__main__content {
-    /* margin-top: 4.9rem; */
     margin-top: $main-content-margin;
-    height: calc(100vh - #{$main-content-margin});
+    // height: calc(100vh - #{$main-content-margin});
+    height: 100%;
+    min-height: 100%;
+    margin-top: #{$main-content-margin};
     border-top: 0;
     // background: #e0e1e22e;
 }
@@ -38,42 +40,6 @@ $main-content-margin-mobile: $c + $b;
     max-height: calc(#{$main-content-margin} - 1px);
     @media screen and (max-width: $break-mobile) {
         max-height: calc(#{$main-content-margin-mobile} - 1px);
-    }
-}
-
-/* https://github.com/edcarroll/ng2-semantic-ui/issues/281 */
-
-sui-sidebar-container {
-//     sui-sidebar-sibling {
-//         position: absolute;
-//         top: 0;
-//         right: 0;
-//         left: 0;
-//     }
-
-//     sui-sidebar,
-//     &.pushable:not(body)>.fixed, 
-//     &.pushable:not(body)>.pusher:after, 
-//     &.pushable:not(body)>.ui.sidebar {
-//         position: sticky;
-//     }
-    sui-sidebar {
-        padding-top: 66px;
-
-        // .flex-container {
-        //     display: flex;
-        //     justify-content: space-between;
-        //     height: 100%;
-        //     // bottom: 0;
-        //     // right: 0;
-        //     // left: 0;
-        //     // position: absolute;
-            
-        //     .bottom-aligned {
-        //         margin: 0px;
-        //         margin-top: auto;
-        //     }
-        // }
     }
 }
 
@@ -105,30 +71,5 @@ sui-sidebar-container {
         // max-width: 50vw;
         // max-width: calc(50vw - 25px); // dodate menu ikonica
         width: calc(50vw - 25px); // dodate menu ikonica
-    }
-    /* date picker cmp */
-    .ui.left.icon.input,
-    .ui.form .field .ui.input {
-        width: (100% !important);
-    }
-    .ui.menu.transition.hidden,
-    .ui.selection.dropdown .menu {
-        max-height: 8.01428571rem;
-        max-height: 60vh;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    // .item.mobile.hidden,
-    // .ui.menu:not(.vertical) .item.mobile.hidden,
-    // [class*="tablet only"]:not(.mobile),
-    // [class*="computer only"]:not(.mobile),
-    // [class*="large monitor only"]:not(.mobile),
-    // [class*="widescreen monitor only"]:not(.mobile),
-    // [class*="or lower hidden"],
-    // [class*="item mobile hidden"],
-    [class*="mobile hidden"],
-    {
-        display: none !important;
     }
 }

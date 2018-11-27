@@ -67,10 +67,10 @@ export class WorkerRouteComponent implements OnInit {
     }];
     this.modalService
       .open(new RouteUnblockModal('Odblokiraj posetu', 'Razlog za deblokiranje?',  choices, 'tiny'))
-      .onApprove((Fk_St_670) => {
+      .onApprove((Fk_St_670: number) => {
         this.apiService.insertKomercijalistaPravo(Fk_RadnikSifra, Fk_Partner, dateSrpski, Fk_St_670)
         /* https://stackoverflow.com/questions/45439313/angular-2-4-how-to-style-angular-material-design-snackbar */
-          .then( r => 
+          .then( r =>
             // this.snackBar.open('Ruta uspesno odblokirana !', 'Zatvori', {
             //   'duration' : 3000,
             //   'panelClass' : ['ui', 'positive', 'message']
@@ -80,7 +80,7 @@ export class WorkerRouteComponent implements OnInit {
               'text' : 'Ruta uspesno odblokirana !',
               'duration': 4, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
             })
-          ).catch(err => 
+          ).catch(err =>
             // this.snackBar.open(err, 'Zatvori', {
             //   'duration' : 3000,
             //   'panelClass' : ['ui', 'negative', 'message']

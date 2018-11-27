@@ -1,0 +1,37 @@
+<label class="mobile hidden">{{ label }}</label>
+<sui-search [placeholder]="placeholder"
+  retainSelectedResult="true"
+  [optionsField]="labelField"
+  [optionsLookup]="optionsLookup"
+  (resultSelected)="isSelectedAction($event)"
+  [resultTemplate]="resultTemplate"
+  (resultFormatter)="resultFormatter($event, null)" #searchBox></sui-search>
+<ng-template let-result let-query="query" #resultTemplate>
+  <!-- {{ result.Naziv }} <b>({{ result.FK_Partner }})</b> -->
+  <!-- {{ result.Naziv }} <b>({{ result.Sifra }})</b> -->
+
+  <!-- <div class="message">
+    <div class="header">
+      <span [title]="result[descriptionField]">{{ result[labelField] }} <b class="ui ribbon label">{{ result[valueField] }}</b></span>
+      <span class="description"> {{ result[descriptionField] }}.</span>
+    </div>
+  </div> -->
+
+  <!-- <div class="message empty">
+    <div class="header">No Results</div>
+    <div class="description">Your search returned no results.</div>
+  </div> -->
+  
+  <!-- <div class="ui floating label">{{ result[valueField] }}</div>
+  {{ result[labelField] }} -->
+
+  <!-- <div class="content">
+    <span class="header"><a>{{ result[labelField] }}. </a> <b> {{ result[valueField] }}</b></span>
+    <div class="description">{{ result[descriptionField] }}.</div>
+  </div> -->
+  <div class="content">
+    <div class="price">{{ result[valueField] }}</div>
+    <div class="title">{{ result[labelField] }}</div>
+    <div class="description">{{ result[descriptionField] }}</div>
+  </div>
+</ng-template>

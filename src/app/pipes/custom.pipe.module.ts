@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 // import { RouterModule } from '@angular/router';
 // import {SuiModule} from 'ng2-semantic-ui';
 
-import { DateTimeFormatPipe, TimeFormatPipe } from './date-time-format.pipe';
+import { DateTimeFormatPipe, DateFormatPipe, TimeFormatPipe } from './date-time-format.pipe';
 import { TyvsLyPipe, ShortMonthPipe } from './short-str.pipe';
 
 
@@ -12,12 +12,14 @@ import { TyvsLyPipe, ShortMonthPipe } from './short-str.pipe';
   imports: [],
   declarations: [
     DateTimeFormatPipe,
+    DateFormatPipe,
     TimeFormatPipe,
     TyvsLyPipe,
     ShortMonthPipe
   ],
   exports: [
     DateTimeFormatPipe,
+    DateFormatPipe,
     TimeFormatPipe,
     TyvsLyPipe,
     ShortMonthPipe

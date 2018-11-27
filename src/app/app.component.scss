@@ -1,0 +1,46 @@
+body {
+    height: 100%;
+    /* background-color: #DADADA; */
+    // background-color: #f9fafb;
+    background-color: #e0e1e22e;
+}
+
+.ui.segment__nobottommargin {
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+/* https://github.com/edcarroll/ng2-semantic-ui/issues/281 */
+// sui-sidebar-container {
+//     // sui-sidebar-sibling {
+//     //     position: absolute;
+//     //     top: 0;
+//     //     right: 0;
+//     //     left: 0;
+//     // }
+
+//     // sui-sidebar,
+//     // &.pushable:not(body)>.fixed, 
+//     // &.pushable:not(body)>.pusher:after, 
+//     // &.pushable:not(body)>.ui.sidebar {
+//     //     position: sticky;
+//     // }
+//     sui-sidebar {
+//         padding-top: 66px;
+
+//         // .flex-container {
+//         //     display: flex;
+//         //     justify-content: space-between;
+//         //     height: 100%;
+//         //     // bottom: 0;
+//         //     // right: 0;
+//         //     // left: 0;
+//         //     // position: absolute;
+            
+//         //     .bottom-aligned {
+//         //         margin: 0px;
+//         //         margin-top: auto;
+//         //     }
+//         // }
+//     }
+// }

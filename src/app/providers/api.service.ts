@@ -39,7 +39,7 @@ export class ApiService {
   //
 
   // @LiquidCache('getPositionsList {Fk_Partner} {dateStr}', { duration: 60 * 2 })
-  async getPositionsList(Fk_Partner, dateStr) {
+  async getPositionsList(Fk_Partner: number, dateStr: string) {
     try {
       const apiURL = `${API_ROUTE_DETAILS}/${Fk_Partner}`;
       const httpOptions = {
@@ -56,14 +56,14 @@ export class ApiService {
   }
 
   // @LiquidCache('getSinglePosition {Fk_Partner} {Fk_Pozicija} {dateStr}', { duration: 60 * 3 })
-  async getSinglePosition(Fk_Partner, Fk_Pozicija, dateStr) {
+  async getSinglePosition(Fk_Partner: number, Fk_Pozicija: number, dateStr) {
     try {
       const apiURL = `${API_ROUTE_DETAILS}/${Fk_Partner}`;
       const httpOptions = {
         withCredentials: true,
         params: {
           'date': dateStr,
-          'Fk_Pozicija': Fk_Pozicija
+          'Fk_Pozicija': Fk_Pozicija.toString()
         }
       };
       return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
@@ -74,7 +74,7 @@ export class ApiService {
   }
 
   // @LiquidCache('getZalihe {Fk_Partner} {dateStr}', { duration: 60 * 5 })
-  async getZalihe(Fk_Partner, dateStr) {
+  async getZalihe(Fk_Partner: number, dateStr: string) {
     try {
       const apiURL = `${API_ROOT}${ROUTE_DETAILS_PATH}/${Fk_Partner}`;
       const httpOptions = {
@@ -96,16 +96,16 @@ export class ApiService {
 
   // (SifraPreduzeca, user, Fk_Radnik,
   // Fk_Partner, date, Fk_St_670)
-  async insertKomercijalistaPravo(Fk_RadnikSifra, Fk_Partner: string, dateStr: string, Fk_St_670) {
+  async insertKomercijalistaPravo(Fk_RadnikSifra: number, Fk_Partner: number, dateStr: string, Fk_St_670: number) {
     try {
       const httpOptions = {
         withCredentials: true
       };
       const body = {
-        'Fk_RadnikSifra' : Fk_RadnikSifra,
+        'Fk_RadnikSifra' : Fk_RadnikSifra.toString(),
         // 'Fk_Partner': Fk_Partner,
         'date': dateStr,
-        'Fk_St_670': Fk_St_670
+        'Fk_St_670': Fk_St_670.toString()
       };
       // return await this._http.post(`${API_ROOT}${INSERT_KOMECIJALISTA_PRAVO_PATH}`, body, httpOptions).toPromise();
       return await this._http.post(`${API_ROOT}${ROUTE_DETAILS_PATH}/${Fk_Partner}`, body, httpOptions).toPromise();
@@ -117,7 +117,7 @@ export class ApiService {
   //
 
   // @LiquidCache('dailySalesKPIsRptByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 2 })
-  async dailySalesKPIsRptByCustomerBySKU(SifraPARTNER: string, Datum_do: Date) {
+  async dailySalesKPIsRptByCustomerBySKU(SifraPARTNER: number, Datum_do: Date) {
     try {
       const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_PATH}/${SifraPARTNER}`;
       const httpOptions = {
@@ -128,14 +128,15 @@ export class ApiService {
       };      // console.log('SifraPARTNER', SifraPARTNER, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
       return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
     } catch (e) {
-      return this.handleHttpError(e);
+      this.handleHttpError(e);
+      return [];
     }
   }
 
   // @LiquidCache('dailySalesKPIsRptByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 5 })
-  async radnikPodredjenPartner() {
+  async radnikPodredjenPartner(query: string) {
     try {
-      const apiURL = `${API_ROOT}${KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH}`;
+      const apiURL = `${API_ROOT}${KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH}/${query}`;
       const httpOptions = {
         withCredentials: true,
         // params: {

@@ -1,0 +1,38 @@
+.ui.search {
+    .results.quick__list {
+        position: relative;
+        width: 100%;
+        max-height: calc(100vh - 190px);
+        overflow: auto;
+        left: unset;
+        right: unset;
+        box-shadow: unset;
+    }
+}
+
+//
+
+.custom__item {
+    // display: block;
+    // overflow: hidden;
+    // font-size: 1em;
+    // padding: .85714286em 1.14285714em;
+    // color: rgba(0,0,0,.87);
+    // line-height: 1.33;
+    cursor: pointer;
+    // border-bottom: 1px solid rgba(34,36,38,.1);
+}
+
+.custom__item:hover {
+    background: #e5f9e7;
+}
+
+.price {
+    float: right;
+    color: #21ba45;
+}
+
+// .title {
+//     margin: -.14285714em 0 0;
+//     font-weight: 700;
+// }

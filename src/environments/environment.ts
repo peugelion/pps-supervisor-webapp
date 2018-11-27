@@ -9,7 +9,7 @@ export const environment = {
   // apiUrl: 'http://localhost/api', // eg 'http://localhost:3000', 'http://192.168.1.101:3000',
   apiUrl: location.origin, // eg 'http://localhost:3000', 'http://localhost', 'http://192.168.1.101:3000'
   DATE_TIME_FMT: `dd.MM.yy H:mm`,
-  DATE_FMT: `date`,
+  DATE_FMT: `dd.MM.yyyy`,
   TIME_FMT: `HH:mm`
 };
 

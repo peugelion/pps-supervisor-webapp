@@ -1,0 +1,22 @@
+.ui.message.mat-snack-bar-container {
+    // border-radius: 4px;
+    // box-sizing: border-box;
+    // display: block;
+    margin: 24px;
+    // max-width: 33vw;
+    // min-width: 344px;
+    // padding: 14px 16px;
+    // min-height: 48px;
+    // transform-origin: center;
+}
+
+.mat-snack-bar-handset .mat-snack-bar-container.ui.message {
+    margin: 8px;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+}
+
+.mat-snack-bar-handset .mat-snack-bar-container.ui.message:last-child {
+    margin-bottom: unset;
+}

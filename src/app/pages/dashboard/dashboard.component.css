@@ -13,30 +13,17 @@
 
 /* Mobile */
 
-@media only screen and (max-width: 767px) {
+/* @media only screen and (max-width: 767px) {
     .right.menu .item {
         max-width: 50vw;
         min-width: 35vw;
     }
-}
+} */
 
-@media only screen and (max-width: 767px) {
-    /* [class*="tablet only"]:not(.mobile),
-    [class*="computer only"]:not(.mobile),
-    [class*="large monitor only"]:not(.mobile),
-    [class*="widescreen monitor only"]:not(.mobile),
-    [class*="or lower hidden"], */
-    [class*="mobile hidden"] {
-        display: none !important;
-    }
-}
-
-
-@media only screen and (max-width: 640px) {
+/* @media only screen and (max-width: 640px) {
     .ui.menu .right.menu .item {
-        /* was .92857143em 1.14285714em; */
         padding: .464285715em .57142857em;
         padding: 0;
         min-width: calc(50vw - 5px);
     }
-}
+} */

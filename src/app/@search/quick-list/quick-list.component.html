@@ -1,0 +1,34 @@
+<!-- <select id="idPartneriBrzaLista" class="" size="5" >
+    <option *ngFor="let item of items" class="item">{{ item.Naziv }}</option>
+</select> -->
+
+<!-- <div class="ui list">
+  <div *ngFor="let item of items" class="item">{{ item.Naziv }}</div>
+</div> -->
+
+
+<div *ngIf="items && items.length" class="ui search active">
+  <div class="ui results visible transition  quick__list">
+    <div *ngFor="let item of items" class="result"  (click)="isSelectedAction(item)">
+      <div class="content">
+        <div class="price">{{ item.Sifra }}</div>
+        <div class="title">{{ item.Naziv }}</div>
+        <div class="description">{{ item.Ulica_i_Broj }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="ui left aligned segment">
+  <div class="ui list">
+    <div *ngFor="let item of items" class="item  custom__item" (click)="isSelectedAction(item)">
+      <i class="map marker icon"></i>
+      <div class="content">
+        <div class="price">{{ item.Sifra }}</div>
+        <a class="header">{{ item.Naziv }}</a>
+        <div class="description">{{ item.Ulica_i_Broj }}</div>
+      </div>
+    </div>
+  </div>
+</div> -->
+

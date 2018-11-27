@@ -1,22 +1,17 @@
+/* angular */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// import {RouteReuseStrategy} from '@angular/router';
-// import {HttpClientModule} from '@angular/common/http';
-import {SuiModule} from 'ng2-semantic-ui';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { WebStorageModule } from 'ngx-store';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxLiquidCacheModule } from 'ngx-liquid-cache';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import 'hammerjs';
+import { AppComponent } from './app.component';
+// import {RouteReuseStrategy} from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+/* @angular/material */
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 // import {
 //    MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule,MatTableModule, MatSortModule, MatPaginatorModule
 // } from '@angular/material';
@@ -27,24 +22,15 @@ import {MatSortModule} from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/Input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-// import LogRocket from 'logrocket';
-// import * as createLogger from 'logrocket';
-import * as LogRocket from 'logrocket';
 
-// Choice 1: CommonJS import
-// import LogRocket = require('logrocket');
-// This is semantically correct and is the preferred method of importing
+/* 3rd party */
+// import { WebStorageModule } from 'ngx-store';
+import {SuiModule} from 'ng2-semantic-ui';
+import { NgxLiquidCacheModule } from 'ngx-liquid-cache';
+import { CookieService } from 'ngx-cookie-service';
+import 'hammerjs';
 
-// Choice 2: ES6 import syntax
-// import * as LogRocket from 'logrocket';
-// This works since Typescript makes it work, but it's not following
-// the ECMAScript Module specification correctly.
-// import LogRocket from 'logrocket';
-LogRocket.init('kdwxer/pps-supervizor');
-
-
-
-
+/* modules */
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 // import { RouteDetailsComponentModule } from './pages/route-details/route-details.component.module';
@@ -52,8 +38,17 @@ import { RouteDetailsComponent } from './pages/route-details/route-details.compo
 import { IzvestajKpisComponent } from './pages/izvestaj-kpis/izvestaj-kpis.component';
 import { HomeComponent } from './pages/home/home.component';
 
-import { WorkerRouteComponent } from './@dashboard/worker-route/worker-route.component';
+/* pipes */
 import { CustomPipeModule } from './pipes/custom.pipe.module';
+
+/* session logging, production only */
+import * as LogRocket from 'logrocket';
+if (environment.production) {
+   LogRocket.init('kdwxer/pps-supervizor');
+}
+
+/* components */
+import { WorkerRouteComponent } from './@dashboard/worker-route/worker-route.component';
 import { TabsComponent } from './@route-detail/tabs/tabs.component';
 import { ZaliheTableComponent } from './@route-detail/zalihe-table/zalihe-table.component';
 import { ChoicesModalComponent } from './@modal/choices-modal.component';
@@ -63,10 +58,11 @@ import { TableSortingComponent } from './@table/table-sorting/table-sorting.comp
 import { DatePickerComponent } from './@date-picker/date-picker/date-picker.component';
 import { SelectComponent } from './@select/select/select.component';
 import { SearchComponent } from './@search/search/search.component';
+import { SearchRemoteApiComponent } from './@search/search/search-remote-api.component';
 import { AlertComponent } from './@alert/alert/alert.component';
-
-
-
+import { QuickListComponent } from './@search/quick-list/quick-list.component';
+import { KorisnikComponent } from './@top-menu/korisnik/korisnik.component';
+import { ToggleMenuBtnComponent } from './@top-menu/toggle-menu-btn/toggle-menu-btn.component';
 
 @NgModule({
     exports: [
@@ -91,7 +87,11 @@ import { AlertComponent } from './@alert/alert/alert.component';
       DatePickerComponent,
       SelectComponent,
       SearchComponent,
+      SearchRemoteApiComponent,
       AlertComponent,
+      QuickListComponent,
+      KorisnikComponent,
+      ToggleMenuBtnComponent,
    ],
    imports: [
       BrowserModule,
@@ -104,8 +104,8 @@ import { AlertComponent } from './@alert/alert/alert.component';
       ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
       // RouteDetailsComponentModule,
       CustomPipeModule,
-      // NoopAnimationsModule,
-      BrowserAnimationsModule,
+      NoopAnimationsModule,
+      // BrowserAnimationsModule,
       MatTableModule, MatSortModule, MatProgressSpinnerModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSnackBarModule,
    ],
    providers: [

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { OnInit, OnDestroy } from '@angular/core';
+
+// TODO: https://www.npmjs.com/package/@ngx-pwa/local-storage
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,13 @@ export class StateService {
   subordinates = null; // login, radnici []
 
   selectedDate;
+
   selectedSubordinate;
   selectedSubordinate_SifraRadnik;
   workerRoutes;
 
   selectedSifraPartner_KPIs;
+  selectedParners: Array<{}>;
 
   constructor() {}
 
@@ -159,6 +162,31 @@ export class StateService {
     }
     const selectedSifraPartner_KPIs = localStorage.getItem('selectedSifraPartner_KPIs');
     return JSON.parse(selectedSifraPartner_KPIs);
+  }
+
+  //
+
+  setPartnersQuickList(selection: {}) {
+    this.selectedParners = this.getPartnersQuickList();
+    if (selection) {
+      console.log('ima selection');
+      // const existsAtPosition = this.items.findIndex(o => o.Pk_id === selection); // vec postoji na brzoj listi ?
+      const existsAtPosition = this.selectedParners.findIndex(o => o['Sifra'] === selection['Sifra']); // vec postoji na brzoj listi ?
+      if (existsAtPosition !== -1)	{																	//  i ako postoji, obrisi ga
+        this.selectedParners.splice(existsAtPosition, 1);
+      }
+      this.selectedParners.unshift(selection);													// dodaj ga kao prvog na brzoj listi
+    }
+    localStorage.setItem('newTask_partneri', JSON.stringify(this.selectedParners.slice(0, 9)));				// sacuvaj listu
+  }
+
+  getPartnersQuickList() {
+    if (this.selectedParners) {
+      return this.selectedParners;
+    }
+    // const selectedParners = (localStorage.getItem('newTask_partneri')) ? JSON.parse(localStorage.getItem('newTask_partneri')) : [];
+    const selectedParners = localStorage.getItem('newTask_partneri');
+    return selectedParners ? JSON.parse(localStorage.getItem('newTask_partneri')) : [];
   }
 
 }
