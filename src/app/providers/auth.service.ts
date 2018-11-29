@@ -17,7 +17,7 @@ const LOGOUT_PATH = '/api/logout';  // URL to web api
   providedIn: 'root'
 })
 export class AuthService implements CanActivate {
-
+  
   HAS_LOGGED_IN = 'hasLoggedIn';
 
   private _authed = new BehaviorSubject<boolean>(false);
@@ -122,6 +122,7 @@ export class AuthService implements CanActivate {
         //   // verticalPosition: verticalPosition,
         //   'panelClass' : ['ui', 'negative', 'message'],
         // });
+        this._authed.next(false);
         throw err;
         // return false;
       }
@@ -167,7 +168,6 @@ export class AuthService implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.isLoggedInObs.pipe(map(isLoggedIn => {
-      // console.log(isLoggedIn, this.isLoggedIn());
       if (isLoggedIn) {
           return true;
       } else {

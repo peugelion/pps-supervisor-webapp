@@ -21,12 +21,16 @@
 <div class="page__content__holder">
 
 	<div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container segment__main__content">
-		<div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
-			Morate odabrati datum i radnika da biste videli njegove rute.</div>
-		<ng-template #elseBlock>
-		<div class="ui black attached big red message">
-			Ne postoje unete rute za odabranog radnika na datum {{ selectedDate | dateFormat }}.</div>
-		</ng-template>
+        <div class="ui middle aligned center aligned grid" style="height: 100%">
+            <div class="column">
+				<div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
+					Morate odabrati datum i radnika da biste videli njegove rute.</div>
+				<ng-template #elseBlock>
+				<div class="ui black attached big red message">
+					Ne postoje unete rute za odabranog radnika na datum {{ selectedDate | dateFormat }}.</div>
+				</ng-template>
+            </div>
+        </div>
 	</div>
 
 	<div class="ui basic segment  segment__main__content" *ngIf="workerRoutes != null && workerRoutes.length > 0">

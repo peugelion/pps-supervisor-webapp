@@ -96,6 +96,11 @@ th.mat-sort-header-sorted {
   max-height: 38px;
   // max-width: 510px;
   max-width: 75%;
+
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    padding-left: 5px;
+  }
 }
 
 .custom__table {
@@ -110,6 +115,11 @@ th.mat-sort-header-sorted {
   background: #db2828e0;
   background: #f57676e0;
   text-align: left;
+
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    padding: 0 .392857145em;
+  }
 }
 
 // th.mat-column-Opis,
@@ -122,6 +132,7 @@ td.mat-table-sticky {
 
   @media screen and (max-width: $break-tablet) and (orientation:portrait) {
     min-width: 178px;
+    min-width: 165px;
   }
 }
 

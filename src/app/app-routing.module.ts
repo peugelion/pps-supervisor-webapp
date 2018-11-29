@@ -26,6 +26,10 @@ const routes: Routes = [
                 path: '',
                 component: HomeComponent,
                 canActivate: [AuthService]
+            }, {
+                path: 'route-details/:Fk_Partner',
+                component: RouteDetailsComponent,
+                canActivate: [AuthService]
             }
         ]
     },
@@ -36,10 +40,6 @@ const routes: Routes = [
             {
                 path: 'dashboard',
                 component: DashboardComponent,
-                canActivate: [AuthService]
-            }, {
-                path: 'route-details/:Fk_Partner',
-                component: RouteDetailsComponent,
                 canActivate: [AuthService]
             }, {
                 path: 'izvestaj-kpis',

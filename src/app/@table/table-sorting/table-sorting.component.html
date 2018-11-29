@@ -15,7 +15,7 @@
       <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [className]="row['Sifra']"></tr> -->
       <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'right aligned': !isSingleRow}" [className]="!this.isNumber(row['Sifra']) ? 'active' : 'inactive'"></tr> -->
       <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [className]="(this.isNumber(row.Sifra)) ? 'active' : 'inactive'"></tr> -->
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.active]="!this.isNumber(row.Sifra)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="right aligned" [class.active]="!this.isNumber(row.Sifra)"></tr>
     </table>
   </div>
 

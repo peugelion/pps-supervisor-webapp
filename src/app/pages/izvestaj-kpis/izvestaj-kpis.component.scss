@@ -20,6 +20,13 @@ $main-content-margin-mobile: $c;
     min-height: calc(100% - #{$main-content-margin});
     max-height: calc(100% - #{$main-content-margin});
     background: #e0e1e22e;
+
+    /* Mobile */
+    @media screen and (max-width: $break-mobile) {
+        height: calc(100% - #{$main-content-margin-mobile});
+        min-height: calc(100% - #{$main-content-margin-mobile});
+        max-height: calc(100% - #{$main-content-margin-mobile});
+    }
 }
 
 .ui.segment__main__content {
@@ -31,6 +38,7 @@ $main-content-margin-mobile: $c;
 
     /* Mobile */
     @media screen and (max-width: $break-mobile) {
+        margin-top: $main-content-margin-mobile;
         padding: .1em .1em;
     }
 }
