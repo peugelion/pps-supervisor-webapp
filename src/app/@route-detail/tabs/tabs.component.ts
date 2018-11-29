@@ -4,7 +4,7 @@ import { ApiService } from '../../providers/api.service';
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.css']
+  styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent {
   private singlePosition: any = null;  // single tab - sve slike na jednoj poziciji\tabu

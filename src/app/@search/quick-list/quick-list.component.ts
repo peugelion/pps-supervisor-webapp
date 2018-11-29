@@ -9,7 +9,6 @@ import { StateService } from '../../providers/state.service';
 export class QuickListComponent implements OnInit {
   items = [];
   @Input() set newItem(val: any) {
-    console.log('new Partners data', val);
     this.getPartnersQuickList();
   }
   @Output() selectedAction = new EventEmitter();

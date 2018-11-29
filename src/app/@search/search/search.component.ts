@@ -11,16 +11,23 @@ export class SearchComponent {
   @Input('placeholder') placeholder: string;
   @Input('labelField') labelField: string; // Naziv
   @Input('valueField') valueField: string; // FK_Partner
+  maxResults;
+  @Input() set maxResultsInput(val: any) {
+    this.maxResults = val;
+  }
   data = [];
   @Input() set dataInput(val: any) {
-    console.log('new Partners data');
     this.data = val;
   }
 
   @Output() selectedAction = new EventEmitter();
 
   @ViewChild('searchBox') searchBox;
-  constructor() { }
+  constructor() {
+    if (!this.maxResults) {
+      this.maxResults = 20;
+    }
+  }
 
   // ngOnInit() {
   // }

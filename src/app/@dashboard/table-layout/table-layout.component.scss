@@ -1,3 +1,8 @@
+$break-small: 320px;
+$break-mobile: 768px;
+$break-tablet: 1024px;
+$break-large: 1200px;
+
 /* table {
   max-width: 100vw;
 } */
@@ -42,10 +47,10 @@ tr .unblock__button__holder {
   left: 5%;
 }
 
-.hidden {
-  /* display: none; */
-  opacity: 0;
-}
+// .hidden {
+//   /* display: none; */
+//   opacity: 0;
+// }
 
 .min_width_15vw {
   min-width: 15vw;
@@ -58,4 +63,40 @@ table {
 
 th.mat-sort-header-sorted {
   color: black;
+}
+
+// .ui.table {
+//   thead {
+//     tr {
+//       @media screen and (max-width: $break-mobile) {
+//         height: unset;
+//       }
+//       th {
+//         @media screen and (max-width: $break-mobile) {
+//           padding: unset;
+//         }
+//       }
+//     }
+//   }
+// }
+
+/* single line table styles, eg. route-details table at the top */
+.ui.very.basic.table {
+  thead {
+    tr {
+      height: unset;
+      th {
+        padding: unset;
+      }
+    }
+  }
+  tbody {
+    tr.mat-row {
+      height: unset;
+      border-bottom: unset;
+      td.mat-cell {
+        border-bottom: unset;
+      }
+    }
+  }
 }

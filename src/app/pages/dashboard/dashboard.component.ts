@@ -13,7 +13,7 @@ interface WorkerData {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('popup') popup; // reference to suiPopup element
@@ -55,14 +55,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.searchEmployeeRoutes(this.selectedSubordinate);
   }
 
-  searchEmployeeRoutes(selection: any) {  console.log('searchEmployeeRoutes USO', selection);
+  searchEmployeeRoutes(selection: any) {  // console.log('searchEmployeeRoutes USO', selection);
     if (selection) {
       this.selectedSubordinate = selection;
     }
     if (!this.selectedDate || !selection || this.segmentDimmed) {
       return false;
     }
-    this.segmentDimmed = true;            console.log('searchEmployeeRoutes PROSO', selection);
+    this.segmentDimmed = true;            // console.log('searchEmployeeRoutes PROSO', selection);
     // this.cdr.detectChanges();
     this.apiService.getWorkerRoutes(selection, this.selectedDate)
       .subscribe(data => {

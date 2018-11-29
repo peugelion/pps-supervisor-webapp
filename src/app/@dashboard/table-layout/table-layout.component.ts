@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {MatSort, MatTableDataSource} from '@angular/material';
 
 // export interface PeriodicElement {
@@ -39,8 +39,9 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-table-layout',
+  encapsulation: ViewEncapsulation.None,  // prikazi ceo selection, bez scrollovanja ... override SUI css
   templateUrl: './table-layout.component.html',
-  styleUrls: ['./table-layout.component.css']
+  styleUrls: ['./table-layout.component.scss']
 })
 export class TableLayoutComponent implements OnInit {
 

@@ -30,6 +30,9 @@ import { NgxLiquidCacheModule } from 'ngx-liquid-cache';
 import { CookieService } from 'ngx-cookie-service';
 import 'hammerjs';
 
+/* page layouts - sidebar VS no sidebar */
+import { SidebarLayoutComponent } from './page-layout/sidebar-layout.component';
+import { NoSidebarLayoutComponent } from './page-layout/no-sidebar-layout.component';
 /* modules */
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -63,6 +66,7 @@ import { AlertComponent } from './@alert/alert/alert.component';
 import { QuickListComponent } from './@search/quick-list/quick-list.component';
 import { KorisnikComponent } from './@top-menu/korisnik/korisnik.component';
 import { ToggleMenuBtnComponent } from './@top-menu/toggle-menu-btn/toggle-menu-btn.component';
+import { KorisnikMeniComponent } from './@top-menu/korisnik/korisnik-meni.component';
 
 @NgModule({
     exports: [
@@ -92,6 +96,9 @@ import { ToggleMenuBtnComponent } from './@top-menu/toggle-menu-btn/toggle-menu-
       QuickListComponent,
       KorisnikComponent,
       ToggleMenuBtnComponent,
+      KorisnikMeniComponent,
+      SidebarLayoutComponent,
+      NoSidebarLayoutComponent,
    ],
    imports: [
       BrowserModule,

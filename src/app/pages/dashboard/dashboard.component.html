@@ -1,37 +1,36 @@
 <!-- <div class="ui three item fixed menu  menu__gray_bg"> -->
 <div class="ui fixed menu  menu__gray_bg">
-  <app-toggle-menu-btn></app-toggle-menu-btn>
-  <div class="item   mobile hidden">
-    <app-korisnik></app-korisnik>
-  </div>
-  <div class="right menu">
-    <div class="item">
-      <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="searchEmployeeRoutes_dateChange($event)"></app-date-picker>
-    </div>
-    <div class="item">
-      <app-select [label]="'Radnik'" [placeholder]="'Pretraži radnike...'" [selectedOptionInput]="selectedSubordinate" [optionsInput]="subordinates" [labelField]="'ImeIprezimeRadnik'" [valueField]= "'Fk_Radnik'" (selectedChangeAction)="searchEmployeeRoutes($event)"></app-select>
-    </div>
-  </div>
+	<app-toggle-menu-btn></app-toggle-menu-btn>
+	<div class="item   mobile hidden">
+		<app-korisnik-meni></app-korisnik-meni>
+	</div>
+	<div class="right menu">
+		<div class="item">
+			<app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="searchEmployeeRoutes_dateChange($event)"></app-date-picker>
+		</div>
+		<div class="item">
+			<app-select [label]="'Radnik'" [placeholder]="'Pretraži radnike...'" [selectedOptionInput]="selectedSubordinate" [optionsInput]="subordinates" [labelField]="'ImeIprezimeRadnik'" [valueField]= "'Fk_Radnik'" (selectedChangeAction)="searchEmployeeRoutes($event)"></app-select>
+		</div>
+	</div>
 </div>
 
 <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
     <div class="ui text loader">Učitavanje ruta!</div>
 </sui-dimmer>
-<div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container segment__main__content">
-  <div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
-    Morate odabrati datum i radnika da biste videli njegove rute.
-  </div>
-  <ng-template #elseBlock>
-      <div class="ui black attached big red message">
-        Ne postoje unete rute za odabranog radnika na datum {{ selectedDate | dateFormat }}.
-      </div>
-  </ng-template>
-</div>
-<div class="ui segment  segment__main__content" *ngIf="workerRoutes != null && workerRoutes.length > 0">
-  <!-- <div class="ui grid">
-    <div class="sixteen wide tablet eight wide computer column" *ngFor="let route of workerRoutes">
-      <app-worker-route [route]="route"></app-worker-route>
-    </div>
-  </div> -->
-  <app-worker-route [workerRoutes]="workerRoutes"></app-worker-route>
+
+<div class="page__content__holder">
+
+	<div *ngIf="!workerRoutes || workerRoutes.length == 0" class="ui text container segment__main__content">
+		<div *ngIf="!workerRoutes; else elseBlock" class="ui success attached big green message">
+			Morate odabrati datum i radnika da biste videli njegove rute.</div>
+		<ng-template #elseBlock>
+		<div class="ui black attached big red message">
+			Ne postoje unete rute za odabranog radnika na datum {{ selectedDate | dateFormat }}.</div>
+		</ng-template>
+	</div>
+
+	<div class="ui basic segment  segment__main__content" *ngIf="workerRoutes != null && workerRoutes.length > 0">
+		<app-worker-route [workerRoutes]="workerRoutes"></app-worker-route>
+	</div>
+
 </div>

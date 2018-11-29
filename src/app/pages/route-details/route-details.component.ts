@@ -8,7 +8,7 @@ import { ApiService } from '../../providers/api.service';
 @Component({
   selector: 'app-route-details',
   templateUrl: './route-details.component.html',
-  styleUrls: ['./route-details.component.css']
+  styleUrls: ['./route-details.component.scss']
 })
 export class RouteDetailsComponent implements OnInit, OnDestroy {
   Fk_Partner: number;

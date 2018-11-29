@@ -1,0 +1,44 @@
+$break-small: 320px;
+$break-mobile: 768px;
+$break-tablet: 1024px;
+$break-large: 1200px;
+
+.ui.attached.header.actions__header {
+  background: 0;
+  border: 0;
+  padding-left: 0;
+  
+  // min-height: 35px;
+  min-height: 45px;
+  padding-top: unset;
+
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    padding: .5rem;
+  }
+}
+
+.ui.label__nopadding {
+  padding: .5em 0 0;
+  border: none;
+  background: none;
+}
+
+.table__cmp__holder {
+  position: relative;
+  /* height: 100%;
+  max-height: 100%; */
+  height: calc(100% - 35px);
+  max-height: calc(100% - 35px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2px;
+}
+.table__cmp__holder.active {
+  overflow-x: auto;
+  padding: unset;
+}
+
+/* .ui.menu.smaller__padding__menu .item {
+  padding: .4em .5em;
+} */

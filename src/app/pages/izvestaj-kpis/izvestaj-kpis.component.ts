@@ -1,9 +1,6 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
-import { AuthService } from '../../providers/auth.service';
-// import { AlertComponent } from '../../@alert/alert/alert.component';
-// import { QuickListComponent } from '../../@search/quick-list/quick-list.component';
 
 @Component({
   selector: 'app-izvestaj-kpis',
@@ -41,7 +38,7 @@ export class IzvestajKpisComponent implements OnDestroy {
     this.cdRef.detach(); /* https://stackoverflow.com/questions/37849453/attempt-to-use-a-destroyed-view-detectchanges */
   }
 
-  async loadReportData(selection: any) {   console.log('loadReportData USO', this.segmentDimmed, selection);
+  async loadReportData(selection: any) {  // console.log('loadReportData USO', this.segmentDimmed, selection);
     if (selection) {
       this.selectedPartner           = selection;
       this.selectedSifraPartner_KPIs = selection['Sifra'];
@@ -75,7 +72,7 @@ export class IzvestajKpisComponent implements OnDestroy {
     if (selectedDate) { this.stateService.setSelectedDate(selectedDate); }
     if (selectedPartner) {
       this.stateService.setSelectedSifraPartner_KPIs(selectedPartner['Sifra']);
-      if (this.dataSource.length > 1) {
+      if (this.dataSource && this.dataSource.length > 1) {
         this.stateService.setPartnersQuickList(selectedPartner);
       }
     }

@@ -1,3 +1,8 @@
+$break-small: 320px;
+$break-mobile: 768px;
+$break-tablet: 1024px;
+$break-large: 1200px;
+
 .menu__custom__styles {
     /* border: 0;
     box-shadow: none; */
@@ -19,13 +24,11 @@
 
 .location__name__btn {
     max-width: calc(100vw - 185px);
+
+    @media screen and (max-width: $break-mobile) {
+        padding: unset;
+    }
 }
-
-
-/* .hidden {
-    display: none;
-} */
-
 
 .ui.container__main__content {
     /* padding-top: 67px; */
@@ -34,4 +37,18 @@
     background: #e0e1e22e;
 
     max-height: calc(100vh - 64px);
+
+    @media screen and (max-width: $break-mobile) {
+        padding: unset;
+        padding-top: 1em;
+
+        // .container {
+        //     margin-left: unset !important;
+        //     margin-right: unset !important;
+        // }
+    }
+}
+
+span.ui.top.right.attached.label {
+    background: unset;
 }

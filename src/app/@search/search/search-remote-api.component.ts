@@ -12,7 +12,6 @@ import { ApiService } from '../../providers/api.service';
 export class SearchRemoteApiComponent extends SearchComponent {
   @Input('descriptionField') descriptionField: string; // Naziv
   @Input() set dataInput(val: any) {
-    console.log('new Partners data');
     this.data = val;
     // this.search(this.query, val);
   }

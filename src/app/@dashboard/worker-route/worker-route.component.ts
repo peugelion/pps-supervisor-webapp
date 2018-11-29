@@ -10,7 +10,7 @@ import { RouteUnblockModal } from '../../@modal/choices-modal.component';
 @Component({
   selector: 'app-worker-route',
   templateUrl: './worker-route.component.html',
-  styleUrls: ['./worker-route.component.css']
+  styleUrls: ['./worker-route.component.scss']
 })
 export class WorkerRouteComponent implements OnInit {
   @Input('route') route;
@@ -18,6 +18,7 @@ export class WorkerRouteComponent implements OnInit {
 
   tableLayoutActive = false;
   filterStr = '';
+  popupPlacement = 'bottom right';
 
   // modalSize: any[] = ['tiny'];
 

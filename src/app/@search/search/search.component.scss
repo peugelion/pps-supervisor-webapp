@@ -1,5 +1,11 @@
-@media only screen and (max-width: 767px) {
-    :host {
+$break-small: 320px;
+$break-mobile: 768px;
+$break-tablet: 1024px;
+$break-large: 1200px;
+
+:host {
+    /* Mobile */
+    @media screen and (max-width: $break-mobile) {
         width: 100%;
     }
 }
@@ -9,5 +15,16 @@
         // left: -35px; // was 0
         right: -13px;
         left: unset;
+        max-height: 700px;
+        overflow: auto;
+        transition: all .5s;
+
+        /* Mobile */
+        @media screen and (max-width: $break-mobile) {
+            max-height: calc(100vh - 70px);
+        }
     }
 }
+
+// .results.transition.visible {
+// }

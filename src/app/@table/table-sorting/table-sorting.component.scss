@@ -13,19 +13,11 @@ $table-margin-top-mobile: $b + $c;
 // $table-height-mobile-calc: calc(100% - 65px);
 
 /* Structure */
-.example-container,
 .table__cmp__holder {
   position: relative;
   height: 100%;
   max-height: 100%;
 }
-
-// .example-table-container {
-//   position: relative;
-//   max-height: 400px;
-//   overflow: auto;
-// }
-
 
 /* material: https://material.angular.io/components/table/overview */
 table {
@@ -68,9 +60,6 @@ th.mat-sort-header-sorted {
 .custom__table__container__dimensions {
   width: 100%;
   // height: calc(100vh - 225px);
-  // height: calc(100vh - 205px);
-  // height: calc(100vh - 195px);
-  // height: calc(100vh - 155px);
   // height: calc(100vh - 135px);
   // height: $table-height-calc;
   height: calc(100% - #{$top-menu-height});
@@ -198,5 +187,3 @@ td.mat-table-sticky {
         display: none;
     }
 }
-
-
