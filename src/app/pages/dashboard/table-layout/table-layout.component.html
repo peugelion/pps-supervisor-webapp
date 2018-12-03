@@ -54,7 +54,7 @@
   <tbody>
     <tr *ngFor="let route of workerRoutes" [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)">
       <td *ngIf="!isSingleRow"><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
-      <td class="left aligned min_width_15vw">{{ route.Opis_542 }}</td>
+      <td class="left aligned td__opis">{{ route.Opis_542 }}</td>
       <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
       <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumZavrsetka.split(' ')[1].slice(0, -3) }}</td>
       <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DuzinaPosete.replace('00:', '').replace(0, '') || "-" }}</td>
@@ -80,7 +80,7 @@
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" [class]="tableCssClass">
 
     <!-- <ng-container matColumnDef="objekat"> -->
-    <ng-container matColumnDef="Mesto" *ngIf="!isSingleRow">
+    <ng-container *ngIf="!isSingleRow" matColumnDef="Mesto" sticky="true">
       <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Mesto / Objekat </th>
       <td mat-cell *matCellDef="let element" class='ui red left aligned'> <b class='ui red left aligned'>{{ element.Mesto }}</b>: {{ element.Naziv.split(element.Mesto)[0] }} </td>
       <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.Mesto}} </td> -->
@@ -89,7 +89,7 @@
     <!-- <ng-container matColumnDef="opis"> -->
     <ng-container matColumnDef="Opis_542">
       <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow"> Opis </th>
-      <td mat-cell *matCellDef="let element" class="left aligned min_width_15vw"> {{element.Opis_542}} </td>
+      <td mat-cell *matCellDef="let element" class="left aligned td__opis"> {{element.Opis_542}} </td>
     </ng-container>
   
     <!-- <ng-container matColumnDef="poc"> -->
@@ -155,7 +155,7 @@
       <!-- <td mat-cell *matCellDef="let element" [ngClass]="{'right aligned': !isSingleRow}"> {{element.TelPlan}} </td> -->
     </ng-container>
   
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"  [routerLink]="['/route-details/', row.Fk_Partner]" ></tr>
     <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="getRecord(row)"></tr> -->
   </table>

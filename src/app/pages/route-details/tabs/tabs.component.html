@@ -8,7 +8,7 @@
 
 <sui-tabset *ngIf="pozicije?.length && pozicije as tabs;else no_images_msg_template">
   <!-- tab header -->
-  <div class="ui top attached tabular menu">
+  <div class="ui top attached tabular menu  tab__header">
     <a class="item tab__ellipsis" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]"
       (click)="loadSinglePosition(tab.Sifra)"
       [style.maxWidth]="getMaxTabWidth(activeTabArr[i])" >

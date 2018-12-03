@@ -52,8 +52,38 @@ tr .unblock__button__holder {
 //   opacity: 0;
 // }
 
-.min_width_15vw {
+.ui.table td.mat-table-sticky {
+  background: #eaeaeac7;
+  background: #e0e0e0;
+  // background: #db2828e0;
+  // background: #f57676e0;
+  text-align: left;
+
+  // flex: (0 0 400px !Important);
+  // flex: 0 0 400px;
+  min-width: 200px;
+  width: 20vw;
+  max-width: 250px;
+
+  @media screen and (max-width: $break-tablet) and (orientation:portrait) {
+    // min-width: 178px;
+    // min-width: 165px;
+    min-width: 190px;
+  }
+
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    padding: 0 .392857145em;
+  }
+}
+
+.ui.table td.td__opis {
   min-width: 15vw;
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    padding-top: unset;
+    padding-bottom: unset;
+  }
 }
 
 /* material: https://material.angular.io/components/table/overview */
@@ -82,20 +112,28 @@ th.mat-sort-header-sorted {
 
 /* single line table styles, eg. route-details table at the top */
 .ui.very.basic.table {
-  thead {
-    tr {
-      height: unset;
-      th {
-        padding: unset;
+  tbody {
+    tr.mat-row {
+      // border-bottom: unset;
+      td.mat-cell {
+        border-bottom: unset;
       }
     }
   }
-  tbody {
-    tr.mat-row {
-      height: unset;
-      border-bottom: unset;
-      td.mat-cell {
-        border-bottom: unset;
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    thead {
+      tr {
+        height: unset;
+        th {
+          padding: unset;
+        }
+      }
+    }
+    tbody {
+      tr.mat-row {
+        height: unset;
+        // border-bottom: unset;
       }
     }
   }
