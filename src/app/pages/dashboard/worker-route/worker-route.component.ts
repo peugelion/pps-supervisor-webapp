@@ -1,11 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiService } from '../../providers/api.service';
-import { StateService } from '../../providers/state.service';
+import { ApiService } from '@pps/providers/api.service';
+import { StateService } from '@pps/providers/state.service';
 import { DatepickerMode, SuiModalService, IPopup } from 'ng2-semantic-ui';
 // import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
-import { AlertComponent } from '../../@alert/alert/alert.component';
-import { RouteUnblockModal } from '../../@modal/choices-modal.component';
-
+import { AlertComponent } from '@pps/@alert/alert/alert.component';
+import { RouteUnblockModal, ChoicesModalComponent } from './@modal/choices-modal.component';
 
 @Component({
   selector: 'app-worker-route',

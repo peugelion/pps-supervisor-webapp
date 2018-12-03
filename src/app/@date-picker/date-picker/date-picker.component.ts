@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, AfterViewInit, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, AfterViewInit, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatepickerMode } from 'ng2-semantic-ui';
 
 @Component({

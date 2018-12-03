@@ -1,0 +1,15 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CardLayoutComponent  } from './card-layout.component';
+import { RouterModule } from '@angular/router';
+
+
+@NgModule({
+  declarations: [CardLayoutComponent],
+  exports: [CardLayoutComponent],
+  imports: [
+    CommonModule,
+    RouterModule
+  ]
+})
+export class CardLayoutModule {}

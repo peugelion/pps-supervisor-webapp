@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { StateService } from '../../providers/state.service';
+import { StateService } from '../../../providers/state.service';
 
 @Component({
   selector: 'app-quick-list',

@@ -1,7 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../providers/auth.service';
 // import { debug } from 'util';

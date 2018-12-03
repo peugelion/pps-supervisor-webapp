@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './providers/auth.service';
 import { Observable } from 'rxjs';
 
-import { LoginComponent } from './pages/login/login.component';
+// import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RouteDetailsComponent } from './pages/route-details/route-details.component';
 import { IzvestajKpisComponent } from './pages/izvestaj-kpis/izvestaj-kpis.component';
-import { HomeComponent } from './pages/home/home.component';
+// import { HomeComponent } from './pages/home/home.component';
 import { NoSidebarLayoutComponent } from './page-layout/no-sidebar-layout.component';
 import { SidebarLayoutComponent } from './page-layout/sidebar-layout.component';
 
@@ -21,14 +21,19 @@ const routes: Routes = [
         children: [
             {
                 path: 'login',
-                component: LoginComponent
+                // component: LoginComponent
+                loadChildren: './pages/login/login.module#LoginModule'
+
             }, {
                 path: '',
-                component: HomeComponent,
+                // component: HomeComponent,
+                loadChildren: './pages/home/home.module#HomeModule',
                 canActivate: [AuthService]
             }, {
                 path: 'route-details/:Fk_Partner',
-                component: RouteDetailsComponent,
+                // component: RouteDetailsComponent,
+                // path: 'dashboard/route-details/:Fk_Partner',
+                loadChildren: './pages/route-details/route-details.module#RouteDetailsModule',
                 canActivate: [AuthService]
             }
         ]
@@ -39,15 +44,18 @@ const routes: Routes = [
         children: [
             {
                 path: 'dashboard',
-                component: DashboardComponent,
+                // component: DashboardComponent,
+                loadChildren: './pages/dashboard/dashboard.module#DashboardModule',
                 canActivate: [AuthService]
             }, {
                 path: 'izvestaj-kpis',
-                component: IzvestajKpisComponent,
+                // component: IzvestajKpisComponent,
+                loadChildren: './pages/izvestaj-kpis/izvestaj-kpis.module#IzvestajKpisModule',
                 canActivate: [AuthService]
             }, {
                 path: '**',
-                component: HomeComponent,
+                // component: HomeComponent,
+                loadChildren: './pages/home/home.module#HomeModule',
                 canActivate: [AuthService]
             }
         ]

@@ -1,0 +1,30 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { WorkerRouteComponent  } from './worker-route.component';
+
+import { SuiModule } from 'ng2-semantic-ui';
+
+// import {MatTableModule} from '@angular/material/table';
+// import {MatSortModule} from '@angular/material/sort';
+
+import { CardLayoutComponent } from '../../@dashboard/card-layout/card-layout.component';
+// import { CardLayoutModule } from '../../@dashboard/card-layout/card-layout.module';
+import { TableLayoutModule } from '../../@dashboard/table-layout/table-layout.module';
+
+@NgModule({
+  declarations: [
+    WorkerRouteComponent,
+    CardLayoutComponent
+  ],
+  exports: [WorkerRouteComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SuiModule,
+    // CardLayoutModule,
+    TableLayoutModule
+  ]
+})
+export class WorkerRouteModule {}

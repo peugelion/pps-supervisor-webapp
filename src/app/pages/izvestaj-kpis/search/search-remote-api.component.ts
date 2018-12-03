@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { SearchComponent } from './search.component';
-import { ApiService } from '../../providers/api.service';
+import { ApiService } from '../../../providers/api.service';
 
 @Component({
   selector: 'app-search-remote-api',

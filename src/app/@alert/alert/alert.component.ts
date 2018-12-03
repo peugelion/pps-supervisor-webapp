@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+// import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 // import { Alert } from '@angular/compiler/src/i18n/i18n_ast';
 
 /* https://material.angular.io/components/snack-bar/overview */

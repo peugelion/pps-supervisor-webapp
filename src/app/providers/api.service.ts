@@ -110,7 +110,8 @@ export class ApiService {
       // return await this._http.post(`${API_ROOT}${INSERT_KOMECIJALISTA_PRAVO_PATH}`, body, httpOptions).toPromise();
       return await this._http.post(`${API_ROOT}${ROUTE_DETAILS_PATH}/${Fk_Partner}`, body, httpOptions).toPromise();
     } catch (e) {
-      return this.handleHttpError(e);
+      this.handleHttpError(e);
+      return e;
     }
   }
 
@@ -157,6 +158,6 @@ export class ApiService {
     if (err.status === 401) {
       this.router.navigate(['login']);
     }
-    return;
+    return err;
   }
 }

@@ -5,11 +5,15 @@ import { NgModule } from '@angular/core';
 // import {SuiModule} from 'ng2-semantic-ui';
 
 import { DateTimeFormatPipe, DateFormatPipe, TimeFormatPipe } from './date-time-format.pipe';
+// import { DateTimeFormatPipe, DateFormatPipe, TimeFormatPipe } from './date-time-format.pipe';
+// import { TimeFormatModule } from './time-format.module';
 import { TyvsLyPipe, ShortMonthPipe } from './short-str.pipe';
 
 
 @NgModule({
-  imports: [],
+  imports: [
+    // TimeFormatModule
+  ],
   declarations: [
     DateTimeFormatPipe,
     DateFormatPipe,
