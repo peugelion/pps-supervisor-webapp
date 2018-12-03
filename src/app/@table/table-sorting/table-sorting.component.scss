@@ -116,14 +116,6 @@ th.mat-sort-header-sorted {
   background: #f57676e0;
   text-align: left;
 
-  /* Mobile */
-  @media screen and (max-width: $break-mobile) {
-    padding: 0 .392857145em;
-  }
-}
-
-// th.mat-column-Opis,
-td.mat-table-sticky {
   // flex: (0 0 400px !Important);
   // flex: 0 0 400px;
   min-width: 200px;
@@ -133,6 +125,11 @@ td.mat-table-sticky {
   @media screen and (max-width: $break-tablet) and (orientation:portrait) {
     min-width: 178px;
     min-width: 165px;
+  }
+
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    padding: 0 .392857145em;
   }
 }
 

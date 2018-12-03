@@ -52,3 +52,14 @@ $break-large: 1200px;
 span.ui.top.right.attached.label {
     background: unset;
 }
+
+.mini__table {
+    margin: 0 0 5px;
+    overflow-x: overlay;
+
+    @media screen and (max-width: $break-mobile) {
+        margin-top: 10px;
+        max-height: 90px;
+        overflow-y: hidden;
+    }
+}
