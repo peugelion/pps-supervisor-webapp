@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiService } from '@pps/providers/api.service';
-import { StateService } from '@pps/providers/state.service';
+import { ApiService } from '@pepsi-app/providers/api.service';
+import { StateService } from '@pepsi-app/providers/state.service';
 import { DatepickerMode, SuiModalService, IPopup } from 'ng2-semantic-ui';
 // import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
-import { AlertComponent } from '@pps/@alert/alert/alert.component';
+import { AlertComponent } from '@pepsi-shared/alert/alert.component';
 import { RouteUnblockModal, ChoicesModalComponent } from './@modal/choices-modal.component';
 
 @Component({

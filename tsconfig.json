@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@pps/*": ["app/*"]
+      "@pepsi-app/*": ["app/*"],
+      "@pepsi-shared/*": ["app/_shared/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

@@ -1,4 +1,6 @@
 $break-small: 320px;
+$break-mobile-small: 480px;
+$break-mobile-medium: 640px;
 $break-mobile: 768px;
 $break-tablet: 1024px;
 $break-large: 1200px;
@@ -194,4 +196,24 @@ th.mat-sort-header-sorted {
     .ui.input.hidden__tablet {
         display: none;
     }
+}
+
+.ui.table {
+  /* Mobile - landscape */
+  @media screen and (max-height: $break-mobile-small) {
+    thead {
+      tr {
+        height: unset;
+        th {
+          padding: unset;
+        }
+      }
+    }
+    tbody {
+      tr.mat-row {
+        height: unset;
+        // border-bottom: unset;
+      }
+    }
+  }
 }

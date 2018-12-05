@@ -31,7 +31,7 @@
 
 <div class="ui bottom attached segment stackable   container__main__content">
 
-  <div class="ui doubling stackable container">
+  <div class="ui doubling stackable container  height__100pt">
 
     <!-- zalihe tabela -->
     <!-- <div *ngIf="zalihe;else no_zalihe_template"> -->
@@ -44,7 +44,9 @@
     </div>
 
     <!-- tabovi -->
-    <app-tabs *ngIf="pozicije" [pozicijeInput]="pozicije" [zaliheInput]="zalihe" [Fk_Partner]="Fk_Partner" [dateStr]="dateStr" ></app-tabs>
+    <div class="tabs__container">
+      <app-tabs *ngIf="pozicije" [pozicijeInput]="pozicije" [zaliheInput]="zalihe" [Fk_Partner]="Fk_Partner" [dateStr]="dateStr" ></app-tabs>
+    </div>
     <!-- redni broj aktivne rute \ ukupno ruta -->
     <span class="ui top right attached label">
       ruta {{ activeRouteIndex + 1 }} \ {{ this.workerRoutes.length }}

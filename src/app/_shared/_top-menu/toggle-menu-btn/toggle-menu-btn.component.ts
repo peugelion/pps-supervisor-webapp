@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SharedService } from '../../providers/shared.service';
+import { SharedService } from '@pepsi-app/providers/shared.service';
 
 @Component({
   selector: 'app-toggle-menu-btn',

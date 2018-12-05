@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ApiService } from '../../providers/api.service';
+import { ApiService } from '@pepsi-app/providers/api.service';
 
 @Component({
   selector: 'app-tabs',

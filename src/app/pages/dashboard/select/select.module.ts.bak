@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SelectComponent } from './select.component';
 
 import { FormsModule } from '@angular/forms';
-import { SuiModule } from 'ng2-semantic-ui';
+// import { SuiModule } from 'ng2-semantic-ui';
+import { SuiSelectModule } from 'ng2-semantic-ui';
 
 @NgModule({
   declarations: [SelectComponent],
@@ -11,7 +12,8 @@ import { SuiModule } from 'ng2-semantic-ui';
   imports: [
     CommonModule,
     FormsModule,
-    SuiModule
+    // SuiModule
+    SuiSelectModule
   ]
 })
 export class SelectModule {}

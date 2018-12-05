@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import {SuiModal, ComponentModalConfig, ModalSize} from 'ng2-semantic-ui';
 
 interface IRouteUnblockModalContext {

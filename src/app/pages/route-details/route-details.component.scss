@@ -63,3 +63,16 @@ span.ui.top.right.attached.label {
         overflow-y: hidden;
     }
 }
+
+.height__100pt {
+    height: 100%;
+}
+
+.tabs__container {
+    height: calc(100% - 140px);
+
+    @media screen and (max-width: $break-mobile) {
+        height: calc(100% - 120px);
+    }
+}
+

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@ang
 import { Router } from '@angular/router';
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
-import { AlertComponent } from '../../@alert/alert/alert.component';
+import { AlertComponent } from '@pepsi-shared/alert/alert.component';
 
 interface WorkerData {
   supervisorData: Object;

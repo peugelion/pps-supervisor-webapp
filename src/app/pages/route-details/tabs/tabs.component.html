@@ -18,10 +18,10 @@
   </div>
 
   <!-- image tab content -->
-  <div class="ui bottom attached segment  tab__nobottommargin" *ngFor="let tab of tabs; let i = index" [suiTabContent]="i">
-    <div *ngFor="let image of singlePosition; let j = index">
+  <div *ngFor="let tab of tabs; let i = index" [suiTabContent]="i" class="ui bottom attached segment  tab__bottom_margin  height__100pt" >
+    <div *ngFor="let image of singlePosition; let j = index" class="height__100pt">
       <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth">
-        <div class="red card slides"  (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()">
+        <div class="red card slides  height__100pt"  (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()">
           <a class="slide__arrowcontainer_left" (click)="moveToPrevImage()" *ngIf="singlePosition.length > 1 || tabs.length > 1">
             <i class="big left angle icon"></i>
           </a>
@@ -29,7 +29,7 @@
             <i class="big right angle icon"></i>
           </a>
           <!-- <div class="image" (click)="moveToNextImage()"> -->
-          <div class="image">
+          <div class="image  image__fullheight">
             <a class="ui left corner label">
               <i class="icon">{{ tab.Sifra }}</i>
             </a>

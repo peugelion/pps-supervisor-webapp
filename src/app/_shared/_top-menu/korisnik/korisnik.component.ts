@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from '../../providers/state.service';
+import { StateService } from '@pepsi-app/providers/state.service';
 
 @Component({
   selector: 'app-korisnik',

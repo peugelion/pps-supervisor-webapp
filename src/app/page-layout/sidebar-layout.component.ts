@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SharedService } from '../providers/shared.service';
 import { AuthService } from '../providers/auth.service';
-import { AlertComponent } from '../@alert/alert/alert.component';
+import { AlertComponent } from '@pepsi-app/_shared/alert/alert.component';
 
 @Component({
   selector: 'app-sidebar-layout',

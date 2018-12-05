@@ -5,12 +5,11 @@ import { RouteDetailsRoutingModule } from './route-details-routing.module';
 // import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
 import { RouteDetailsComponent } from './route-details.component';
 
-import { SuiModule } from 'ng2-semantic-ui';
+import { ZaliheTableComponent } from './zalihe-table/zalihe-table.component';
+import { TabsComponent } from './tabs/tabs.component';
+  import { SuiTabsModule } from 'ng2-semantic-ui';
 
-import { ZaliheTableComponent } from '../../@route-detail/zalihe-table/zalihe-table.component';
-import { TabsComponent } from '../../@route-detail/tabs/tabs.component';
-
-import { TableLayoutModule } from '@pps/pages/dashboard/table-layout/table-layout.module';
+import { TableLayoutModule } from '@pepsi-app/pages/dashboard/table-layout/table-layout.module';
 
 /* pipe */
 import { CustomPipeModule } from '../../pipes/custom.pipe.module';
@@ -22,10 +21,10 @@ import { CustomPipeModule } from '../../pipes/custom.pipe.module';
     CommonModule,
     RouteDetailsRoutingModule,
     // DashboardRoutingModule
-    SuiModule,
     TableLayoutModule,
     CustomPipeModule,
     // TimeFormatModule
+    SuiTabsModule
   ]
 })
 export class RouteDetailsModule { }

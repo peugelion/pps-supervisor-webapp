@@ -3,49 +3,33 @@ $break-mobile: 768px;
 $break-tablet: 1024px;
 $break-large: 1200px;
 
-/* table {
-  max-width: 100vw;
-} */
+// .swiped {
+//   background: white;
+//   /* transition: .3s; */
+//   transform: translate(-120px, 0);
+// }
 
-/* */
+// tr,
+// tr .unblock__button__holder {
+//   transition: .3s;
+// }
 
+// .unblock__button__holder {
+//   opacity: 1;
+//   position: fixed;
+//   width: 120px;
+//   bottom: 0;
+//   top: 0;
+//   z-index: -99;
+// }
 
-.swiped {
-  background: white;
-  /* transition: .3s; */
-  transform: translate(-120px, 0);
-}
-
-tr,
-tr .unblock__button__holder {
-  transition: .3s;
-}
-
-.unblock__button__holder {
-  opacity: 1;
-  position: fixed;
-  width: 120px;
-  bottom: 0;
-  top: 0;
-  z-index: -99;
-}
-/* .unblock__button__holder.hidden {
-  position: absolute;
-} */
-/* .unblock__button__holder.singlerow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 50px;
-} */
-
-.unblock__button {
-  position: relative;
-  width: 90%;
-  height: 80%;
-  top: 10%;
-  left: 5%;
-}
+// .unblock__button {
+//   position: relative;
+//   width: 90%;
+//   height: 80%;
+//   top: 10%;
+//   left: 5%;
+// }
 
 // .hidden {
 //   /* display: none; */
@@ -66,8 +50,6 @@ tr .unblock__button__holder {
   max-width: 250px;
 
   @media screen and (max-width: $break-tablet) and (orientation:portrait) {
-    // min-width: 178px;
-    // min-width: 165px;
     min-width: 190px;
   }
 
@@ -94,21 +76,6 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
-
-// .ui.table {
-//   thead {
-//     tr {
-//       @media screen and (max-width: $break-mobile) {
-//         height: unset;
-//       }
-//       th {
-//         @media screen and (max-width: $break-mobile) {
-//           padding: unset;
-//         }
-//       }
-//     }
-//   }
-// }
 
 /* single line table styles, eg. route-details table at the top */
 .ui.very.basic.table {
