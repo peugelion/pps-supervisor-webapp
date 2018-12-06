@@ -33,7 +33,7 @@
     {
       "name": "api-freshness",
       "urls": [
-        "/dashboard/workerRoutes"
+        "/api/dashboard/workerRoutes"
       ],
       "cacheConfig": {
         "maxSize": 100,
@@ -45,8 +45,8 @@
     {
       "name": "api-performance",
       "urls": [
-        "/dashboard/route-details",
-        "/dashboard"
+        "/api/dashboard/route-details",
+        "/api/dashboard"
       ],
       "cacheConfig": {
         "maxSize": 100,

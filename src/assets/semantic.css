@@ -20622,6 +20622,11 @@
          display: none!important
      }
  }
+
+ /*!
+ * # Semantic UI 2.4.0 - Menu
+ * http://github.com/semantic-org/semantic-ui/
+ */
  
  .ui.menu {
      display: -webkit-box;

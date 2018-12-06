@@ -5,6 +5,8 @@ import { AuthService } from '../../providers/auth.service';
 // import { debug } from 'util';
 import { StateService } from '../../providers/state.service';
 // import { ApiService } from '../../providers/api.service';
+import * as LogRocket from 'logrocket';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +44,14 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
+  initLogRocket(username) {
+    console.log('initLogRocket', environment.production);
+    if (environment.production) {
+      //  LogRocket.init('kdwxer/pps-supervizor');
+       LogRocket.identify(username); // an immutable ID from your db (preferred) /* https://docs.logrocket.com/reference#identify */
+    }
+  }
+
   onSubmit() {
       this.submitted = true;
 
@@ -49,6 +59,7 @@ export class LoginComponent implements OnInit {
           return;
       }
 
+      this.initLogRocket(this.loginForm.value.username);
       this.loading = true; // block login btn
       this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
         .then((respData) => {          // console.log('data', respData);
@@ -86,8 +97,11 @@ export class LoginComponent implements OnInit {
     this.loading = false;
     this.loginApiError = e.error + ' (' +  e.status + ' ' + e.statusText + '). ';
     if (e.status === 401) {
-      this.loginApiError = 'Pogrešno korisničko ime i\ili šifra ' + e.status;
+      this.loginApiError = 'Pogrešno korisničko ime i\\ili šifra ' + e.status;
     } else if (e.status === 400) {
+      if (e.error === 'UserNotAuthorized') {
+        return;
+      }
       this.loginApiError = 'REST API nedostupan... ' + this.loginApiError;
     }
     // if (e.status === 504) {

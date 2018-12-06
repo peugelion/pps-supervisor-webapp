@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* https://v6.material.angular.io/guide/getting-started */
+// @import "./assets/semantic.v2.4.1.min.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-// @import "./assets/semantic.css";
 
 @media only screen and (max-width: 767px) {
     /* [class*="tablet only"]:not(.mobile),
@@ -17,16 +17,39 @@
 
 /* semantic ui scrollbar override on Mobile */
 // @media only screen and (max-width:640px) {
+//     body ::-webkit-scrollbar {
+//         -webkit-appearance: unset;
+//         width: unset;
+//         height: unset;
+//     }
+//     body ::-webkit-scrollbar-track {
+//         background: unset;
+//     }
+//     body ::-webkit-scrollbar-thumb {
+//         border-radius: unset;
+//         background: unset;
+//     }
+//     body ::-webkit-scrollbar-thumb:window-inactive {
+//         background: unset;
+//     }
+    
+//     body .ui.inverted::-webkit-scrollbar-track {
+//         background: unset;
+//     }
+//     body .ui.inverted::-webkit-scrollbar-thumb {
+//         background: unset;
+//     }
+//     body .ui.inverted::-webkit-scrollbar-thumb:window-inactive {
+//         background: unset;
+//     }
+
 //     .ui.dimmer:not(.inverted)::-webkit-scrollbar-track {
-//         background:unset
+//         background: unset;
 //     }
 //     .ui.dimmer:not(.inverted)::-webkit-scrollbar-thumb {
-//         background:unset
+//         background: unset;
 //     }
 //     .ui.dimmer:not(.inverted)::-webkit-scrollbar-thumb:window-inactive {
-//         background:unset
-//     }
-//     .ui.dimmer:not(.inverted)::-webkit-scrollbar-thumb:hover {
 //         background:unset
 //     }
 // }

@@ -9,7 +9,7 @@ import { ZaliheTableComponent } from './zalihe-table/zalihe-table.component';
 import { TabsComponent } from './tabs/tabs.component';
   import { SuiTabsModule } from 'ng2-semantic-ui';
 
-import { TableLayoutModule } from '@pepsi-app/pages/dashboard/table-layout/table-layout.module';
+import { TableLayoutModule } from '@pepsi-app/pages/dashboard/worker-route/table-layout/table-layout.module';
 
 /* pipe */
 import { CustomPipeModule } from '../../pipes/custom.pipe.module';

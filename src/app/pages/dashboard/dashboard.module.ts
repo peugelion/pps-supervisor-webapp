@@ -13,8 +13,8 @@ import { SelectComponent } from './select/select.component';
 
 import { WorkerRouteComponent } from './worker-route/worker-route.component';
 // import { WorkerRouteModule } from './worker-route/worker-route.module';
-import { CardLayoutComponent } from './card-layout/card-layout.component';
-import { TableLayoutModule } from './table-layout/table-layout.module';
+import { CardLayoutComponent } from './worker-route/card-layout/card-layout.component';
+import { TableLayoutModule } from './worker-route/table-layout/table-layout.module';
 
 @NgModule({
   declarations: [

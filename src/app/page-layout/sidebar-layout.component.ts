@@ -23,6 +23,11 @@ export class SidebarLayoutComponent {
       icon: 'world'
     },
     {
+      title: 'Odblokiraj unos porudžbine',
+      route: '/odblokiraj-unos-porudzbine',
+      icon: 'redo'
+    },
+    {
       title: 'Izveštaj KPIs',
       route: '/izvestaj-kpis',
       icon: 'newspaper outline'

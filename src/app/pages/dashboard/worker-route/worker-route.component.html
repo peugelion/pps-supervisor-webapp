@@ -28,11 +28,12 @@
 
 <div class='table__cmp__holder' [class.active]="tableLayoutActive">
 	<div *ngIf="tableLayoutActive">
-		<app-table-layout [workerRoutesInput]="workerRoutes" [filterValueInput]="filterStr" (btnClick)="insertKomercijalistaPravo($event)"></app-table-layout>
-		<!-- <app-table-sorting [rptDataInput]="workerRoutes" [filterValueInput]="filterStr"></app-table-sorting> -->
+		<!-- <app-table-layout [workerRoutesInput]="workerRoutes" [filterValueInput]="filterStr" (btnClick)="insertKomercijalistaPravo($event)"></app-table-layout> -->
+		<app-table-layout [workerRoutesInput]="workerRoutes" [filterValueInput]="filterStr"></app-table-layout>
 	</div>
 
 	<div *ngIf="!tableLayoutActive">
-		<app-card-layout [workerRoutesInput]="workerRoutes" (btnClick)="insertKomercijalistaPravo($event)"></app-card-layout>
+		<!-- <app-card-layout [workerRoutesInput]="workerRoutes" (btnClick)="insertKomercijalistaPravo($event)"></app-card-layout> -->
+		<app-card-layout [workerRoutesInput]="workerRoutes"></app-card-layout>
 	</div>
 </div>

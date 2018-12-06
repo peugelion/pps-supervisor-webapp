@@ -30,7 +30,7 @@ const routes: Routes = [
                 loadChildren: './pages/home/home.module#HomeModule',
                 canActivate: [AuthService]
             }, {
-                path: 'route-details/:Fk_Partner',
+                path: 'dashboard/route-details/:Fk_Partner',
                 // component: RouteDetailsComponent,
                 // path: 'dashboard/route-details/:Fk_Partner',
                 loadChildren: './pages/route-details/route-details.module#RouteDetailsModule',
@@ -46,6 +46,11 @@ const routes: Routes = [
                 path: 'dashboard',
                 // component: DashboardComponent,
                 loadChildren: './pages/dashboard/dashboard.module#DashboardModule',
+                canActivate: [AuthService]
+            }, {
+                path: 'odblokiraj-unos',
+                // component: IzvestajKpisComponent,
+                loadChildren: './pages/odblokiraj-unos-porudzbine/odblokiraj-unos-porudzbine.module#OdblokirajUnosPorudzbineModule',
                 canActivate: [AuthService]
             }, {
                 path: 'izvestaj-kpis',

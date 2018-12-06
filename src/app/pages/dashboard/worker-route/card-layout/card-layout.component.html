@@ -4,7 +4,7 @@
   <div class="column" *ngFor="let route of workerRoutes">
     <div class="ui fluid card">
       <div class="content">
-        <a class="ui right floated inverted red button" [routerLink]="['/route-details/', route.Fk_Partner]">Detalji</a>
+        <a class="ui right floated inverted red button" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]">Detalji</a>
         {{route.Mesto}}
         <div class="header ellipsis">{{route.Naziv.split(route.Mesto)[0]}}</div>
       </div>
@@ -34,9 +34,7 @@
             <div class="sixteen wide column">
               <div class="description">
                 <p class="ellipsis"><a>Opis: </a> {{route.Opis_542}}
-                  <!-- <button (click)="insertKomercijalistaPravo(route.Fk_Partner)">Aktiviraj xx</button> -->
-                  <!-- <a class="ui right floated inverted blue button" (click)="insertKomercijalistaPravo(route.Fk_Partner)">Odblokiraj</a> -->
-                  <a class="ui right floated inverted blue button" (click)="click(route.Fk_Partner)">Odblokiraj</a>
+                  <!-- <a class="ui right floated inverted blue button" (click)="click(route.Fk_Partner)">Odblokiraj</a> -->
                 </p>
               </div>
             </div>

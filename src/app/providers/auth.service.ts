@@ -17,7 +17,6 @@ const LOGOUT_PATH = '/api/logout';  // URL to web api
   providedIn: 'root'
 })
 export class AuthService implements CanActivate {
-  
   HAS_LOGGED_IN = 'hasLoggedIn';
 
   private _authed = new BehaviorSubject<boolean>(false);
@@ -48,8 +47,7 @@ export class AuthService implements CanActivate {
       .then(response => {
             localStorage.setItem(this.HAS_LOGGED_IN, 'true');
             this._authed.next(true);
-            // return true;
-            return response;
+            return response;  // return true;
         },
         err => {
           localStorage.setItem(this.HAS_LOGGED_IN, 'false');

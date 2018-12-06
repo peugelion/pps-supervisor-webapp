@@ -34,7 +34,7 @@ import { AlertComponent } from '@pepsi-shared/alert/alert.component';           
 import { KorisnikModule } from '@pepsi-shared/_top-menu/korisnik/korisnik.module';
 import { CustomPipeModule } from '@pepsi-app/pipes/custom.pipe.module';                /* custom pipes */
 
-import { ChoicesModalComponent } from '@pepsi-app/pages/dashboard/worker-route/@modal/choices-modal.component';
+import { ChoicesModalComponent } from '@pepsi-shared/modal/choices-modal.component';   /* unblock route pitalica */
    import { SuiCheckboxModule } from 'ng2-semantic-ui';
 
 @NgModule({
@@ -43,7 +43,7 @@ import { ChoicesModalComponent } from '@pepsi-app/pages/dashboard/worker-route/@
       AlertComponent,
       SidebarLayoutComponent,
       NoSidebarLayoutComponent,
-      ChoicesModalComponent
+      ChoicesModalComponent,
    ],
    imports: [
       BrowserModule,

@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let route of workerRoutes; let j = index"  [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event, route)">
+    <tr *ngFor="let route of workerRoutes; let j = index"  [routerLink]="['/dashboard/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event, route)">
       <td><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
       <td>{{ route.Opis_542 }}</td>
       <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
@@ -52,7 +52,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let route of workerRoutes" [routerLink]="['/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)">
+    <tr *ngFor="let route of workerRoutes" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)">
       <td *ngIf="!isSingleRow"><b class='ui red left aligned'>{{ route.Mesto }}</b>: {{ route.Naziv.split(route.Mesto)[0] }}</td>
       <td class="left aligned td__opis">{{ route.Opis_542 }}</td>
       <td [ngClass]="{'right aligned': !isSingleRow}">{{ route.DatumPocetka.split(' ')[1].slice(0, -3) }}</td>
@@ -156,6 +156,6 @@
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"  [routerLink]="['/route-details/', row.Fk_Partner]" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"  [routerLink]="['/dashboard/route-details/', row.Fk_Partner]" ></tr>
     <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="getRecord(row)"></tr> -->
   </table>

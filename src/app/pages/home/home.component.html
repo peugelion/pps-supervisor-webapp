@@ -19,25 +19,34 @@
 
       <div class="ui placeholder segment">
         <div class="ui two column stackable center aligned grid">
-          <div class="ui vertical divider">
+          <!-- <div class="ui vertical divider">
             <span class="mobile hidden">Ili</span>
-          </div>
+          </div> -->
           <div class="middle aligned row">
             <a class="column" [routerLink]="['/dashboard']">
-              <div class="ui icon header">
-                <i class="world icon"></i>
-                Dashboard
+              <div class="ui blue icon header">
+                <i class="circular world icon"></i>
+                <!-- Dashboard -->
               </div>
               <div class="ui primary button">
                 Dashboard
               </div>
             </a>
-            <a class="column"  [routerLink]="['/izvestaj-kpis']">
-              <div class="ui icon header">
-                <i class="newspaper outline icon"></i>
-                Izveštaj KPIs
+            <a class="column"  [routerLink]="['/odblokiraj-unos-porudzbine']">
+              <div class="ui blue icon header">
+                <i class="circular redo icon"></i>
+                <!-- Odblokiraj unos porudžbine -->
               </div>
               <div class="ui primary button">
+                Odblokiraj unos por.
+              </div>
+            </a>
+            <a class="column"  [routerLink]="['/izvestaj-kpis']">
+              <div class="ui blue icon header">
+                <i class="circular newspaper outline icon"></i>
+                <!-- Izveštaj KPIs -->
+              </div>
+              <div class="ui primary red button">
                 Izveštaj KPIs
               </div>
             </a>
