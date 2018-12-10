@@ -114,13 +114,13 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
   moveToNextRoute() {
     const newIndex = (this.workerRoutes.length - 1 <= this.activeRouteIndex) ? 0 : this.activeRouteIndex + 1;
     const newFk_Partner = this.workerRoutes[newIndex].Fk_Partner;
-    this.router.navigate(['/route-details', newFk_Partner]);
+    this.router.navigate(['/dashboard/route-details', newFk_Partner]);
   }
 
   moveToPrevRoute() {
     const newIndex = (this.activeRouteIndex === 0) ? this.workerRoutes.length - 1 : this.activeRouteIndex - 1;
     const newFk_Partner = this.workerRoutes[newIndex].Fk_Partner;
-    this.router.navigate(['/route-details', newFk_Partner]);
+    this.router.navigate(['/dashboard/route-details', newFk_Partner]);
   }
 
   //

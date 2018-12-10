@@ -64,17 +64,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     this.segmentDimmed = true;            // console.log('searchEmployeeRoutes PROSO', selection);
     // this.cdr.detectChanges();
+
     this.apiService.getWorkerRoutes(selection, this.selectedDate)
       .subscribe(data => {
         this.workerRoutes = data['workerRoutes'];
         this.segmentDimmed = false;
       }, error => {
         error.status === 401 ? this.router.navigate(['login']) : console.warn(error.status, error.error);
-        this.ppsAlert.showAlert({
-          'type' : 'error',
-          'text' : error.error + ' ' + error.status,
-          'duration': 8, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
-        })
+        this.ppsAlert.showErrorAlert({ 'text' : error.error + ' ' + error.status });
         this.segmentDimmed = false;
       });
     this.saveState(this.selectedDate, selection, null); /* save selected worker state */

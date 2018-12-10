@@ -11,6 +11,9 @@ $break-large: 1200px;
 }
 
 .tab__header {
+    @media screen and (max-width: $break-mobile) {
+        padding-left: 5px;
+    }
     @media screen and (max-width: $break-mobile-small) {
         overflow-x: overlay;
         overflow-y: hidden;
@@ -27,9 +30,12 @@ $break-large: 1200px;
     max-width: 250px;
 }
 
-.ui.bottom.attached.segment.tab.active.tab__bottom_margin {
+.ui.bottom.attached.segment.tab.active.tab__margins__padding {
     margin-bottom: 0;
     // height: calc(100vh - 200px);
+    @media screen and (max-width: $break-mobile) {
+        padding: 0.5em 0 0;
+    }
 }
 
 .height__100pt {

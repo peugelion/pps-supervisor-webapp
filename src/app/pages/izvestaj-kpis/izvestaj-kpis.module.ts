@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { IzvestajKpisRoutingModule } from './izvestaj-kpis-routing.module';
 import { IzvestajKpisComponent } from './izvestaj-kpis.component';
 
-import { SuiDimmerModule, SuiSearchModule } from 'ng2-semantic-ui';
+import { SuiDimmerModule } from 'ng2-semantic-ui';
 
 import { DatePickerModule } from '@pepsi-shared/date-picker/date-picker.module';
-import { SearchComponent } from '@pepsi-app/pages/izvestaj-kpis/search/search.component';
-import { SearchRemoteApiComponent } from '@pepsi-app/pages/izvestaj-kpis/search/search-remote-api.component';
+// import { SearchComponent } from '@pepsi-shared/search/search.component';
+import { SearchModule } from '@pepsi-shared/search/search.module';
 import { ToggleMenuBtnModule } from '@pepsi-shared/_top-menu/toggle-menu-btn/toggle-menu-btn.module';
 import { KorisnikModule } from '@pepsi-shared/_top-menu/korisnik/korisnik.module';
 
@@ -25,7 +25,7 @@ import { TableSortingComponent } from './table-sorting/table-sorting.component';
 @NgModule({
   declarations: [
     IzvestajKpisComponent,
-    SearchComponent, SearchRemoteApiComponent,
+    // SearchComponent,
     QuickListComponent,
     TableSortingComponent
   ],
@@ -33,13 +33,15 @@ import { TableSortingComponent } from './table-sorting/table-sorting.component';
     CommonModule,
     IzvestajKpisRoutingModule,
 
-    SuiDimmerModule, SuiSearchModule,
+    SuiDimmerModule,
+    // SuiSearchModule,
 
+    ToggleMenuBtnModule,
+    KorisnikModule,
     DatePickerModule,
     // SearchComponent,
     // SearchRemoteApiComponent,
-    ToggleMenuBtnModule,
-    KorisnikModule,
+    SearchModule,
 
     CustomPipeModule,
     MatTableModule, MatSortModule, MatPaginatorModule

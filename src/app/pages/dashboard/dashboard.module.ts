@@ -8,7 +8,7 @@ import { CustomPipeModule } from '../../pipes/custom.pipe.module';
 import { KorisnikModule } from '@pepsi-shared/_top-menu/korisnik/korisnik.module';
 import { ToggleMenuBtnModule } from '@pepsi-shared/_top-menu/toggle-menu-btn/toggle-menu-btn.module';
 import { DatePickerModule } from '@pepsi-shared/date-picker/date-picker.module';
-import { SelectComponent } from './select/select.component';
+import { SelectModule } from '@pepsi-shared/select/select.module';
   import { FormsModule } from '@angular/forms'; /* za select komponentu */
 
 import { WorkerRouteComponent } from './worker-route/worker-route.component';
@@ -19,7 +19,6 @@ import { TableLayoutModule } from './worker-route/table-layout/table-layout.modu
 @NgModule({
   declarations: [
     DashboardComponent,
-    SelectComponent,
     WorkerRouteComponent,
     CardLayoutComponent
   ],
@@ -30,6 +29,7 @@ import { TableLayoutModule } from './worker-route/table-layout/table-layout.modu
     SuiDimmerModule, SuiSelectModule, SuiPopupModule, SuiCheckboxModule,
     CustomPipeModule,
     DatePickerModule,
+    SelectModule,
     ToggleMenuBtnModule,
     KorisnikModule,
     TableLayoutModule

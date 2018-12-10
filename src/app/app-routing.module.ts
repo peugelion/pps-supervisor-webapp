@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './providers/auth.service';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 
 // import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { RouteDetailsComponent } from './pages/route-details/route-details.component';
-import { IzvestajKpisComponent } from './pages/izvestaj-kpis/izvestaj-kpis.component';
+// import { DashboardComponent } from './pages/dashboard/dashboard.component';
+// import { RouteDetailsComponent } from './pages/dashboard-route-details/route-details.component';
+// import { IzvestajKpisComponent } from './pages/izvestaj-kpis/izvestaj-kpis.component';
 // import { HomeComponent } from './pages/home/home.component';
 import { NoSidebarLayoutComponent } from './page-layout/no-sidebar-layout.component';
 import { SidebarLayoutComponent } from './page-layout/sidebar-layout.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
                 path: 'dashboard/route-details/:Fk_Partner',
                 // component: RouteDetailsComponent,
                 // path: 'dashboard/route-details/:Fk_Partner',
-                loadChildren: './pages/route-details/route-details.module#RouteDetailsModule',
+                loadChildren: './pages/dashboard-route-details/route-details.module#RouteDetailsModule',
                 canActivate: [AuthService]
             }
         ]
@@ -48,7 +48,7 @@ const routes: Routes = [
                 loadChildren: './pages/dashboard/dashboard.module#DashboardModule',
                 canActivate: [AuthService]
             }, {
-                path: 'odblokiraj-unos',
+                path: 'odblokiraj-unos-porudzbine',
                 // component: IzvestajKpisComponent,
                 loadChildren: './pages/odblokiraj-unos-porudzbine/odblokiraj-unos-porudzbine.module#OdblokirajUnosPorudzbineModule',
                 canActivate: [AuthService]

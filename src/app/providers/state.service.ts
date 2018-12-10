@@ -35,22 +35,17 @@ export class StateService {
     }
   }
 
-  setSupervizor(supervizor) {
-    localStorage.setItem('supervizor', JSON.stringify(supervizor));
-    this.supervizor = supervizor;
-  }
-
-  setSubordinates(subordinates) {
-    localStorage.setItem('subordinates', JSON.stringify(subordinates));
-    this.subordinates = subordinates;
-  }
-
   getSupervisor() {
     if (this.supervizor) {
       return this.supervizor;
     }
     const supervizor = localStorage.getItem('supervizor');
     return JSON.parse(supervizor);
+  }
+
+  setSupervizor(supervizor) {
+    localStorage.setItem('supervizor', JSON.stringify(supervizor));
+    this.supervizor = supervizor;
   }
 
   getSubordinates() {
@@ -61,38 +56,9 @@ export class StateService {
     return JSON.parse(subordinates);
   }
 
-  //
-
-  setSelectedDate(date) {
-    if (!date) {
-      return;
-    }
-    localStorage.setItem('selectedDate', date); // datum iz prethodne sesije
-    this.selectedDate = date;
-  }
-
-  setSelectedSubordinate(selectedSubordinate) {
-    if (!selectedSubordinate) {
-      return;
-    }
-    localStorage.setItem('selectedSubordinate', selectedSubordinate); // datum iz prethodne sesije
-    this.selectedSubordinate = selectedSubordinate;
-  }
-
-  setSelectedSubordinate_SifraRadnik(Sifra) {
-    if (!Sifra) {
-      return;
-    }
-    localStorage.setItem('selectedSubordinate_SifraRadnik', Sifra); // datum iz prethodne sesije
-    this.selectedSubordinate_SifraRadnik = Sifra;
-  }
-
-  setWorkerRoutes(workerRoutes) {
-    if (!workerRoutes) {
-      return;
-    }
-    localStorage.setItem('workerRoutes', JSON.stringify(workerRoutes)); // datum iz prethodne sesije
-    this.workerRoutes = workerRoutes;
+  setSubordinates(subordinates) {
+    localStorage.setItem('subordinates', JSON.stringify(subordinates));
+    this.subordinates = subordinates;
   }
 
   //
@@ -122,12 +88,28 @@ export class StateService {
     return dateStr ? new Date(dateStr) : null; // datum iz prethodne sesije
   }
 
+  setSelectedDate(date) {
+    if (!date) {
+      return;
+    }
+    localStorage.setItem('selectedDate', date); // datum iz prethodne sesije
+    this.selectedDate = date;
+  }
+
   getSelectedSubordinate() {
     if (this.selectedSubordinate) {
       return this.selectedSubordinate;
     }
     const selectedSubordinate = localStorage.getItem('selectedSubordinate');
     return JSON.parse(selectedSubordinate); // Int
+  }
+
+  setSelectedSubordinate(selectedSubordinate) {
+    if (!selectedSubordinate) {
+      return;
+    }
+    localStorage.setItem('selectedSubordinate', selectedSubordinate); // datum iz prethodne sesije
+    this.selectedSubordinate = selectedSubordinate;
   }
 
   getSelectedSubordinate_SifraRadnik() {
@@ -138,6 +120,14 @@ export class StateService {
     return JSON.parse(selectedSubordinate_SifraRadnik); // Int
   }
 
+  setSelectedSubordinate_SifraRadnik(Sifra) {
+    if (!Sifra) {
+      return;
+    }
+    localStorage.setItem('selectedSubordinate_SifraRadnik', Sifra); // datum iz prethodne sesije
+    this.selectedSubordinate_SifraRadnik = Sifra;
+  }
+
   getWorkerRoutes() {
     if (this.workerRoutes) {
       return this.workerRoutes;
@@ -146,15 +136,15 @@ export class StateService {
     return JSON.parse(workerRoutes);
   }
 
-  //
-
-  setSelectedSifraPartner_KPIs(selectedSifraPartner_KPIs) {
-    if (!selectedSifraPartner_KPIs) {
+  setWorkerRoutes(workerRoutes) {
+    if (!workerRoutes) {
       return;
     }
-    localStorage.setItem('selectedSifraPartner_KPIs', JSON.stringify(selectedSifraPartner_KPIs));
-    this.selectedSifraPartner_KPIs = selectedSifraPartner_KPIs;
+    localStorage.setItem('workerRoutes', JSON.stringify(workerRoutes)); // datum iz prethodne sesije
+    this.workerRoutes = workerRoutes;
   }
+
+  //
 
   getSelectedSifraPartner_KPIs() {
     if (this.selectedSifraPartner_KPIs) {
@@ -164,21 +154,15 @@ export class StateService {
     return JSON.parse(selectedSifraPartner_KPIs);
   }
 
-  //
-
-  setPartnersQuickList(selection: {}) {
-    this.selectedParners = this.getPartnersQuickList();
-    if (selection) {
-      console.log('ima selection');
-      // const existsAtPosition = this.items.findIndex(o => o.Pk_id === selection); // vec postoji na brzoj listi ?
-      const existsAtPosition = this.selectedParners.findIndex(o => o['Sifra'] === selection['Sifra']); // vec postoji na brzoj listi ?
-      if (existsAtPosition !== -1)	{																	//  i ako postoji, obrisi ga
-        this.selectedParners.splice(existsAtPosition, 1);
-      }
-      this.selectedParners.unshift(selection);													// dodaj ga kao prvog na brzoj listi
+  setSelectedSifraPartner_KPIs(selectedSifraPartner_KPIs) {
+    if (!selectedSifraPartner_KPIs) {
+      return;
     }
-    localStorage.setItem('newTask_partneri', JSON.stringify(this.selectedParners.slice(0, 9)));				// sacuvaj listu
+    localStorage.setItem('selectedSifraPartner_KPIs', JSON.stringify(selectedSifraPartner_KPIs));
+    this.selectedSifraPartner_KPIs = selectedSifraPartner_KPIs;
   }
+
+  //
 
   getPartnersQuickList() {
     if (this.selectedParners) {
@@ -187,6 +171,20 @@ export class StateService {
     // const selectedParners = (localStorage.getItem('newTask_partneri')) ? JSON.parse(localStorage.getItem('newTask_partneri')) : [];
     const selectedParners = localStorage.getItem('newTask_partneri');
     return selectedParners ? JSON.parse(localStorage.getItem('newTask_partneri')) : [];
+  }
+
+  setPartnersQuickList(selection: {}) {
+    this.selectedParners = this.getPartnersQuickList();
+    if (selection) {
+      // console.log('ima selection');
+      // const existsAtPosition = this.items.findIndex(o => o.Pk_id === selection); // vec postoji na brzoj listi ?
+      const existsAtPosition = this.selectedParners.findIndex(o => o['Sifra'] === selection['Sifra']); // vec postoji na brzoj listi ?
+      if (existsAtPosition !== -1)	{																	//  i ako postoji, obrisi ga
+        this.selectedParners.splice(existsAtPosition, 1);
+      }
+      this.selectedParners.unshift(selection);													// dodaj ga kao prvog na brzoj listi
+    }
+    localStorage.setItem('newTask_partneri', JSON.stringify(this.selectedParners.slice(0, 9)));				// sacuvaj listu
   }
 
 }

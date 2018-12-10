@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectorRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
 
@@ -10,12 +10,12 @@ import { ApiService } from '../../providers/api.service';
 export class IzvestajKpisComponent implements OnDestroy {
   segmentDimmed = false;
   isQueryShort = false;
-  @Output() sidebarMenuToggleAction = new EventEmitter();
+  // @Output() sidebarMenuToggleAction = new EventEmitter();
 
   selectedDate: Date = null;
   selectedSifraPartner_KPIs;
   selectedPartner: {};
-  partners = [];
+  partners: Array<any> = null;
   dataSource = null;
 
   @ViewChild('searchBox') searchBox;
@@ -62,11 +62,6 @@ export class IzvestajKpisComponent implements OnDestroy {
   }
 
   //
-
-  /* poruka da treba min 3 karaktera za pretragu aprtnera */
-  isSearchQueryShort(query: string) {
-    this.isQueryShort = query.length < 3 ? true : false;
-  }
 
   saveState(selectedDate, selectedPartner) {
     if (selectedDate) { this.stateService.setSelectedDate(selectedDate); }

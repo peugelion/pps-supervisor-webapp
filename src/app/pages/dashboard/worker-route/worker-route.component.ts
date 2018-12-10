@@ -14,6 +14,7 @@ import { AlertComponent } from '@pepsi-shared/alert/alert.component';
 export class WorkerRouteComponent implements OnInit {
   @Input('route') route;
   @Input('workerRoutes') workerRoutes;
+  workerRoutesParsed = null;
 
   tableLayoutActive = false;
   filterStr = '';
@@ -31,6 +32,10 @@ export class WorkerRouteComponent implements OnInit {
 
   ngOnInit() {
     this.tableLayoutActive = this.getTableLayoutActive();
+    if (this.tableLayoutActive) {
+      // this.workerRoutesParsed = this.parseWorkerRoutes(this.workerRoutes);
+      this.workerRoutesParsed = this.parseWorkerRoutes(this.workerRoutes);
+    }
   }
 
   applyFilter(filterValue: string) {
@@ -45,6 +50,23 @@ export class WorkerRouteComponent implements OnInit {
   setTableLayoutActive(tableLayoutActive) {
     localStorage.setItem('tableLayoutActive', tableLayoutActive); // true or false
     this.tableLayoutActive = tableLayoutActive;
+    if (tableLayoutActive && !this.workerRoutesParsed) {
+      this.workerRoutesParsed = this.parseWorkerRoutes(this.workerRoutes);
+    }
+  }
+
+  //
+
+  /* skracujem datume i stringove za table layout */
+  parseWorkerRoutes(workerRoutes: Array<any>) {    console.log('parse WR uso');
+    workerRoutes.map(route => {
+      // route.Naziv          = route.Naziv.split(route.Mesto)[0];
+      // route.DatumPocetka   = route.DatumPocetka.split(' ')[1].slice(0, -3);
+      // route.DatumZavrsetka = route.DatumZavrsetka.split(' ')[1].slice(0, -3);
+      // route.DuzinaPosete   = route.DuzinaPosete.replace('00:', '').replace(0, '');
+      route.PauzaMinuta    = route.PauzaMinuta.replace(0, '').replace('0:00', '');
+    });
+    return workerRoutes;
   }
 
   //

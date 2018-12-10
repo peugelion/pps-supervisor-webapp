@@ -70,9 +70,11 @@ span.ui.top.right.attached.label {
 
 .tabs__container {
     height: calc(100% - 140px);
+    height: calc(100% - 42px);
 
     @media screen and (max-width: $break-mobile) {
         height: calc(100% - 120px);
+        height: calc(100% - 45px);
     }
 }
 

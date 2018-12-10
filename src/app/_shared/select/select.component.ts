@@ -25,7 +25,7 @@ export class SelectComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {     console.log('labelField', this.labelField, 'valueField', this.valueField, this.options);
   }
 
   /* https://stackoverflow.com/questions/51727317/angular-6-call-and-pass-a-function-from-parent-to-child-component */

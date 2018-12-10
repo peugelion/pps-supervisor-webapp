@@ -10,6 +10,7 @@ export class TabsComponent {
   private singlePosition: any = null;  // single tab - sve slike na jednoj poziciji\tabu
   public pozicije: any = null;         // sve pozicije (tabovi)
   public zalihe: any = null;
+  public route: any = null;
   @Input('Fk_Partner') Fk_Partner;
   @Input('dateStr') dateStr;
 
@@ -22,6 +23,9 @@ export class TabsComponent {
   }
   @Input() set zaliheInput(val: any) {
     this.zalihe = val;
+  }
+  @Input() set routeInput(val: any) {
+    this.route = val;
   }
 
   private activeTabArr: Array<boolean> = [true]; // pomocna, cuva aktivni sui tab, eg. [true, false, false]
@@ -51,6 +55,7 @@ export class TabsComponent {
   async loadSinglePosition(Fk_Pozicija) {
     this.activeImageIndex = 0; // vrati na prvu sliku u nizu
     this.singlePosition = await this.apiService.getSinglePosition(this.Fk_Partner, Fk_Pozicija, this.dateStr);
+    console.log('this.route', this.route, this.singlePosition);
   }
 
   moveToNextImage() {
@@ -75,7 +80,7 @@ export class TabsComponent {
     }
   }
 
-  getMaxTabWidth(active) {
+  getMaxTabHeaderWidth(active) {
     return active ? null : 80 / this.pozicije.length + 'vw';
   }
 

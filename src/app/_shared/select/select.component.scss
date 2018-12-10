@@ -1,0 +1,44 @@
+$break-small: 320px;
+$break-mobile: 768px;
+$break-tablet-medium: 992px;
+$break-tablet: 1024px;
+$break-large: 1200px;
+
+app-select {
+    .ui.form .inline.field>sui-select.selection.dropdown {
+        .menu {
+            max-height: 25rem; // prikazi ceo selection, bez scrollovanja
+            /* Tablet medium */
+            // @media screen and (max-width: $break-tablet-medium) {
+            //     /* was 16.02857143rem */
+            //     max-height: 22rem; // prikazi ceo selection, bez scrollovanja
+            // }
+        }
+        .text {
+            span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}
+/* Mobile */
+@media only screen and (max-width: 767px) {
+    // :host
+    /* ViewEncapsulation.None */
+    app-select {
+        width: 100%;
+        [class*="mobile hidden"] {
+            display: none !important;
+        }
+        .ui.form .inline.field>sui-select.selection.dropdown {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            .menu {
+                max-height: 90vh; // prikazi ceo selection, bez scrollovanja
+            }
+        }
+    }
+}

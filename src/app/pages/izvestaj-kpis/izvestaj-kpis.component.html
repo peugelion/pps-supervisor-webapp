@@ -8,10 +8,25 @@
     <div class="right menu">
         <div class="item">
             <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadReportData_dateChange($event)"></app-date-picker>
-        </div>    
+        </div>
         <div class="item">
-            <app-search-remote-api (queryOut)='isSearchQueryShort($event)' [dataInput]="partners" [labelField]="'Naziv'" [valueField]="'Sifra'" [descriptionField]="'Ulica_i_Broj'" [maxResultsInput]="100" (selectedAction)="loadReportData($event)" [placeholder]="'Pretraži partnere...'"></app-search-remote-api>                    
-        </div>            
+            <app-search-remote-api [labelField]="'Naziv'"
+                                    [valueField]="'Sifra'"
+                                    [descriptionField]="'Ulica_i_Broj'"
+                                    [apiEndpointUrl]="'/api/dashboard/KPIsReport/radnikPodredjenPartner'"
+                                    [maxResultsInput]="100"
+                                    (selectedAction)="loadReportData($event)"
+                                    [placeholder]="'Pretraži partnere...'"></app-search-remote-api>
+                                    <!-- [dataInput]="partners" -->
+          <!-- <app-search-remote-api (queryOut)='isSearchQueryShort($event)'
+                                    [labelField]="'Naziv'"
+                                    [valueField]="'Sifra'"
+                                    [descriptionField]="'Ulica_i_Broj'"
+                                    [apiEndpointUrl]="'/api/dashboard/workerPartners/' + selectedSubordinate_SifraRadnik"
+                                    [maxResultsInput]="100"
+                                    (selectedAction)="loadSelectedPartnerData($event)"
+                                    [placeholder]="'Pretraži partnere...'"></app-search-remote-api> -->
+        </div>
     </div>
 </div>
 

@@ -18,7 +18,8 @@
         </button>
         <button class="ui button  location__name__btn">
           <i class="map marker alternate icon"></i>
-          {{ activeRoute?.Naziv.split(activeRoute?.Mesto)[0] }}, {{ activeRoute?.Mesto }}
+          <!-- {{ route?.Naziv.split(activeRoute?.Mesto)[0] }}, {{ activeRoute?.Mesto }} -->
+          {{ activeRoute?.Naziv }}, {{ activeRoute?.Mesto }}
         </button>
         <button class="ui right icon button" (click)="moveToNextRoute()">
           <i class="right chevron icon"></i>
@@ -29,9 +30,10 @@
   </div>
 </div>
 
-<div class="ui bottom attached segment stackable   container__main__content">
+<div class="ui bottom attached segment stackable" [class.container__main__content]="pozicije.length">
 
-  <div class="ui doubling stackable container  height__100pt">
+  <!-- <div class="ui doubling stackable container  height__100pt"> -->
+  <div class="height__100pt" style="max-width: 1000px; margin-left: auto;  margin-right: auto;">
 
     <!-- zalihe tabela -->
     <!-- <div *ngIf="zalihe;else no_zalihe_template"> -->
@@ -39,13 +41,13 @@
       <app-zalihe-table [zaliheInput]="zalihe"></app-zalihe-table>
     </div>
 
-    <div class="mini__table">
+    <div *ngIf="!pozicije.length" class="mini__table">
       <app-table-layout [workerRoutesInput]="[workerRoutes[activeRouteIndex]]"></app-table-layout>
     </div>
 
     <!-- tabovi -->
     <div class="tabs__container">
-      <app-tabs *ngIf="pozicije" [pozicijeInput]="pozicije" [zaliheInput]="zalihe" [Fk_Partner]="Fk_Partner" [dateStr]="dateStr" ></app-tabs>
+      <app-tabs *ngIf="pozicije" [pozicijeInput]="pozicije" [zaliheInput]="zalihe" [routeInput]="workerRoutes[activeRouteIndex]" [Fk_Partner]="Fk_Partner" [dateStr]="dateStr" ></app-tabs>
     </div>
     <!-- redni broj aktivne rute \ ukupno ruta -->
     <span class="ui top right attached label">

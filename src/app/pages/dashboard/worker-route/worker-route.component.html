@@ -16,10 +16,12 @@
 	<div class="ui top right attached label  label__nopadding">
 	<span class="ui label  mobile hidden">Layout:</span>
 	<div class="ui buttons allign right">
-		<button class="ui icon button" [class.active]="!tableLayoutActive" (click)="setTableLayoutActive(false)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Tabela" popupText="Tabelarni prikaz ruta">
+		<!-- <button class="ui icon button" [class.active]="!tableLayoutActive" (click)="setTableLayoutActive(false)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Tabela" popupText="Tabelarni prikaz ruta"> -->
+		<button class="ui icon button" [class.active]="!tableLayoutActive" (click)="setTableLayoutActive(false)">
 			<i class="large table icon"></i>
 		</button>
-		<button class="ui icon button" [class.active]="tableLayoutActive" (click)="setTableLayoutActive(true)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Kartice" popupText="Kartični prikaz ruta">
+		<!-- <button class="ui icon button" [class.active]="tableLayoutActive" (click)="setTableLayoutActive(true)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Kartice" popupText="Kartični prikaz ruta"> -->
+		<button class="ui icon button" [class.active]="tableLayoutActive" (click)="setTableLayoutActive(true)">
 			<i class="large clipboard list icon"></i>
 		</button>
 	</div>
@@ -29,7 +31,7 @@
 <div class='table__cmp__holder' [class.active]="tableLayoutActive">
 	<div *ngIf="tableLayoutActive">
 		<!-- <app-table-layout [workerRoutesInput]="workerRoutes" [filterValueInput]="filterStr" (btnClick)="insertKomercijalistaPravo($event)"></app-table-layout> -->
-		<app-table-layout [workerRoutesInput]="workerRoutes" [filterValueInput]="filterStr"></app-table-layout>
+		<app-table-layout [workerRoutesInput]="workerRoutesParsed" [filterValueInput]="filterStr"></app-table-layout>
 	</div>
 
 	<div *ngIf="!tableLayoutActive">

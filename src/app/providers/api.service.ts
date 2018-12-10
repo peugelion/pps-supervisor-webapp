@@ -14,7 +14,8 @@ const API_ROUTE_DETAILS = `${API_ROOT}${ROUTE_DETAILS_PATH}`;
 
 // const INSERT_KOMECIJALISTA_PRAVO_PATH = '/api/dashboard/insertKomercijalistaPravo';
 const KPIS_RPT_DAILY_SALES_PATH = '/api/dashboard/KPIsReport/dailySalesByCustomerBySKU';
-const KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH = '/api/dashboard/KPIsReport/radnikPodredjenPartner';
+// const KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH = '/api/dashboard/KPIsReport/radnikPodredjenPartner';
+// const WORKER_PARTNERS_PATH = '/api/dashboard/workerPartners';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,8 @@ export class ApiService {
       withCredentials: true,
       params: {
         'datum': date.toISOString(),
-        'Fk_Radnik': Fk_Radnik
+        'Fk_Radnik': Fk_Radnik,
+        // 'parsirano': parsirano
       }
     };
     return this._http.get(apiURL, httpOptions);
@@ -98,9 +100,7 @@ export class ApiService {
   // Fk_Partner, date, Fk_St_670)
   async insertKomercijalistaPravo(Fk_RadnikSifra: number, Fk_Partner: number, dateStr: string, Fk_St_670: number) {
     try {
-      const httpOptions = {
-        withCredentials: true
-      };
+      console.log('api insertKomercijalistaPravo: ', Fk_RadnikSifra, Fk_Partner, dateStr, Fk_St_670);
       const body = {
         'Fk_RadnikSifra' : Fk_RadnikSifra.toString(),
         // 'Fk_Partner': Fk_Partner,
@@ -108,7 +108,7 @@ export class ApiService {
         'Fk_St_670': Fk_St_670.toString()
       };
       // return await this._http.post(`${API_ROOT}${INSERT_KOMECIJALISTA_PRAVO_PATH}`, body, httpOptions).toPromise();
-      return await this._http.post(`${API_ROOT}${ROUTE_DETAILS_PATH}/${Fk_Partner}`, body, httpOptions).toPromise();
+      return await this._http.post(`${API_ROOT}${ROUTE_DETAILS_PATH}/${Fk_Partner}`, body, { withCredentials: true }).toPromise();
     } catch (e) {
       this.handleHttpError(e);
       return e;
@@ -135,21 +135,23 @@ export class ApiService {
   }
 
   // @LiquidCache('dailySalesKPIsRptByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 5 })
-  async radnikPodredjenPartner(query: string) {
-    try {
-      const apiURL = `${API_ROOT}${KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH}/${query}`;
-      const httpOptions = {
-        withCredentials: true,
-        // params: {
-        //   'Sifra_Radnika': Sifra_Radnika
-        // }
-      };
-      return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
-    } catch (e) {
-      this.handleHttpError(e);
-      return [];
-    }
-  }
+  // async radnikPodredjenPartner(query: string) {
+  //   try {
+  //     const apiURL = `${API_ROOT}${KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH}/${query}`;
+  //     return await this._http.get<any[]>(apiURL, {withCredentials: true}).toPromise();
+  //   } catch (e) {
+  //     this.handleHttpError(e);
+  //     return [];
+  //   }
+  // }
+
+  //
+
+  // @LiquidCache('getWorkerPartners {Fk_Radnik} {date}', { duration: 60 * 2 }) // kesira api rezulat X minuta
+  // getWorkerPartners(Fk_Radnik, query: string) {
+  //   const apiURL = `${API_ROOT}${WORKER_PARTNERS_PATH}/${Fk_Radnik}/${query}`;
+  //   return this._http.get(apiURL, {withCredentials: true});
+  // }
 
   //
 

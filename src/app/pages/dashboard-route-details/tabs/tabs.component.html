@@ -11,16 +11,19 @@
   <div class="ui top attached tabular menu  tab__header">
     <a class="item tab__ellipsis" *ngFor="let tab of tabs; let i = index" [suiTabHeader]="i" [(isActive)]="activeTabArr[i]"
       (click)="loadSinglePosition(tab.Sifra)"
-      [style.maxWidth]="getMaxTabWidth(activeTabArr[i])" >
+      [style.maxWidth]="getMaxTabHeaderWidth(activeTabArr[i])" >
       <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="file image red outline icon"></i>
       {{ tab.Naziv }}</a>
-    <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="!(zalihe && zalihe.length)" [style.maxWidth]="getMaxTabWidth(activeTabArr[i])">Zalihe</a>
+    <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="!(zalihe && zalihe.length)" [style.maxWidth]="getMaxTabHeaderWidth(activeTabArr[i])">Zalihe</a>
   </div>
 
   <!-- image tab content -->
-  <div *ngFor="let tab of tabs; let i = index" [suiTabContent]="i" class="ui bottom attached segment  tab__bottom_margin  height__100pt" >
-    <div *ngFor="let image of singlePosition; let j = index" class="height__100pt">
-      <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth">
+  <div *ngFor="let tab of tabs; let i = index" [suiTabContent]="i" class="ui bottom attached segment  tab__margins__padding  height__100pt" >
+    <!-- <div *ngFor="let image of singlePosition; let j = index" [class.height__100pt]="j == activeImageIndex" > -->
+    <div class="height__100pt">
+      <!-- <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth"> -->
+      <div *ngIf="singlePosition && singlePosition[activeImageIndex] as image" class="ui card  card__fullwidth">
+          
         <div class="red card slides  height__100pt"  (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()">
           <a class="slide__arrowcontainer_left" (click)="moveToPrevImage()" *ngIf="singlePosition.length > 1 || tabs.length > 1">
             <i class="big left angle icon"></i>
@@ -34,9 +37,22 @@
               <i class="icon">{{ tab.Sifra }}</i>
             </a>
             <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!image.Slika" [src]="image.Slika || '/assets/404.svg'" >
+            <!-- <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!singlePosition[activeImageIndex].Slika" [src]="singlePosition[activeImageIndex].Slika || '/assets/404.svg'" > -->
 
-            <div class="ui top right attached red label">{{ image.DatumPosete | timeFormat }} h
-              <span *ngIf="singlePosition.length != 1" class="detail blue">{{ j + 1 }} od {{ singlePosition.length }} SLIKE</span>
+
+            <!-- <div class="ui top right attached red label">{{ image.DatumPosete | timeFormat }} h -->
+            <div class="ui top right attached red label">{{ image.DatumPosete }} h
+              <!-- <span *ngIf="singlePosition.length != 1" class="detail">{{ j + 1 }} od {{ singlePosition.length }} SLIKE</span> -->
+              <span *ngIf="singlePosition.length != 1" class="detail">{{ activeImageIndex + 1 }} od {{ singlePosition.length }} SLIKE</span>
+            </div>
+            
+            <div class="ui bottom left attached label">{{ route.DuzinaPosete.replace(0, '') }}m
+              <span *ngIf="route.DatumPocetka" class="detail">{{ route.DatumPocetka }}-{{ route.DatumZavrsetka }}h</span>
+              <span *ngIf="route.PauzaMinuta" class="detail">p: {{ route.PauzaMinuta }}</span>
+            </div>
+            
+            <div *ngIf="route.TargetMesec" class="ui bottom right attached label">m: {{ route.TargetMesec }}/{{ route.ProdajaMesec }}
+              <span *ngIf="route.TargetDan != 1" class="detail">d: {{ route.ProdajaMesec }}\{{ route.ProdajaDan }}</span>
             </div>
           </div>
         </div>

@@ -52,12 +52,9 @@ export class SidebarLayoutComponent {
 
   logout() {
     this._sharedService.emitMenuToggle(false);
-
     this._authService.logout().catch(e => {
-      this.ppsAlert.showAlert({
-        'type' : 'error',
+      this.ppsAlert.showErrorAlert({
         'text' : e.error + ' (' +  e.status + ' ' + e.statusText + '). ',
-        'duration': 8 // 'action': null, 'verticalPosition' : null, 'panelClass' : null
       });
     });
   }

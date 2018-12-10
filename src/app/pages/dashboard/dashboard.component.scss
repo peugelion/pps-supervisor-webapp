@@ -1,4 +1,5 @@
 $break-small: 320px;
+$break-mobile-1: 767px;
 $break-mobile: 768px;
 $break-tablet: 1024px;
 $break-large: 1200px;
@@ -34,7 +35,7 @@ $main-content-margin-mobile: $c;
     background: unset;
 
     /* Mobile */
-    @media screen and (max-width: $break-mobile) {
+    @media screen and (max-width: $break-mobile-1) {
         padding: .1em .1em;
         margin-top: $main-content-margin-mobile;
     }
@@ -50,7 +51,7 @@ $main-content-margin-mobile: $c;
     max-height: calc(#{$main-content-margin} - 1px);
 
     /* Mobile */
-    @media screen and (max-width: $break-mobile) {
+    @media screen and (max-width: $break-mobile-1) {
         max-height: calc(#{$main-content-margin-mobile} - 1px);
     }
 
@@ -58,7 +59,7 @@ $main-content-margin-mobile: $c;
         max-width: calc(100vw - 54px);
         
         /* Mobile */
-        @media screen and (max-width: $break-mobile) {
+        @media screen and (max-width: $break-mobile-1) {
             .item {
                 padding: .92857143em 1.14285714em;
                 padding: calc(.92857143em / 2) calc(1.14285714em / 2);

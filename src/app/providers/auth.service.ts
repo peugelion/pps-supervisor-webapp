@@ -1,4 +1,4 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 // https://stackoverflow.com/questions/34660263/angular2-conditional-routing
@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 // import { Observable, Subject } from 'rxjs';
 import { catchError, map} from 'rxjs/operators';
 import { BehaviorSubject, Observable, of} from 'rxjs';
-import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material';
+// import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material';
 
 const API_ROOT = environment.apiUrl; /* API ENDPOINT, eg. http://localhost:1337 */
 const LOGIN_PATH = '/api/login';  // URL to web api
@@ -20,9 +20,6 @@ export class AuthService implements CanActivate {
   HAS_LOGGED_IN = 'hasLoggedIn';
 
   private _authed = new BehaviorSubject<boolean>(false);
-  private httpOptions = {
-    withCredentials: true
-  };
 
   // horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   // verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -31,7 +28,7 @@ export class AuthService implements CanActivate {
     private http: HttpClient,
     public router: Router,
     public cookieService: CookieService,
-    public snackBar: MatSnackBar,
+    // public snackBar: MatSnackBar,
     // public ppsAlert: AlertComponent
   ) {}
 
@@ -43,7 +40,7 @@ export class AuthService implements CanActivate {
     };
     this.cookieService.set( 'hubieLoginUsername', username );
     this.cookieService.set( 'hubieLoginPassword', password );
-    return this.http.post(`${API_ROOT}${LOGIN_PATH}`, body, this.httpOptions).toPromise()
+    return this.http.post(`${API_ROOT}${LOGIN_PATH}`, body, {withCredentials: true}).toPromise()
       .then(response => {
             localStorage.setItem(this.HAS_LOGGED_IN, 'true');
             this._authed.next(true);
@@ -96,8 +93,7 @@ export class AuthService implements CanActivate {
   // }
 
   async logout(): Promise<any> {
-    // return this.http.get(API_ROOT + this.LOGOUT_PATH, { headers: this.contentHeaders, withCredentials: true })
-    return this.http.get(API_ROOT + LOGOUT_PATH, this.httpOptions)
+    return this.http.get(API_ROOT + LOGOUT_PATH, {withCredentials: true})
     // .subscribe(
     .toPromise().then(
       response => {
