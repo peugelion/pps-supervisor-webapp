@@ -24,7 +24,12 @@
       <!-- <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth"> -->
       <div *ngIf="singlePosition && singlePosition[activeImageIndex] as image" class="ui card  card__fullwidth">
           
-        <div class="red card slides  height__100pt"  (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()">
+        <div class="red card slides  height__100pt" (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()" [class.fullscreen]="isFullScreenSlider">
+
+          <a class="slide__arrowcontainer_up_down" (click)="clickFullScreenSliderToggle()">
+            <i class="big angle icon"  [ngClass]="{'up': !isFullScreenSlider, 'down': isFullScreenSlider}"></i>
+            <!-- <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="big down angle icon"></i> -->
+          </a>
           <a class="slide__arrowcontainer_left" (click)="moveToPrevImage()" *ngIf="singlePosition.length > 1 || tabs.length > 1">
             <i class="big left angle icon"></i>
           </a>
@@ -32,7 +37,12 @@
             <i class="big right angle icon"></i>
           </a>
           <!-- <div class="image" (click)="moveToNextImage()"> -->
-          <div class="image  image__fullheight">
+          <div class="image  image__fullheight"
+              (click)="clickFullScreenSliderToggle()"
+              (swipeup)="swipeFullScreen(true)" (swipedown)="swipeFullScreen(false)"
+              (keydown.enter)="clickFullScreenSliderToggle()"
+              (keydown.ArrowLeft)="clickFullScreenSliderToggle($event)" (keydown.ArrowRight)="clickFullScreenSliderToggle($event)"
+              (keydown.ArrowUp)="clickFullScreenSliderToggle($event)" (keydown.ArrowDown)="clickFullScreenSliderToggle($event)">
             <a class="ui left corner label">
               <i class="icon">{{ tab.Sifra }}</i>
             </a>

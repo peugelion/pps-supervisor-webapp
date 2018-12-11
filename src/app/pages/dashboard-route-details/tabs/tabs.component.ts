@@ -28,8 +28,10 @@ export class TabsComponent {
     this.route = val;
   }
 
-  private activeTabArr: Array<boolean> = [true]; // pomocna, cuva aktivni sui tab, eg. [true, false, false]
-  private activeImageIndex = 0;                  // pomocna
+  private activeTabArr: Array<boolean> = [true];  // pomocna, cuva aktivni sui tab, eg. [true, false, false]
+  private activeImageIndex = 0;                   // pomocna
+
+  private isFullScreenSlider = false;             // pomocna, ui, fullscreen image slider
 
   constructor(private apiService: ApiService) { }
 
@@ -57,6 +59,18 @@ export class TabsComponent {
     this.singlePosition = await this.apiService.getSinglePosition(this.Fk_Partner, Fk_Pozicija, this.dateStr);
     console.log('this.route', this.route, this.singlePosition);
   }
+
+  //
+
+  clickFullScreenSliderToggle() {
+    this.isFullScreenSlider = !this.isFullScreenSlider;
+  }
+
+  swipeFullScreen(isFullscreen) {
+    this.isFullScreenSlider = isFullscreen;
+  }
+
+  //
 
   moveToNextImage() {
     if (this.singlePosition.length - 1 <= this.activeImageIndex) {
