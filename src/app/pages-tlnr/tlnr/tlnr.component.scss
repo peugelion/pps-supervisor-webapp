@@ -1,0 +1,26 @@
+$break-small: 320px;
+$break-mobile-small: 480px;
+$break-mobile-medium: 640px;
+$break-mobile: 768px;
+$break-tablet: 1024px;
+$break-large: 1200px;
+
+$a: 46px;
+$b: 10px;
+$c: 47px;
+$main-content-margin: $c + $b;
+$main-content-margin-mobile: $c;
+
+.ui.segment__main__content {
+    // margin-top: $main-content-margin;
+    // height: calc(100vh - #{$main-content-margin});
+    height: 100%;
+    min-height: 100%;
+    border-top: 0;
+
+    /* Mobile */
+    @media screen and (max-width: $break-mobile) {
+        // margin-top: $main-content-margin-mobile;
+        padding: .1em .1em;
+    }
+}

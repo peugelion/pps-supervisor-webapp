@@ -1,0 +1,7 @@
+<!-- <div *ngIf="dataSource != null && dataSource.length > 1" class="ui basic segment  segment__main__content">
+    <app-table-sorting [rptDataInput]="dataSource"></app-table-sorting>
+</div> -->
+
+<div *ngIf="dataSource != null && dataSource.length > 1" class="ui basic segment  segment__main__content">
+    <app-table [dataInput]="dataSource" [columnLabelsInput]="columnLabels" [columnsInput]="displayedColumns" [stickyCollumnInput]="stickyCollumn"></app-table>
+</div>

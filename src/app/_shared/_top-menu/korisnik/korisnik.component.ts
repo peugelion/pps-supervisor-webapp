@@ -12,7 +12,7 @@ export class KorisnikComponent implements OnInit {
   constructor(private stateService: StateService) { }
 
   ngOnInit() {
-    this.supervisor = this.stateService.getSupervisor();
+    this.supervisor = this.stateService.getSupervizor();
   }
 
 }

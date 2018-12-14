@@ -52,7 +52,7 @@
             <span *ngIf="!selectedDate; else elseBlock_NoPartner">
             Odaberite datum.</span></ng-template>
           <ng-template #elseBlock_NoPartner><span>
-            Odaberite partnera.</span></ng-template>
+            Odaberite partnera (minimum 3 karaktera).</span></ng-template>
         </div>
 
         <div *ngIf="selectedPartner != null" class="ui big centered gray card">

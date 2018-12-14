@@ -7,13 +7,15 @@ import { RouteDetailsComponent } from './route-details.component';
 
 import { ZaliheTableComponent } from './zalihe-table/zalihe-table.component';
 import { TabsComponent } from './tabs/tabs.component';
-  import { SuiTabsModule } from 'ng2-semantic-ui';
+  import { SuiTabsModule, SuiDimmerModule } from 'ng2-semantic-ui';
 
 import { TableLayoutModule } from '@pepsi-app/pages/dashboard/worker-route/table-layout/table-layout.module';
 
 /* pipe */
 import { CustomPipeModule } from '../../pipes/custom.pipe.module';
 // import { TimeFormatModule } from '../../pipes/time-format.module';
+
+import 'hammerjs'; // mobile geastures (swipe ...)
 
 @NgModule({
   declarations: [RouteDetailsComponent, ZaliheTableComponent, TabsComponent],
@@ -24,7 +26,7 @@ import { CustomPipeModule } from '../../pipes/custom.pipe.module';
     TableLayoutModule,
     CustomPipeModule,
     // TimeFormatModule
-    SuiTabsModule
+    SuiTabsModule, SuiDimmerModule
   ]
 })
 export class RouteDetailsModule { }

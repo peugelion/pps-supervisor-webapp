@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../providers/auth.service';
+// import { AuthService } from '../../providers/auth.service';
 import { Router } from '@angular/router';
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
@@ -21,10 +21,12 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
   public activeRouteIndex;  // redni broj rute\lokacije
   public activeRoute: any = {};  // aktivna ruta\lokacija
 
+  public segmentDimmed = false;
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
-    private auth: AuthService,
+    // private auth: AuthService,
     private stateService: StateService,
     private apiService: ApiService,
     private cdRef: ChangeDetectorRef
@@ -44,11 +46,11 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!this.auth.isLoggedIn) {
-      // this.router.navigateByUrl('/login');
-      this.router.navigate(['login']);
-      return;
-    }
+    // if (!this.auth.isLoggedIn) {
+    //   // this.router.navigateByUrl('/login');
+    //   this.router.navigate(['login']);
+    //   return;
+    // }
     this.loadPositionsList(); // image tabs
     this.loadZaliheData();    // zalihe tab\section
     // const activeRoute = this.workerRoutes.find(obj => obj['Fk_Partner'] === this.Fk_Partner);
@@ -90,7 +92,9 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
   // }
 
   async loadPositionsList() {
+    this.segmentDimmed = true;
     this.pozicije = await this.apiService.getPositionsList(this.Fk_Partner, this.dateStr);
+    this.segmentDimmed = false;
     this.cdRef.detectChanges();
   }
 

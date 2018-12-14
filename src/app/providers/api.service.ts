@@ -16,6 +16,7 @@ const API_ROUTE_DETAILS = `${API_ROOT}${ROUTE_DETAILS_PATH}`;
 const KPIS_RPT_DAILY_SALES_PATH = '/api/dashboard/KPIsReport/dailySalesByCustomerBySKU';
 // const KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH = '/api/dashboard/KPIsReport/radnikPodredjenPartner';
 // const WORKER_PARTNERS_PATH = '/api/dashboard/workerPartners';
+const TLNR_PARTNER_OPREMA_IZUZETAK_PATH = '/api/dashboard/tlnr/VratiPartnerOpremaIzuzetak';
 
 @Injectable({
   providedIn: 'root'
@@ -154,6 +155,12 @@ export class ApiService {
   // }
 
   //
+
+  /* tlnr */
+  vratiPartnerOpremaIzuzetak() {
+    const apiURL = `${API_ROOT}${TLNR_PARTNER_OPREMA_IZUZETAK_PATH}`;
+    return this._http.get(apiURL, { withCredentials: true });
+  }
 
   handleHttpError(err) {
     console.warn(err.status, err.error);

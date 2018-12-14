@@ -1,5 +1,5 @@
 /* angular */
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 // import {RouteReuseStrategy} from '@angular/router';
@@ -17,7 +17,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 /* 3rd party */
 import {SuiSidebarModule, SuiModalModule} from 'ng2-semantic-ui';
 import { CookieService } from 'ngx-cookie-service';
-import 'hammerjs';
+// import 'hammerjs';
 // import { WebStorageModule } from 'ngx-store';
 // import { NgxLiquidCacheModule } from 'ngx-liquid-cache';
 
@@ -46,7 +46,7 @@ import { ChoicesModalComponent } from '@pepsi-shared/modal/choices-modal.compone
       ChoicesModalComponent,
    ],
    imports: [
-      BrowserModule,
+      // BrowserModule,
       AppRoutingModule,
       HttpClientModule,
       FormsModule,

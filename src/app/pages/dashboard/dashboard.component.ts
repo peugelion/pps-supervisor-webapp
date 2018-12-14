@@ -30,21 +30,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     public ppsAlert: AlertComponent,
     private cdr: ChangeDetectorRef
-  ) {
-    // this.dateMode = DatepickerMode.Date;
-    // this.segmentDimmed = false;
-  }
+  ) {}
 
   ngOnInit() {
-    // this.segmentDimmed = false;
     this.subordinates = this.stateService.getSubordinates();
     this.selectedSubordinate = this.stateService.getSelectedSubordinate(); // postavlja odabrani element u sui pick listi
     this.selectedDate        = this.stateService.getSelectedDate();
     this.cdr.detectChanges();
   }
-
-  // ngAfterViewInit() {
-  // }
 
   ngOnDestroy() {
     this.saveState(this.selectedDate, this.selectedSubordinate, this.workerRoutes); /* save selected worker state */

@@ -15,11 +15,12 @@ import { KorisnikModule } from '@pepsi-shared/_top-menu/korisnik/korisnik.module
 /* quick list cmp */
 import { QuickListComponent } from '@pepsi-app/pages/izvestaj-kpis/quick-list/quick-list.component';
 /* table-sorting-pagination cmp */
-import { TableSortingComponent } from './table-sorting/table-sorting.component';
-  import { CustomPipeModule } from '../../pipes/custom.pipe.module';
-  import {MatTableModule} from '@angular/material/table';
-  import {MatSortModule} from '@angular/material/sort';
-  import {MatPaginatorModule} from '@angular/material/paginator';
+// import { TableSortingComponent } from '@pepsi-shared/table-sorting/table-sorting.component';
+import { TableSortingModule } from '@pepsi-shared/table-sorting/table-sorting.module';
+  // import { CustomPipeModule } from '../../pipes/custom.pipe.module';
+  // import {MatTableModule} from '@angular/material/table';
+  // import {MatSortModule} from '@angular/material/sort';
+  // import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { TableSortingComponent } from './table-sorting/table-sorting.component';
     IzvestajKpisComponent,
     // SearchComponent,
     QuickListComponent,
-    TableSortingComponent
+    // TableSortingComponent
   ],
   imports: [
     CommonModule,
@@ -42,9 +43,10 @@ import { TableSortingComponent } from './table-sorting/table-sorting.component';
     // SearchComponent,
     // SearchRemoteApiComponent,
     SearchModule,
+    TableSortingModule,
 
-    CustomPipeModule,
-    MatTableModule, MatSortModule, MatPaginatorModule
+    // CustomPipeModule,
+    // MatTableModule, MatSortModule, MatPaginatorModule
   ]
 })
 export class IzvestajKpisModule { }

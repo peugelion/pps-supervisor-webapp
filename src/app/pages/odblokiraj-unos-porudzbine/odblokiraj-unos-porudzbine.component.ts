@@ -135,7 +135,8 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
     // SET @Fk_St_670 = 6160
     const choices = [{
         'choice': 6160,
-        'label' : 'Pravo zatv. porudzbine kada je - oštecen EAN\\Nema EAN\\Skener nije u funkciji'
+        // 'label' : 'Pravo zatv. porudzbine kada je - oštecen EAN\\Nema EAN\\Skener nije u funkciji'
+        'label' : 'Pravo zatv. porudž. kada se ne može sken. bar-kod'
       }, {
         'choice': 6161,
         'label' : 'Pravo zatv. porudžbine kada nema oček. opreme'

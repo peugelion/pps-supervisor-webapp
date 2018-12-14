@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import {Component, ViewEncapsulation, Input, AfterViewInit, ViewChild } from '@angular/core';
 import {MatSort, MatPaginator, MatTableDataSource} from '@angular/material';
 
 export interface PeriodicElement {

@@ -19,12 +19,29 @@
 
   <!-- image tab content -->
   <div *ngFor="let tab of tabs; let i = index" [suiTabContent]="i" class="ui bottom attached segment  tab__margins__padding  height__100pt" >
+
+    <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
+      <div class="ui text loader">Učitavanje pozicije {{ tab.Sifra }} ...</div>
+    </sui-dimmer>
+    <sui-dimmer class="page" [(isDimmed)]="pageDimmed">
+        <h2 class="ui inverted icon header">
+            <i class="spinner loading icon"></i>
+            Učitavanje pozicije {{ tab.Sifra }} ...
+        </h2>
+    </sui-dimmer>
+
     <!-- <div *ngFor="let image of singlePosition; let j = index" [class.height__100pt]="j == activeImageIndex" > -->
     <div class="height__100pt">
       <!-- <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth"> -->
       <div *ngIf="singlePosition && singlePosition[activeImageIndex] as image" class="ui card  card__fullwidth">
-          
-        <div class="red card slides  height__100pt" (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()" [class.fullscreen]="isFullScreenSlider">
+
+        <div class="red card slides  height__100pt"
+            [class.fullscreen]="isFullScreenSlider"
+            (swipeleft)="moveToNextImage()" (swiperight)="moveToPrevImage()"
+            (swipeup)="swipeFullScreen(true)" (swipedown)="swipeFullScreen(false)"
+            (keydown.enter)="clickFullScreenSliderToggle()"
+            (keydown.ArrowLeft)="clickFullScreenSliderToggle($event)" (keydown.ArrowRight)="clickFullScreenSliderToggle($event)"
+            (keydown.ArrowUp)="clickFullScreenSliderToggle($event)" (keydown.ArrowDown)="clickFullScreenSliderToggle($event)">
 
           <a class="slide__arrowcontainer_up_down" (click)="clickFullScreenSliderToggle()">
             <i class="big angle icon"  [ngClass]="{'up': !isFullScreenSlider, 'down': isFullScreenSlider}"></i>
@@ -37,12 +54,7 @@
             <i class="big right angle icon"></i>
           </a>
           <!-- <div class="image" (click)="moveToNextImage()"> -->
-          <div class="image  image__fullheight"
-              (click)="clickFullScreenSliderToggle()"
-              (swipeup)="swipeFullScreen(true)" (swipedown)="swipeFullScreen(false)"
-              (keydown.enter)="clickFullScreenSliderToggle()"
-              (keydown.ArrowLeft)="clickFullScreenSliderToggle($event)" (keydown.ArrowRight)="clickFullScreenSliderToggle($event)"
-              (keydown.ArrowUp)="clickFullScreenSliderToggle($event)" (keydown.ArrowDown)="clickFullScreenSliderToggle($event)">
+          <div class="image  image__fullheight" (click)="clickFullScreenSliderToggle()">
             <a class="ui left corner label">
               <i class="icon">{{ tab.Sifra }}</i>
             </a>
@@ -58,7 +70,7 @@
             
             <div class="ui bottom left attached label">{{ route.DuzinaPosete.replace(0, '') }}m
               <span *ngIf="route.DatumPocetka" class="detail">{{ route.DatumPocetka }}-{{ route.DatumZavrsetka }}h</span>
-              <span *ngIf="route.PauzaMinuta" class="detail">p: {{ route.PauzaMinuta }}</span>
+              <span *ngIf="route.PauzaMinuta && route.PauzaMinuta !== '00:00'" class="detail">p: {{ route.PauzaMinuta }}</span>
             </div>
             
             <div *ngIf="route.TargetMesec" class="ui bottom right attached label">m: {{ route.TargetMesec }}/{{ route.ProdajaMesec }}

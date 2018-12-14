@@ -32,6 +32,16 @@
 
 <div class="ui bottom attached segment stackable" [class.container__main__content]="pozicije.length">
 
+  <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
+    <div class="ui text loader">Učitavanje pozicija ...</div>
+  </sui-dimmer>
+  <!-- <sui-dimmer class="page" [(isDimmed)]="pageDimmed">
+      <h2 class="ui icon inverted header">
+          <i class="heart icon"></i>
+          Učitavanje pozicija ...
+      </h2>
+  </sui-dimmer> -->
+
   <!-- <div class="ui doubling stackable container  height__100pt"> -->
   <div class="height__100pt" style="max-width: 1000px; margin-left: auto;  margin-right: auto;">
 

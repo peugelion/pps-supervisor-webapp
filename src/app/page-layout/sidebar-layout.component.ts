@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { SharedService } from '../providers/shared.service';
 import { AuthService } from '../providers/auth.service';
 import { AlertComponent } from '@pepsi-app/_shared/alert/alert.component';
+import { Router, NavigationEnd } from '@angular/router'; // za zatvaranje sidebar-a
+import { filter } from 'rxjs/operators';                 // za zatvaranje sidebar-a
 
 @Component({
   selector: 'app-sidebar-layout',
@@ -15,12 +17,14 @@ export class SidebarLayoutComponent {
   allowSidebarOnPage = false;
   isSidebarVisible$: Observable<boolean>;
   isSidebarVisible = false;
+  // isSupervisor = false;
 
   appPages = [
     {
       title: 'Dashboard',
       route: '/dashboard',
-      icon: 'world'
+      icon: 'world',
+      // permissions: isSupervisor;
     },
     {
       title: 'Odblokiraj unos porudžbine',
@@ -37,12 +41,17 @@ export class SidebarLayoutComponent {
   constructor(
     public ppsAlert: AlertComponent,
     private _sharedService: SharedService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    router: Router, // za zatvaranje sidebar-a
   ) {
-    // this.setSidebarAllowedOnPage();
-    // this.isSidebarVisible$ = this._sharedService.isSidebarVisibleObs;
-    // this.isSidebarVisible$.subscribe(toggle => this.isSidebarVisible = toggle);
     _sharedService.toggleChangeEmitted$.subscribe(toggle => this.isSidebarVisible = toggle);
+    /* zatvaram sidebar nakon promene rute */
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      console.log('event.url', event.url);
+      _sharedService.emitMenuToggle(false); // zatvaram sidebar nakon promene rute
+    });
   }
 
   sidebarToggle() {

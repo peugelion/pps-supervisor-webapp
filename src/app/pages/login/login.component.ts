@@ -17,8 +17,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  // isLoggedIn = false;
-
   loginApiError: any = false; // bool or string
   loading = false; // disable login button after click\submit while waiting for loggin api reponse - no double login
 
@@ -37,17 +35,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // ngOnDestroy() {
-  //   this.stateService.setSelectedDate(new Date(this.dateString));
-  // }
-
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
   initLogRocket(username) {
     console.log('initLogRocket', environment.production);
     if (environment.production) {
-      //  LogRocket.init('kdwxer/pps-supervizor');
        LogRocket.identify(username); // an immutable ID from your db (preferred) /* https://docs.logrocket.com/reference#identify */
     }
   }
@@ -62,12 +55,18 @@ export class LoginComponent implements OnInit {
       this.initLogRocket(this.loginForm.value.username);
       this.loading = true; // block login btn
       this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
-        .then((respData) => {          // console.log('data', respData);
+        .then((userData) => {          // console.log('data', userData);
           this.loading = false;
-          this.loginApiError = !respData;
-          if (respData) {
-            this.router.navigate(['']);
-            this.stateService.setUserData(respData);
+          this.loginApiError = !userData;
+          console.log('login userData', userData);
+          if (userData) {
+            this.stateService.setUserData(userData);
+            const isSupervisor = userData['permissions'] === 1;
+            if (isSupervisor) {               // console.log('1 Supervisor -> homepage');
+              this.router.navigate(['']);
+            } else {                          // console.log('2 Nije Supervizor -> tlnr');
+              this.router.navigate(['/tlnr']);
+            }
           }
         }).catch(err => this.handleLoginError(err));
 
@@ -111,21 +110,21 @@ export class LoginComponent implements OnInit {
     console.log('login err', e);
   }
 
-  login(event, username, password) {
-    console.log(event, username, password);
-    event.preventDefault();
-    return;
-    // let body = JSON.stringify({ username, password });
-    // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
-    //   .subscribe(
-    //     response => {
-    //       localStorage.setItem('id_token', response.json().id_token);
-    //       this.router.navigate(['home']);
-    //     },
-    //     error => {
-    //       alert(error.text());
-    //       console.log(error.text());
-    //     }
-    //   );
-  }
+  // login(event, username, password) {
+  //   console.log(event, username, password);
+  //   event.preventDefault();
+  //   return;
+  //   // let body = JSON.stringify({ username, password });
+  //   // this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
+  //   //   .subscribe(
+  //   //     response => {
+  //   //       localStorage.setItem('id_token', response.json().id_token);
+  //   //       this.router.navigate(['home']);
+  //   //     },
+  //   //     error => {
+  //   //       alert(error.text());
+  //   //       console.log(error.text());
+  //   //     }
+  //   //   );
+  // }
 }

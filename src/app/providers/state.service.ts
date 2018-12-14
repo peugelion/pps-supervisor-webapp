@@ -27,15 +27,19 @@ export class StateService {
     if (!data) {
       return;
     }
-    if (data['supervizor']) {
-      this.setSupervizor(data['supervizor']);
-    }
-    if (data['subordinates']) {
-      this.setSubordinates(data['subordinates']);
-    }
+    // if (data['supervizor']) {
+    //   this.setSupervizor(data['supervizor']);
+    // } else {
+    //   this.setSupervizor([]);
+    // }
+    // if (data['subordinates']) {
+    //   this.setSubordinates(data['subordinates']);
+    // }
+    this.setSupervizor(data['supervizor']);
+    this.setSubordinates(data['subordinates']);
   }
 
-  getSupervisor() {
+  getSupervizor() {
     if (this.supervizor) {
       return this.supervizor;
     }
@@ -43,7 +47,10 @@ export class StateService {
     return JSON.parse(supervizor);
   }
 
-  setSupervizor(supervizor) {
+  setSupervizor(supervizor) {    // console.log('setSupervizor 0', supervizor);
+    if (!supervizor) {
+      supervizor = null;
+    }
     localStorage.setItem('supervizor', JSON.stringify(supervizor));
     this.supervizor = supervizor;
   }

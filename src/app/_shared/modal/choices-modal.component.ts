@@ -29,5 +29,7 @@ export class RouteUnblockModal extends ComponentModalConfig<IRouteUnblockModalCo
         this.size = size;
         // this.isFullScreen = true;
         this.isClosable = true;
+        // this.isInverted = true;
+        // this.isBasic = true;
     }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './providers/auth.service';
 // import { Observable } from 'rxjs';
+import { RoleGuardService } from './providers/auth-guard.service';
 
 // import { LoginComponent } from './pages/login/login.component';
 // import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -28,13 +29,20 @@ const routes: Routes = [
                 path: '',
                 // component: HomeComponent,
                 loadChildren: './pages/home/home.module#HomeModule',
-                canActivate: [AuthService]
+                canActivate: [RoleGuardService]
             }, {
                 path: 'dashboard/route-details/:Fk_Partner',
                 // component: RouteDetailsComponent,
                 // path: 'dashboard/route-details/:Fk_Partner',
                 loadChildren: './pages/dashboard-route-details/route-details.module#RouteDetailsModule',
-                canActivate: [AuthService]
+                canActivate: [RoleGuardService]
+            }, {
+                path: 'tlnr',
+                loadChildren: './pages-tlnr/tlnr/tlnr.module#TlnrModule',
+                canActivate: [RoleGuardService],
+                data: {
+                  expectedRole: 'tlnr'
+                }
             }
         ]
     },
@@ -46,22 +54,22 @@ const routes: Routes = [
                 path: 'dashboard',
                 // component: DashboardComponent,
                 loadChildren: './pages/dashboard/dashboard.module#DashboardModule',
-                canActivate: [AuthService]
+                canActivate: [RoleGuardService]
             }, {
                 path: 'odblokiraj-unos-porudzbine',
                 // component: IzvestajKpisComponent,
                 loadChildren: './pages/odblokiraj-unos-porudzbine/odblokiraj-unos-porudzbine.module#OdblokirajUnosPorudzbineModule',
-                canActivate: [AuthService]
+                canActivate: [RoleGuardService]
             }, {
                 path: 'izvestaj-kpis',
                 // component: IzvestajKpisComponent,
                 loadChildren: './pages/izvestaj-kpis/izvestaj-kpis.module#IzvestajKpisModule',
-                canActivate: [AuthService]
+                canActivate: [RoleGuardService]
             }, {
                 path: '**',
                 // component: HomeComponent,
                 loadChildren: './pages/home/home.module#HomeModule',
-                canActivate: [AuthService]
+                canActivate: [RoleGuardService]
             }
         ]
     }
@@ -71,10 +79,14 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
     providers: [
-        AuthService
+        AuthService,
+        RoleGuardService
     ]
 })
 
 export class AppRoutingModule {
-    constructor(private authService: AuthService) {}
+    constructor(
+        // private authService: AuthService,
+        // private authGuardService: RoleGuardService
+    ) {}
 }
