@@ -49,7 +49,7 @@ export class SidebarLayoutComponent {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      console.log('event.url', event.url);
+      // console.log('event.url', event.url);
       _sharedService.emitMenuToggle(false); // zatvaram sidebar nakon promene rute
     });
   }

@@ -108,6 +108,7 @@ export class ApiService {
         'date': dateStr,
         'Fk_St_670': Fk_St_670.toString()
       };
+      // console.log('api insertKomercijalistaPravo post body: ', body);
       // return await this._http.post(`${API_ROOT}${INSERT_KOMECIJALISTA_PRAVO_PATH}`, body, httpOptions).toPromise();
       return await this._http.post(`${API_ROOT}${ROUTE_DETAILS_PATH}/${Fk_Partner}`, body, { withCredentials: true }).toPromise();
     } catch (e) {

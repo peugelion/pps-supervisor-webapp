@@ -6,7 +6,7 @@ import { Component, ViewEncapsulation, OnInit, Input, Output, EventEmitter } fro
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent {
   @Input('label') label: string;
   @Input('placeholder') placeholder: string;
   selectedOption = '';
@@ -25,8 +25,8 @@ export class SelectComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {     console.log('labelField', this.labelField, 'valueField', this.valueField, this.options);
-  }
+  // ngOnInit() {     // console.log('labelField', this.labelField, 'valueField', this.valueField, this.options);
+  // }
 
   /* https://stackoverflow.com/questions/51727317/angular-6-call-and-pass-a-function-from-parent-to-child-component */
   selectChange($event) { // Fk_Partner

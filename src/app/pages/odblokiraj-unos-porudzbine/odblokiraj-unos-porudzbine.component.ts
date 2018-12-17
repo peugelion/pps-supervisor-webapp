@@ -37,7 +37,9 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
       // console.log(this.selectedSubordinate_SifraRadnik);
     this.selectedDate        = this.stateService.getSelectedDate();
 
-    // this.partnerUnblockedState = this.getLocalStorageState();
+    this.partnerUnblockedState = this.getPartnerUnblockedState();
+    // console.log('ngOnInit this.partnerUnblockedState', this.partnerUnblockedState);
+    // this.partnerUnblockedState = {};
     // this.cdr.detectChanges();
   }
 
@@ -50,63 +52,13 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
       this.selectedPartner       = selection;
       this.selectedPartner_Sifra = selection['Sifra'];
       // this.isUnblocked = this.checkIfUnblocked(selection['Sifra'], this.selectedDate);
-      this.isUnblocked = false;
+      // this.isUnblocked = false;
     }
+    this.isUnblocked = this.checkIfUnblocked(this.selectedDate, this.selectedPartner_Sifra);
+    console.log('isUnblocked', this.isUnblocked);
     // this.cdRef.detectChanges();   // force change detection (zone lost)
     return true;
   }
-
-  //
-
-  // getLocalStorageState() {
-  //   if (this.partnerUnblockedState) {
-  //     return this.partnerUnblockedState;
-  //   }
-  //   let partnerUnblockedState = JSON.parse(localStorage.getItem('partnerUnblockedState'));
-  //   console.log('getPartnerUnblockedState', partnerUnblockedState);
-  //   if (!partnerUnblockedState) {
-  //     const dateStr = new Date().toISOString().split('T')[0];
-  //     console.log('   dateStr', dateStr);
-  //     partnerUnblockedState = {};
-  //     partnerUnblockedState[dateStr] = [];
-  //     // partnerUnblockedState = {dateStr: []};
-  //     console.log('!partnerUnblockedState', partnerUnblockedState);
-  //     return partnerUnblockedState;
-  //   } else {
-
-  //   }
-  //   return partnerUnblockedState ? partnerUnblockedState : {};
-  // }
-
-  // setLocalStorageState(partnerUnblockedState) {
-  //   if (!partnerUnblockedState) {
-  //     return;
-  //   }
-  //   localStorage.setItem('partnerUnblockedState', JSON.stringify(partnerUnblockedState));
-  //   this.partnerUnblockedState = partnerUnblockedState;
-  // }
-
-  // addToLocalStorageState(Sifra) {
-  //   const dateStr = this.selectedDate.toISOString().split('T')[0];
-  //   console.log('addToLocalStorageState 0', Sifra, dateStr);
-  //   console.log('addToLocalStorageState 1', this.partnerUnblockedState, this.partnerUnblockedState[dateStr]);
-  //   this.partnerUnblockedState[dateStr].push(Sifra);
-  //   console.log('addToLocalStorageState', this.partnerUnblockedState);
-  // }
-
-  // checkIfUnblocked(Sifra, selectedDate) {
-  //   const dateStr = selectedDate.toISOString().split('T')[0];
-  //   let partnerUnblockedState = localStorage.getItem('partnerUnblockedState');
-  //   console.log('check partnerUnblockedState 0', partnerUnblockedState, dateStr);
-  //   partnerUnblockedState = JSON.parse(partnerUnblockedState);
-  //   console.log('check partnerUnblockedState 1', partnerUnblockedState, dateStr);
-  //   if (partnerUnblockedState && partnerUnblockedState[dateStr]) {
-  //     // partnerUnblockedState[dateStr];
-  //     console.log('check partnerUnblockedState[dateStr]', partnerUnblockedState[dateStr]);
-  //     console.log('exists');
-  //   }
-  //   return false;
-  // }
 
   //
 
@@ -129,8 +81,10 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
 
   insertKomercijalistaPravo(Sifra) {      console.log('insertKomercijalistaPravo inputs 0', Sifra);
     event.stopPropagation();
+    this.saveState(this.selectedDate, this.selectedSubordinate_SifraRadnik, null); /* save selected worker state */
     const dateSrpski     = this.stateService.getFormatDate();
     const Fk_RadnikSifra = this.stateService.getSelectedSubordinate_SifraRadnik();
+    console.log('Fk_RadnikSifra', dateSrpski, Fk_RadnikSifra, this.selectedSubordinate_SifraRadnik);
 
     // SET @Fk_St_670 = 6160
     const choices = [{
@@ -147,20 +101,82 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
     this.modalService
       .open(new RouteUnblockModal('Odblokiraj posetu', 'Razlog za deblokiranje?',  choices, 'tiny'))
       .onApprove((Fk_St_670: number) => {
-        this.apiService.insertKomercijalistaPravo(Fk_RadnikSifra, Sifra, dateSrpski, Fk_St_670)
+        // this.apiService.insertKomercijalistaPravo(Fk_RadnikSifra, Sifra, dateSrpski, Fk_St_670)
+        this.apiService.insertKomercijalistaPravo(this.selectedSubordinate_SifraRadnik, Sifra, dateSrpski, Fk_St_670)
         /* https://stackoverflow.com/questions/45439313/angular-2-4-how-to-style-angular-material-design-snackbar */
           .then( r => {
+            console.log('r,recordsets', r['recordsets'], r['recordsets'] == null);
+            if (r['recordsets'] == null) {
+              this.ppsAlert.showErrorAlert({
+                'text' : 'Nije uspelo, pokušajte ponovo!'
+              });
+              return;
+            }
             this.isUnblocked = true;
-            // this.addToLocalStorageState(Sifra);
-            // console.log('opali addToLocalStorageState 1', Sifra);
+            this.addToPartnerUnblockedState(dateSrpski, Sifra);
             this.ppsAlert.showSuccessAlert({
               'text' : 'Ruta uspesno odblokirana !',
               'duration': 5, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
             });
           }
-          ).catch(err => this.ppsAlert.showErrorAlert({'text' : err}));
+          ).catch(err => this.ppsAlert.showErrorAlert({
+            'text' : err
+          }));
       })
       .onDeny(() => console.warn('User has denied.'));
+  }
+
+  //
+
+  getPartnerUnblockedState() {
+    if (this.partnerUnblockedState) {
+      return this.partnerUnblockedState;
+    }
+    let partnerUnblockedState = JSON.parse(localStorage.getItem('partnerUnblockedState'));
+    if (!partnerUnblockedState) {
+      const dateStr = new Date().toISOString().split('T')[0];
+      console.log('   dateStr', dateStr);
+      partnerUnblockedState = {};
+      partnerUnblockedState[dateStr] = [];
+      // partnerUnblockedState = {dateStr: []};
+      // console.log('!partnerUnblockedState', partnerUnblockedState);
+      // return partnerUnblockedState;
+    }
+    console.log('getPartnerUnblockedState OUT', partnerUnblockedState);
+    return partnerUnblockedState ? partnerUnblockedState : {};
+  }
+
+  checkIfUnblocked(selectedDate, Sifra) {
+    this.saveState(selectedDate, null, null); /* save selected worker state */
+    const dateSrpski = this.stateService.getFormatDate();
+    if (this.partnerUnblockedState[dateSrpski] != null) {
+      // console.log(' 1 state na dan nije null -> proveri ga', this.partnerUnblockedState[dateSrpski].indexOf(Sifra) > -1);
+      return this.partnerUnblockedState[dateSrpski].indexOf(Sifra) > -1;
+    }
+    return false;
+  }
+
+  addToPartnerUnblockedState(dateSrpski, Sifra) {
+    // const dateStr = this.selectedDate.toISOString().split('T')[0];
+    console.log('addToPartnerUnblockedState 0', dateSrpski, Sifra);
+    console.log('addToPartnerUnblockedState 1', this.partnerUnblockedState, this.partnerUnblockedState[dateSrpski]);
+    if (this.partnerUnblockedState[dateSrpski] != null) {
+      // console.log(' 1 state na dan nije null -> push');
+      this.partnerUnblockedState[dateSrpski].push(Sifra);
+    } else {
+      // console.log(' 2 state na dan je null');
+      this.partnerUnblockedState[dateSrpski] = [Sifra];
+    }
+    console.log('addToPartnerUnblockedState', this.partnerUnblockedState);
+    this.setPartnerUnblockedState(this.partnerUnblockedState);
+  }
+
+  setPartnerUnblockedState(partnerUnblockedState) {
+    if (!partnerUnblockedState) {
+      return;
+    }
+    localStorage.setItem('partnerUnblockedState', JSON.stringify(partnerUnblockedState));
+    this.partnerUnblockedState = partnerUnblockedState;
   }
 
   //
@@ -174,7 +190,7 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
       this.stateService.setSelectedSubordinate(selectedSubordObj['Fk_Radnik']); //
     }
     if (partnerUnblockedState) {
-      // this.setLocalStorageState(this.partnerUnblockedState);
+      // this.setPartnerUnblockedState(this.partnerUnblockedState);
     }
   }
 }
