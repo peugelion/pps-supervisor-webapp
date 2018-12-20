@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
           return;
       }
 
+      this.setLogRocketUser(this.loginForm.value.username);
       this.loading = true; // block login btn
       this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
         .then((userData) => {          // console.log('data', userData);
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
           this.loginApiError = !userData;
           console.log('login userData', userData);
           if (userData) {
-            this.setLogRocketUser(this.loginForm.value.username);
+            // this.setLogRocketUser(this.loginForm.value.username);
             this.stateService.setUserData(userData);
             const isSupervisor = userData['permissions'] === 1;
             if (isSupervisor) {               // console.log('1 Supervisor -> homepage');

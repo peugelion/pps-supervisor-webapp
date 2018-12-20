@@ -4,26 +4,28 @@ $break-tablet: 1024px;
 $break-large: 1200px;
 
 :host {
-    /* Mobile */
-    @media screen and (max-width: $break-mobile) {
-        width: 100%;
-    }
+
+  /* Mobile */
+  @media screen and (max-width: $break-mobile) {
+    width: 100%;
+  }
 }
 
 .ui.search {
-    .results {
-        // left: -35px; // was 0
-        right: -13px;
-        left: unset;
-        max-height: 700px;
-        overflow: auto;
-        transition: all .5s;
+  .results {
+    // left: -35px; // was 0
+    right: -13px;
+    left: unset;
+    max-height: 700px;
+    overflow: auto;
+    transition: all .5s;
 
-        /* Mobile */
-        @media screen and (max-width: $break-mobile) {
-            max-height: calc(100vh - 70px);
-        }
+    /* Mobile */
+    @media screen and (max-width: $break-mobile) {
+      // max-height: calc(100vh - 70px);
+      max-height: calc(100vh - 150px);
     }
+  }
 }
 
 // .results.transition.visible {

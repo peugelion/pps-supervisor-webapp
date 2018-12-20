@@ -32,10 +32,10 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subordinates = this.stateService.getSubordinates();
-      // console.log('subordinates', this.subordinates);
+    // console.log('subordinates', this.subordinates);
     this.selectedSubordinate_SifraRadnik = this.stateService.getSelectedSubordinate_SifraRadnik(); // postavlja odabranog r. u select listi
-      // console.log(this.selectedSubordinate_SifraRadnik);
-    this.selectedDate        = this.stateService.getSelectedDate();
+    // console.log(this.selectedSubordinate_SifraRadnik);
+    // this.selectedDate        = this.stateService.getSelectedDate();  /* ... Fica trazio da biraju datum svaki put */
 
     this.partnerUnblockedState = this.getPartnerUnblockedState();
     // console.log('ngOnInit this.partnerUnblockedState', this.partnerUnblockedState);
@@ -49,13 +49,12 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
 
   async loadSelectedPartnerData(selection: any) {   // console.log('loadSelectedPartnerData USO', selection);
     if (selection) {
-      this.selectedPartner       = selection;
+      this.selectedPartner = selection;
       this.selectedPartner_Sifra = selection['Sifra'];
       // this.isUnblocked = this.checkIfUnblocked(selection['Sifra'], this.selectedDate);
       // this.isUnblocked = false;
     }
     this.isUnblocked = this.checkIfUnblocked(this.selectedDate, this.selectedPartner_Sifra);
-    console.log('isUnblocked', this.isUnblocked);
     // this.cdRef.detectChanges();   // force change detection (zone lost)
     return true;
   }
@@ -79,48 +78,49 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
 
   //
 
-  insertKomercijalistaPravo(Sifra) {      console.log('insertKomercijalistaPravo inputs 0', Sifra);
+  insertKomercijalistaPravo(Sifra) {
+    console.log('insertKomercijalistaPravo inputs 0', Sifra);
     event.stopPropagation();
     this.saveState(this.selectedDate, this.selectedSubordinate_SifraRadnik, null); /* save selected worker state */
-    const dateSrpski     = this.stateService.getFormatDate();
+    const dateSrpski = this.stateService.getFormatDate();
     const Fk_RadnikSifra = this.stateService.getSelectedSubordinate_SifraRadnik();
     console.log('Fk_RadnikSifra', dateSrpski, Fk_RadnikSifra, this.selectedSubordinate_SifraRadnik);
 
     // SET @Fk_St_670 = 6160
     const choices = [{
-        'choice': 6160,
-        // 'label' : 'Pravo zatv. porudzbine kada je - oštecen EAN\\Nema EAN\\Skener nije u funkciji'
-        'label' : 'Pravo zatv. porudž. kada se ne može sken. bar-kod'
-      }, {
-        'choice': 6161,
-        'label' : 'Pravo zatv. porudžbine kada nema oček. opreme'
-      }, {
-        'choice': 6165,
-        'label' : 'Pravo zatv. porudžbine kada nema isporučene opreme'
+      'choice': 6160,
+      // 'label' : 'Pravo zatv. porudzbine kada je - oštecen EAN\\Nema EAN\\Skener nije u funkciji'
+      'label': 'Pravo zatv. porudž. kada se ne može sken. bar-kod'
+    }, {
+      'choice': 6161,
+      'label': 'Pravo zatv. porudžbine kada nema oček. opreme'
+    }, {
+      'choice': 6165,
+      'label': 'Pravo zatv. porudžbine kada nema isporučene opreme'
     }];
     this.modalService
-      .open(new RouteUnblockModal('Odblokiraj posetu', 'Razlog za deblokiranje?',  choices, 'tiny'))
+      .open(new RouteUnblockModal('Odblokiraj posetu', 'Razlog za deblokiranje?', choices, 'tiny'))
       .onApprove((Fk_St_670: number) => {
         // this.apiService.insertKomercijalistaPravo(Fk_RadnikSifra, Sifra, dateSrpski, Fk_St_670)
         this.apiService.insertKomercijalistaPravo(this.selectedSubordinate_SifraRadnik, Sifra, dateSrpski, Fk_St_670)
-        /* https://stackoverflow.com/questions/45439313/angular-2-4-how-to-style-angular-material-design-snackbar */
-          .then( r => {
+          /* https://stackoverflow.com/questions/45439313/angular-2-4-how-to-style-angular-material-design-snackbar */
+          .then(r => {
             console.log('r,recordsets', r['recordsets'], r['recordsets'] == null);
             if (r['recordsets'] == null) {
               this.ppsAlert.showErrorAlert({
-                'text' : 'Nije uspelo, pokušajte ponovo!'
+                'text': 'Nije uspelo, pokušajte ponovo!'
               });
               return;
             }
             this.isUnblocked = true;
             this.addToPartnerUnblockedState(dateSrpski, Sifra);
             this.ppsAlert.showSuccessAlert({
-              'text' : 'Ruta uspesno odblokirana !',
+              'text': 'Ruta uspesno odblokirana !',
               'duration': 5, // 'action': null, 'verticalPosition' : null, 'panelClass' : null
             });
           }
           ).catch(err => this.ppsAlert.showErrorAlert({
-            'text' : err
+            'text': err
           }));
       })
       .onDeny(() => console.warn('User has denied.'));

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { SuiDimmerModule, SuiSelectModule, SuiPopupModule, SuiCheckboxModule } from 'ng2-semantic-ui';
+// import { SuiDimmerModule, SuiSelectModule, SuiPopupModule, SuiCheckboxModule } from 'ng2-semantic-ui';
+import { SuiDimmerModule, SuiSelectModule, SuiCheckboxModule } from 'ng2-semantic-ui';
 import { CustomPipeModule } from '../../pipes/custom.pipe.module';
 
 import { KorisnikModule } from '@pepsi-shared/_top-menu/korisnik/korisnik.module';
@@ -26,7 +27,8 @@ import { TableLayoutModule } from './worker-route/table-layout/table-layout.modu
     CommonModule,
     DashboardRoutingModule,
     FormsModule, /* SelectComponent */
-    SuiDimmerModule, SuiSelectModule, SuiPopupModule, SuiCheckboxModule,
+    // SuiDimmerModule, SuiSelectModule, SuiPopupModule, SuiCheckboxModule,
+    SuiDimmerModule, SuiSelectModule, SuiCheckboxModule,
     CustomPipeModule,
     DatePickerModule,
     SelectModule,

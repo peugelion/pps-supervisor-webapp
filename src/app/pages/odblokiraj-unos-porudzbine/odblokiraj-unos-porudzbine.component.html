@@ -6,23 +6,18 @@
   </div>
   <div class="right menu">
     <div class="item">
-      <app-date-picker [selectedDateInput]="selectedDate"
-                        (dateChangeAction)="loadSelectedPartnerData_dateChange($event)"></app-date-picker>
+      <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadSelectedPartnerData_dateChange($event)"></app-date-picker>
     </div>
     <div class="item">
-      <app-select [optionsInput]="subordinates"
-                  [labelField]="'ImeIprezimeRadnik'"
-                  [valueField]= "'SifraRadnik'"
-                  (selectedChangeAction)="loadSelectedPartnerData_subordinateChange($event)"
-                  [selectedOptionInput]="selectedSubordinate_SifraRadnik"
-                  [label]="'Radnik'"
-                  [placeholder]="'Pretraži radnike...'"></app-select>
+      <app-select [optionsInput]="subordinates" [labelField]="'ImeIprezimeRadnik'" [valueField]="'SifraRadnik'"
+        (selectedChangeAction)="loadSelectedPartnerData_subordinateChange($event)" [selectedOptionInput]="selectedSubordinate_SifraRadnik"
+        [label]="'Radnik'" [placeholder]="'Pretraži radnike...'"></app-select>
     </div>
   </div>
 </div>
 
 <sui-dimmer class="inverted">
-    <div class="ui text loader">Učitavanje ruta!</div>
+  <div class="ui text loader">Učitavanje ruta!</div>
 </sui-dimmer>
 
 <div class="page__content__holder">
@@ -32,27 +27,22 @@
       <div class="column">
 
         <div *ngIf="selectedDate && selectedSubordinate_SifraRadnik" class="ui large basic segment">
-          <app-search-remote-api (queryOut)='isSearchQueryShort($event)'
-                                  [labelField]="'Naziv'"
-                                  [valueField]="'Sifra'"
-                                  [descriptionField]="'Ulica_i_Broj'"
-                                  [apiEndpointUrl]="'/api/dashboard/workerPartners/' + selectedSubordinate_SifraRadnik"
-                                  [maxResultsInput]="100"
-                                  (selectedAction)="loadSelectedPartnerData($event)"
-                                  [placeholder]="'Pretraži partnere...'"></app-search-remote-api>
+          <app-search-remote-api (queryOut)='isSearchQueryShort($event)' [labelField]="'Naziv'" [valueField]="'Sifra'"
+            [descriptionField]="'Ulica_i_Broj'" [apiEndpointUrl]="'/api/dashboard/workerPartners/' + selectedSubordinate_SifraRadnik"
+            [maxResultsInput]="100" (selectedAction)="loadSelectedPartnerData($event)" [placeholder]="'Pretraži partnere...'"></app-search-remote-api>
         </div>
 
         <div *ngIf="!selectedPartner" class="ui success attached big green message">
           <span *ngIf="!selectedSubordinate_SifraRadnik && !selectedDate; else elseBlock_NoSubordinate">
             Odaberite datum i radnika.</span>
           <ng-template #elseBlock_NoSubordinate>
-          <span *ngIf="!selectedSubordinate_SifraRadnik; else elseBlock_NoDate">
-            Odaberite radnika.</span></ng-template>
+            <span *ngIf="!selectedSubordinate_SifraRadnik; else elseBlock_NoDate">
+              Odaberite radnika.</span></ng-template>
           <ng-template #elseBlock_NoDate>
             <span *ngIf="!selectedDate; else elseBlock_NoPartner">
-            Odaberite datum.</span></ng-template>
+              Odaberite datum.</span></ng-template>
           <ng-template #elseBlock_NoPartner><span>
-            Odaberite partnera (minimum 3 karaktera).</span></ng-template>
+              Odaberite partnera (minimum 3 karaktera).</span></ng-template>
         </div>
 
         <div *ngIf="selectedPartner != null" class="ui big centered gray card">
@@ -69,7 +59,7 @@
               {{ selectedPartner.Ulica_i_Broj }}
             </div>
           </div>
-          <div class="ui bottom attached button" [class.disabled]="isUnblocked"  (click)="insertKomercijalistaPravo(selectedPartner.Sifra)">
+          <div class="ui bottom attached button" [class.disabled]="isUnblocked" (click)="insertKomercijalistaPravo(selectedPartner.Sifra)">
             <i class="redo icon"></i>
             Odblokiraj unos porudžbine
           </div>

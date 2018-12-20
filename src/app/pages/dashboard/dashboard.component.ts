@@ -24,18 +24,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   selectedSubordinate: any = null;
   workerRoutes: Array<any> = null;
 
+  state = {
+    'subordinates': null,
+  }
+
   constructor(
     private stateService: StateService,
     public router: Router,
     private apiService: ApiService,
     public ppsAlert: AlertComponent,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subordinates = this.stateService.getSubordinates();
     this.selectedSubordinate = this.stateService.getSelectedSubordinate(); // postavlja odabrani element u sui pick listi
-    this.selectedDate        = this.stateService.getSelectedDate();
+    this.selectedDate = this.stateService.getSelectedDate();
     this.cdr.detectChanges();
   }
 
@@ -64,7 +68,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.segmentDimmed = false;
       }, error => {
         error.status === 401 ? this.router.navigate(['login']) : console.warn(error.status, error.error);
-        this.ppsAlert.showErrorAlert({ 'text' : error.error + ' ' + error.status });
+        this.ppsAlert.showErrorAlert({ 'text': error.error + ' ' + error.status });
         this.segmentDimmed = false;
       });
     this.saveState(this.selectedDate, selection, null); /* save selected worker state */

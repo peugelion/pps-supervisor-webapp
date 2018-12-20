@@ -1,16 +1,17 @@
 @media only screen and (max-width: 767px) {
-    :host {
-        width: 100%;
-    }
+  :host {
+    width: 100%;
+  }
 
-    // .max__width__mobile {
-    //     width: 150px
-    // }
-    .ui.left.icon.input,
-    .ui.form .field .ui.input {
-        width: (100% !important);
-    }
-    // [class*="mobile hidden"] {
-    //     display: none !important;
-    // }
+  // .max__width__mobile {
+  //     width: 150px
+  // }
+  .ui.left.icon.input,
+  .ui.form .field .ui.input {
+    width: (100% !important);
+  }
+
+  // [class*="mobile hidden"] {
+  //     display: none !important;
+  // }
 }

@@ -18,7 +18,7 @@ export class WorkerRouteComponent implements OnInit {
 
   tableLayoutActive = false;
   filterStr = '';
-  popupPlacement = 'bottom right';
+  // popupPlacement = 'bottom right';
 
   // modalSize: any[] = ['tiny'];
 

@@ -7,9 +7,9 @@ import { DatepickerMode } from 'ng2-semantic-ui';
   styleUrls: ['./date-picker.component.scss']
 })
 export class DatePickerComponent implements OnInit, AfterViewInit {
-// export class DatePickerComponent {
+  // export class DatePickerComponent {
   dateMode: DatepickerMode;
-  datePopupPosition: any = 'bottom-right';
+  // datePopupPosition: any = 'bottom-right';
   placeholder = 'Datum';
 
   selectedDate: Date = null;
