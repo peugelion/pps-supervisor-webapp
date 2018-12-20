@@ -7,143 +7,150 @@ $break-large: 1200px;
 
 
 :host {
-    height: 100%;
+  height: 100%;
 }
 
 .tab__header {
-    @media screen and (max-width: $break-mobile) {
-        padding-left: 5px;
-    }
-    @media screen and (max-width: $break-mobile-small) {
-        overflow-x: overlay;
-        overflow-y: hidden;
-    }
+  @media screen and (max-width: $break-mobile) {
+    padding-left: 5px;
+  }
+
+  @media screen and (max-width: $break-mobile-small) {
+    overflow-x: overlay;
+    overflow-y: hidden;
+  }
 }
 
 .tab__ellipsis {
-    white-space:nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ui.tabular.menu .item {
-    @media screen and (max-width: $break-mobile) {
-        padding: .464285715em .714285715em; /* duplo manje */
-    }
+  @media screen and (max-width: $break-mobile) {
+    padding: .464285715em .714285715em;
+    /* duplo manje */
+  }
 }
 
 .ui.tabular.menu .active.item {
-    max-width: 250px;
+  max-width: 250px;
 }
 
 .ui.bottom.attached.segment.tab.active.tab__margins__padding {
-    margin-bottom: 0;
-    // height: calc(100vh - 200px);
-    @media screen and (max-width: $break-mobile) {
-        padding: 0.5em 0 0;
-    }
+  margin-bottom: 0;
+
+  // height: calc(100vh - 200px);
+  @media screen and (max-width: $break-mobile) {
+    padding: 0.5em 0 0;
+  }
 }
 
 .height__100pt {
-    height: 100%;
+  height: 100%;
 }
 
 .card__fullwidth {
-    width: auto;
-    height: 100%;
+  width: auto;
+  height: 100%;
 }
 
 .image__fullheight {
-    // max-height: calc(100vh - 260px);
-    // height: calc(100vh - 260px);
-    // height: 100%;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    max-height: 100%;
-    max-width: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
+  // max-height: calc(100vh - 260px);
+  // height: calc(100vh - 260px);
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  background: #f4f5f552;
 }
 
 .image__fullheight.placeholder {
-    // max-width: 100%;
-    @media screen and (max-width: $break-mobile) {
-        // background-image: unset;
-        // background: darkslategray;
-        background: #bebfbf;
-    }
+  height: 100%;
+
+
+  @media screen and (max-width: $break-mobile) {
+    // background-image: unset;
+    // background: darkslategray;
+    background: #bebfbf;
+  }
 }
 
 /* */
 .card.slides {
-    left: 40px;
-    right: 40px;
-    top: 100px;
-    bottom: 10px;
-    transition: all .6s;
+  left: 40px;
+  right: 40px;
+  top: 100px;
+  bottom: 10px;
+  transition: all .6s;
 }
 
 .card.slides.fullscreen {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: gray;
-    @media screen and (max-width: $break-mobile) {
-    }
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: gray;
+
+  @media screen and (max-width: $break-mobile) {}
 }
 
 .slide__arrowcontainer_left {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    /* right: 25px; */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  /* right: 25px; */
 }
+
 .slide__arrowcontainer_right {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    /* left: 25px; */
-    right: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* left: 25px; */
+  right: 0;
 }
 
 a.slide__arrowcontainer_up_down {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .slides .angle {
-    color: lightblue;
-    cursor: pointer;
-    position: relative;
-    top: calc(50% - 20px);
-    transform: scale(1);
-    transition: all .2s ease-in-out;
-    z-index: 10;
+  color: lightblue;
+  cursor: pointer;
+  position: relative;
+  top: calc(50% - 20px);
+  transform: scale(1);
+  transition: all .2s ease-in-out;
+  z-index: 10;
 }
 
 .slides .angle.up,
 .slides .angle.down {
-    margin: auto;
-    left: calc(50% - 16px);
+  margin: auto;
+  left: calc(50% - 16px);
 }
 
 .slides .angle:hover {
-    transform: scale(1.7);
+  transform: scale(1.7);
 }
 
 .slides .angle.left {
-    float: left;
-    margin-left: 1rem;
+  float: left;
+  margin-left: 1rem;
 }
 
 .slides .angle.right {
-    float: right;
-    margin-right: 1rem;
+  float: right;
+  margin-right: 1rem;
 }
