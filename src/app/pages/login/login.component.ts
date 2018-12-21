@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-        username: ['', [Validators.required, Validators.minLength(2)]],
-        password: ['', [Validators.required, Validators.minLength(4)]]
+      username: ['', [Validators.required, Validators.minLength(2)]],
+      password: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 
@@ -39,63 +39,63 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-      this.submitted = true;
+    this.submitted = true;
 
-      if (this.loginForm.invalid) {
-          return;
-      }
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-      this.setLogRocketUser(this.loginForm.value.username);
-      this.loading = true; // block login btn
-      this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
-        .then((userData) => {          // console.log('data', userData);
-          this.loading = false;
-          this.loginApiError = !userData;
-          console.log('login userData', userData);
-          if (userData) {
-            // this.setLogRocketUser(this.loginForm.value.username);
-            this.stateService.setUserData(userData);
-            const isSupervisor = userData['permissions'] === 1;
-            if (isSupervisor) {               // console.log('1 Supervisor -> homepage');
-              this.router.navigate(['']);
-            } else {                          // console.log('2 Nije Supervizor -> tlnr');
-              this.router.navigate(['/tlnr']);
-            }
+    this.setLogRocketUser(this.loginForm.value.username);
+    this.loading = true; // block login btn
+    this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
+      .then((userData) => {          // console.log('data', userData);
+        this.loading = false;
+        this.loginApiError = !userData;
+        console.log('login userData', userData);
+        if (userData) {
+          // this.setLogRocketUser(this.loginForm.value.username);
+          this.stateService.setUserData(userData);
+          const isSupervisor = userData['permissions'] === 1;
+          if (isSupervisor) {               // console.log('1 Supervisor -> homepage');
+            this.router.navigate(['']);
+          } else {                          // console.log('2 Nije Supervizor -> tlnr');
+            this.router.navigate(['/tlnr']);
           }
-        }).catch(err => this.handleLoginError(err));
+        }
+      }).catch(err => this.handleLoginError(err));
 
-      // const login = this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
-      //   .unsubscribe( x => {});
-      // console.log('login', login);
-        // .subscribe(
-        //   (data) => {
-        //     // this.auth._saveJwt(data.id_token);
-        //     console.log('subs data', data);
-        //     this.loading = false;
-        //     if (data) {
-        //       this.router.navigate(['']);
-        //       this.stateService.setUserData(data);
-        //     }
-        //   },  // not necessary to call _saveJwt from here now.
-        //   (err) => {
-        //     console.log(err);
-        //     this.loading = false;
-        //     this.loginApiError = true;
-        //   },
-        //   () => console.log('Done [login cmp]')
-        // );
+    // const login = this.auth.authentificate(this.loginForm.value.username, this.loginForm.value.password)
+    //   .unsubscribe( x => {});
+    // console.log('login', login);
+    // .subscribe(
+    //   (data) => {
+    //     // this.auth._saveJwt(data.id_token);
+    //     console.log('subs data', data);
+    //     this.loading = false;
+    //     if (data) {
+    //       this.router.navigate(['']);
+    //       this.stateService.setUserData(data);
+    //     }
+    //   },  // not necessary to call _saveJwt from here now.
+    //   (err) => {
+    //     console.log(err);
+    //     this.loading = false;
+    //     this.loginApiError = true;
+    //   },
+    //   () => console.log('Done [login cmp]')
+    // );
   }
 
   setLogRocketUser(username) {
     if (environment.production) {
-      console.log('logRocketUser', username, environment.production);
-       LogRocket.identify(username); // an immutable ID from your db (preferred) /* https://docs.logrocket.com/reference#identify */
+      console.log('set logRocketUser on successfull login', username, environment.production);
+      LogRocket.identify(username); // an immutable ID from your db (preferred) /* https://docs.logrocket.com/reference#identify */
     }
   }
 
   handleLoginError(e) {
     this.loading = false;
-    this.loginApiError = e.error + ' (' +  e.status + ' ' + e.statusText + '). ';
+    this.loginApiError = e.error + ' (' + e.status + ' ' + e.statusText + '). ';
     if (e.status === 401) {
       this.loginApiError = 'Pogrešno korisničko ime i\\ili šifra ' + e.status;
     } else if (e.status === 400) {

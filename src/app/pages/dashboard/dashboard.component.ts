@@ -16,7 +16,7 @@ interface WorkerData {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  @ViewChild('popup') popup; // reference to suiPopup element
+  // @ViewChild('popup') popup; // reference to suiPopup element
   segmentDimmed = false;
 
   subordinates: any;
@@ -24,9 +24,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   selectedSubordinate: any = null;
   workerRoutes: Array<any> = null;
 
-  state = {
-    'subordinates': null,
-  }
+  // state = {
+  //   'subordinates': null,
+  // };
 
   constructor(
     private stateService: StateService,
@@ -52,7 +52,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.searchEmployeeRoutes(this.selectedSubordinate);
   }
 
-  searchEmployeeRoutes(selection: any) {  // console.log('searchEmployeeRoutes USO', selection);
+  searchEmployeeRoutes(selection: any) {
+    // console.log('searchEmployeeRoutes USO', selection);
     if (selection) {
       this.selectedSubordinate = selection;
     }
@@ -65,6 +66,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.apiService.getWorkerRoutes(selection, this.selectedDate)
       .subscribe(data => {
         this.workerRoutes = data['workerRoutes'];
+        // this.cdr.detectChanges();
+        // console.log('this.workerRoutes.length', this.workerRoutes.length);
+        this.saveState(this.selectedDate, selection, data['workerRoutes']); /* save selected worker state */
         this.segmentDimmed = false;
       }, error => {
         error.status === 401 ? this.router.navigate(['login']) : console.warn(error.status, error.error);
@@ -78,6 +82,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   //
 
   saveState(selectedDate, selectedSubordinate, workerRoutes) {
+    // console.log('dash- saveState inputs, selectedSubordinate', selectedSubordinate);
     if (selectedDate) { this.stateService.setSelectedDate(selectedDate); }
     if (selectedSubordinate) {
       this.stateService.setSelectedSubordinate(selectedSubordinate);

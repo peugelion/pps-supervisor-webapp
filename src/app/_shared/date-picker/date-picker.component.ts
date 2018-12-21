@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatepickerMode } from 'ng2-semantic-ui';
 
 @Component({
@@ -6,7 +6,7 @@ import { DatepickerMode } from 'ng2-semantic-ui';
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss']
 })
-export class DatePickerComponent implements OnInit, AfterViewInit {
+export class DatePickerComponent implements OnInit {
   // export class DatePickerComponent {
   dateMode: DatepickerMode;
   // datePopupPosition: any = 'bottom-right';
@@ -19,10 +19,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   @Output() dateChangeAction = new EventEmitter();
 
   constructor() {
-    // this.dateMode = DatepickerMode.Date;
-  }
-
-  ngAfterViewInit() {
     // this.dateMode = DatepickerMode.Date;
   }
 

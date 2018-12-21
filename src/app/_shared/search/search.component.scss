@@ -11,19 +11,32 @@ $break-large: 1200px;
   }
 }
 
-.ui.search {
-  .results {
-    // left: -35px; // was 0
-    right: -13px;
-    left: unset;
-    max-height: 700px;
-    overflow: auto;
-    transition: all .5s;
+// app-search,
+app-search-remote-api {
+  width: 100%;
 
-    /* Mobile */
-    @media screen and (max-width: $break-mobile) {
-      // max-height: calc(100vh - 70px);
-      max-height: calc(100vh - 150px);
+  sui-search.ui.search {
+    width: 100%;
+    max-width: 350px;
+
+    .ui.input.icon {
+      width: 100%;
+    }
+
+    .results {
+      // left: -35px; // was 0
+      // right: -13px;
+      left: unset;
+      width: 100%;
+      max-height: 700px;
+      overflow: auto;
+      transition: all .5s;
+
+      /* Mobile */
+      @media screen and (max-width: $break-mobile) {
+        // max-height: calc(100vh - 70px);
+        max-height: calc(100vh - 150px);
+      }
     }
   }
 }

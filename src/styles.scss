@@ -3,15 +3,17 @@
 // @import "./assets/semantic.v2.4.1.min.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-@media only screen and (max-width: 767px) {
-    /* [class*="tablet only"]:not(.mobile),
+// @media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
+
+  /* [class*="tablet only"]:not(.mobile),
     [class*="computer only"]:not(.mobile),
     [class*="large monitor only"]:not(.mobile),
     [class*="widescreen monitor only"]:not(.mobile),
     [class*="or lower hidden"], */
-    [class*="mobile hidden"] {
-        display: none !important;
-    }
+  [class*="mobile hidden"] {
+    display: none !important;
+  }
 }
 
 
@@ -32,7 +34,7 @@
 //     body ::-webkit-scrollbar-thumb:window-inactive {
 //         background: unset;
 //     }
-    
+
 //     body .ui.inverted::-webkit-scrollbar-track {
 //         background: unset;
 //     }

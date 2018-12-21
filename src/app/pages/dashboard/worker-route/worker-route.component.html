@@ -1,41 +1,41 @@
 <!-- <div class="ui top right attached label  label__nopadding">
 	<div class="ui buttons allign right">
-		<button class="ui icon button" [class.active]="!tableLayoutActive" (click)="setTableLayoutActive(false)">
+		<button class="ui icon button" [class.active]="!isTableLayoutActive" (click)="setTableLayoutActive(false)">
 			<i class="large table icon"></i>
 		</button>
-		<button class="ui icon button" [class.active]="tableLayoutActive" (click)="setTableLayoutActive(true)">
+		<button class="ui icon button" [class.active]="isTableLayoutActive" (click)="setTableLayoutActive(true)">
 			<i class="large clipboard list icon"></i>
 		</button>
 	</div>
 </div> -->
 
 <h3 class="ui top attached small header  actions__header">
-	<div *ngIf="tableLayoutActive" mat-form-field class="ui input item">
-		<input matInput (keyup)="applyFilter($event.target.value)" type="text" placeholder="Filter" >
-	</div>
-	<div class="ui top right attached label  label__nopadding">
-	<span class="ui label  mobile hidden">Layout:</span>
-	<div class="ui buttons allign right">
-		<!-- <button class="ui icon button" [class.active]="!tableLayoutActive" (click)="setTableLayoutActive(false)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Tabela" popupText="Tabelarni prikaz ruta"> -->
-		<button class="ui icon button" [class.active]="!tableLayoutActive" (click)="setTableLayoutActive(false)">
-			<i class="large table icon"></i>
-		</button>
-		<!-- <button class="ui icon button" [class.active]="tableLayoutActive" (click)="setTableLayoutActive(true)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Kartice" popupText="Kartični prikaz ruta"> -->
-		<button class="ui icon button" [class.active]="tableLayoutActive" (click)="setTableLayoutActive(true)">
-			<i class="large clipboard list icon"></i>
-		</button>
-	</div>
-	</div>
+  <div *ngIf="isTableLayoutActive" mat-form-field class="ui input item">
+    <input matInput (keyup)="applyFilter($event.target.value)" type="text" placeholder="Filter">
+  </div>
+  <div class="ui top right attached label  label__nopadding">
+    <span class="ui label  mobile hidden">Layout:</span>
+    <div class="ui buttons allign right">
+      <!-- <button class="ui icon button" [class.active]="!isTableLayoutActive" (click)="setTableLayoutActive(false)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Tabela" popupText="Tabelarni prikaz ruta"> -->
+      <button class="ui icon button" [class.active]="!isTableLayoutActive" (click)="setTableLayoutActive(false)" title="Tabelarni prikaz ruta">
+        <i class="large table icon"></i>
+      </button>
+      <!-- <button class="ui icon button" [class.active]="isTableLayoutActive" (click)="setTableLayoutActive(true)" suiPopup [popupPlacement]="popupPlacement" popupHeader="Kartice" popupText="Kartični prikaz ruta"> -->
+      <button class="ui icon button" [class.active]="isTableLayoutActive" (click)="setTableLayoutActive(true)" title="Kartični prikaz ruta">
+        <i class="large clipboard list icon"></i>
+      </button>
+    </div>
+  </div>
 </h3>
 
-<div class='table__cmp__holder' [class.active]="tableLayoutActive">
-	<div *ngIf="tableLayoutActive">
-		<!-- <app-table-layout [workerRoutesInput]="workerRoutes" [filterValueInput]="filterStr" (btnClick)="insertKomercijalistaPravo($event)"></app-table-layout> -->
-		<app-table-layout [workerRoutesInput]="workerRoutesParsed" [filterValueInput]="filterStr"></app-table-layout>
-	</div>
+<div class='table__cmp__holder' [class.active]="isTableLayoutActive">
+  <div *ngIf="isTableLayoutActive">
+    <!-- <app-table-layout [workerRoutesInput]="workerRoutes" [filterValueInput]="filterStr" (btnClick)="insertKomercijalistaPravo($event)"></app-table-layout> -->
+    <app-table-layout [workerRoutesInput]="workerRoutesParsed" [filterValueInput]="filterStr"></app-table-layout>
+  </div>
 
-	<div *ngIf="!tableLayoutActive">
-		<!-- <app-card-layout [workerRoutesInput]="workerRoutes" (btnClick)="insertKomercijalistaPravo($event)"></app-card-layout> -->
-		<app-card-layout [workerRoutesInput]="workerRoutes"></app-card-layout>
-	</div>
+  <div *ngIf="!isTableLayoutActive">
+    <!-- <app-card-layout [workerRoutesInput]="workerRoutes" (btnClick)="insertKomercijalistaPravo($event)"></app-card-layout> -->
+    <app-card-layout [workerRoutesInput]="workerRoutes"></app-card-layout>
+  </div>
 </div>

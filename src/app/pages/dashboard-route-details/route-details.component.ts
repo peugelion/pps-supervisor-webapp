@@ -32,7 +32,7 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
     private cdRef: ChangeDetectorRef
   ) {
     // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
 
@@ -43,23 +43,18 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
 
     this.workerRoutes = this.stateService.getWorkerRoutes();
     this.dateStr = this.parseSrbDateParam(this.stateService.getFormatDate());
+    // console.log('constructor - this.workerRoutes', this.workerRoutes);
   }
 
   ngOnInit() {
-    // if (!this.auth.isLoggedIn) {
-    //   // this.router.navigateByUrl('/login');
-    //   this.router.navigate(['login']);
-    //   return;
-    // }
     this.loadPositionsList(); // image tabs
     this.loadZaliheData();    // zalihe tab\section
-    // const activeRoute = this.workerRoutes.find(obj => obj['Fk_Partner'] === this.Fk_Partner);
-    // this.Naziv = activeRoute.Naziv;
-    // this.Mesto = activeRoute.Mesto;
 
     /* https://stackoverflow.com/questions/7364150/find-object-by-id-in-an-array-of-javascript-objects */
-    this.activeRouteIndex  = this.workerRoutes.findIndex(obj => obj['Fk_Partner'] === this.Fk_Partner); // redni broj rute
-    this.activeRoute       = this.workerRoutes[this.activeRouteIndex]; // aktivna ruta
+    this.activeRouteIndex = this.workerRoutes.findIndex(obj => obj['Fk_Partner'] === this.Fk_Partner); // redni broj rute
+    this.activeRoute = this.workerRoutes[this.activeRouteIndex]; // aktivna ruta
+    // console.log('onInit: Fk_Partner', this.Fk_Partner, 'activeRouteIndex', this.activeRouteIndex, ' workerRoutes', this.workerRoutes[0]);
+    // console.log('onInit: activeRoute', this.activeRoute);
   }
 
   ngOnDestroy() {

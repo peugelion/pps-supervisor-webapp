@@ -32,16 +32,16 @@ export class TabsComponent {
   private activeImageIndex = 0;                   // pomocna
 
   private isFullScreenSlider = false;             // pomocna, ui, fullscreen image slider
-  private pageDimmed    = false;
+  private pageDimmed = false;
   private segmentDimmed = false;
 
   constructor(private apiService: ApiService) { }
 
   // ngOnChanges(changes: SimpleChanges) {
-    // if (this.pozicije && this.pozicije.length) {
-    //   this.loadSinglePosition(this.pozicije[0].Sifra); // load first tab data
-    //   this.cdRef.detectChanges(); // force change detection (zone lost)
-    // }
+  // if (this.pozicije && this.pozicije.length) {
+  //   this.loadSinglePosition(this.pozicije[0].Sifra); // load first tab data
+  //   this.cdRef.detectChanges(); // force change detection (zone lost)
+  // }
   // }
 
   // /* single tab - listu slika za aktivni tab */
@@ -58,13 +58,13 @@ export class TabsComponent {
   /* single tab - listu slika za aktivni tab */
   async loadSinglePosition(Fk_Pozicija) {
     this.activeImageIndex = 0; // vrati na prvu sliku u nizu
-    console.log('this.singlePosition', this.singlePosition);
+    // console.log('this.singlePosition', this.singlePosition);
     if (this.singlePosition) {
       this.singlePosition['Slika'] = null;
     }
     // this.singlePosition = null;
     this.pageDimmed = this.isFullScreenSlider;
-    console.log('this.pageDimmed', this.pageDimmed);
+    // console.log('this.pageDimmed', this.pageDimmed);
     this.segmentDimmed = !this.isFullScreenSlider; // true only if not fullscreen slider
     this.singlePosition = await this.apiService.getSinglePosition(this.Fk_Partner, Fk_Pozicija, this.dateStr);
     this.pageDimmed = false;

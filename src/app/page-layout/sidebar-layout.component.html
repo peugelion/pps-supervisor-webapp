@@ -1,18 +1,21 @@
 <!-- Site Layout -->
 <!-- Sidebar Navigation -->
 <sui-sidebar-container class="ui bottom attached segment  segment__nobottommargin">
-    <!-- <sui-sidebar class="inverted vertical thin " #sidebar transition="overlay"  direction="left"> -->
-    <sui-sidebar [(isVisible)]="isSidebarVisible" class="inverted vertical menu" #sidebar transition="uncover"  direction="left">  <!-- transition: overlay, uncover, scale down, push, slide along & slide out -->
-        <!-- <a class="item" [routerLink]="['/dashboard']">Dashboard<i class="world large icon"></i></a> -->
-        <a *ngFor="let p of appPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
-          <i [class]="[p.icon + ' large icon']"></i> {{p.title}}
-        </a>
-        <div class="ui hidden divider"></div>
-        
-        <a class="item flex-container" (click)="logout()" title="logout"><app-korisnik></app-korisnik> <i class="logout large icon"></i></a>
-    </sui-sidebar>
-    
-    <sui-sidebar-sibling [isDimmedWhenVisible]="false" style="height:100%; max-height: 100%; min-height: 100%">
-      <router-outlet></router-outlet>
-    </sui-sidebar-sibling>
+  <!-- <sui-sidebar class="inverted vertical thin " #sidebar transition="overlay"  direction="left"> -->
+  <sui-sidebar [(isVisible)]="isSidebarVisible" class="inverted vertical menu" #sidebar transition="overlay" direction="left">
+    <!-- transition: overlay, uncover, scale down, push, slide along & slide out -->
+    <!-- <a class="item" [routerLink]="['/dashboard']">Dashboard<i class="world large icon"></i></a> -->
+    <a *ngFor="let p of appPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
+      <i [class]="[p.icon + ' large icon']"></i> {{p.title}}
+    </a>
+    <div class="ui hidden divider"></div>
+
+    <a class="item flex-container" (click)="logout()" title="logout">
+      <app-korisnik></app-korisnik> <i class="logout large icon"></i>
+    </a>
+  </sui-sidebar>
+
+  <sui-sidebar-sibling [isDimmedWhenVisible]="true" style="height:100%; max-height: 100%; min-height: 100%">
+    <router-outlet></router-outlet>
+  </sui-sidebar-sibling>
 </sui-sidebar-container>

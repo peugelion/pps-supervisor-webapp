@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+// import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SearchComponent } from '@pepsi-shared/search/search.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';

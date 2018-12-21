@@ -9,7 +9,7 @@ $a: 45px;
 $b: 20px;
 $c: 5px; // menu height adjustment +- 10px
 $top-menu-height: $a;
-$table-margin-top-mobile: $b + $c;
+$table-margin-top-mobile: $b+$c;
 // $table-height-calc: calc(100% - 45px);
 // $table-height-calc: calc(100% - $top-menu-height);
 // $table-height-mobile-calc: calc(100% - 65px);
@@ -95,7 +95,7 @@ th.mat-sort-header-sorted {
   padding-left: 10px;
   max-height: 38px;
   // max-width: 510px;
-  max-width: 75%;
+  // max-width: 75%;
 
   /* Mobile */
   @media screen and (max-width: $break-mobile) {
@@ -104,7 +104,7 @@ th.mat-sort-header-sorted {
 }
 
 .custom__table {
-//   float: left;
+  //   float: left;
   // position: absolute;
   margin-top: 45px;
 }
@@ -179,34 +179,39 @@ th.mat-sort-header-sorted {
     background-color: #d0d0d0;
     border-color: #d0d0d0;
     background-image: none;
-    color: rgba(0,0,0,.95);
+    color: rgba(0, 0, 0, .95);
   }
 }
 
 .ui.input.hidden__tablet {
   max-width: 25%;
 }
+
 /* Tablet Portrait */
 
 @media only screen and (max-width: $break-mobile) {
-    // .tablet__portrait__hidden,
-    .hidden__tablet,
-    .ui.input.hidden__tablet {
-        display: none;
-    }
+
+  // .tablet__portrait__hidden,
+  .hidden__tablet,
+  .ui.input.hidden__tablet {
+    display: none;
+  }
 }
 
 .ui.table {
+
   /* Mobile - landscape */
   @media screen and (max-height: $break-mobile-small) {
     thead {
       tr {
         height: unset;
+
         th {
           padding: unset;
         }
       }
     }
+
     tbody {
       tr.mat-row {
         height: unset;
