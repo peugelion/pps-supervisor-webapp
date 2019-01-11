@@ -19,7 +19,7 @@ export class StateService {
   selectedSifraPartner_KPIs;
   selectedParners: Array<{}>;
 
-  constructor() {}
+  constructor() { }
 
   // posle login-a
 
@@ -171,27 +171,32 @@ export class StateService {
 
   //
 
-  getPartnersQuickList() {
-    if (this.selectedParners) {
-      return this.selectedParners;
-    }
+  getPartnersQuickList(localStorageKey) {
+    // console.log(localStorageKey);
+    // if (this.selectedParners) {
+    //   return this.selectedParners;
+    // }
     // const selectedParners = (localStorage.getItem('newTask_partneri')) ? JSON.parse(localStorage.getItem('newTask_partneri')) : [];
-    const selectedParners = localStorage.getItem('newTask_partneri');
-    return selectedParners ? JSON.parse(localStorage.getItem('newTask_partneri')) : [];
+
+    // const selectedParners = localStorage.getItem('newTask_partneri');
+    // return selectedParners ? JSON.parse(localStorage.getItem('newTask_partneri')) : [];
+    const selectedParners = localStorage.getItem(localStorageKey);
+    return selectedParners ? JSON.parse(localStorage.getItem(localStorageKey)) : [];
   }
 
-  setPartnersQuickList(selection: {}) {
-    this.selectedParners = this.getPartnersQuickList();
+  setPartnersQuickList(localStorageKey, selection: {}) {
+    this.selectedParners = this.getPartnersQuickList(localStorageKey);
     if (selection) {
       // console.log('ima selection');
       // const existsAtPosition = this.items.findIndex(o => o.Pk_id === selection); // vec postoji na brzoj listi ?
       const existsAtPosition = this.selectedParners.findIndex(o => o['Sifra'] === selection['Sifra']); // vec postoji na brzoj listi ?
-      if (existsAtPosition !== -1)	{																	//  i ako postoji, obrisi ga
+      if (existsAtPosition !== -1) {																	//  i ako postoji, obrisi ga
         this.selectedParners.splice(existsAtPosition, 1);
       }
       this.selectedParners.unshift(selection);													// dodaj ga kao prvog na brzoj listi
     }
-    localStorage.setItem('newTask_partneri', JSON.stringify(this.selectedParners.slice(0, 9)));				// sacuvaj listu
+    // localStorage.setItem('newTask_partneri', JSON.stringify(this.selectedParners.slice(0, 9)));				// sacuvaj listu
+    localStorage.setItem(localStorageKey, JSON.stringify(this.selectedParners.slice(0, 9)));				// sacuvaj listu
   }
 
 }

@@ -1,24 +1,20 @@
 <!-- <div class="ui top attached demo menu  menu__gray_bg"> -->
 <div class="ui top fixed menu  menu__gray_bg">
-    <app-toggle-menu-btn></app-toggle-menu-btn>
-    <div class="item   mobile hidden">
-        <app-korisnik-meni></app-korisnik-meni>
+  <app-toggle-menu-btn></app-toggle-menu-btn>
+  <div class="item   mobile hidden">
+    <app-korisnik-meni></app-korisnik-meni>
+  </div>
+
+  <div class="right menu">
+    <div class="item">
+      <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadReportData_dateChange($event)"></app-date-picker>
     </div>
-        
-    <div class="right menu">
-        <div class="item">
-            <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadReportData_dateChange($event)"></app-date-picker>
-        </div>
-        <div class="item">
-            <app-search-remote-api [labelField]="'Naziv'"
-                                    [valueField]="'Sifra'"
-                                    [descriptionField]="'Ulica_i_Broj'"
-                                    [apiEndpointUrl]="'/api/dashboard/KPIsReport/radnikPodredjenPartner'"
-                                    [maxResultsInput]="100"
-                                    (selectedAction)="loadReportData($event)"
-                                    [placeholder]="'Pretraži partnere...'"></app-search-remote-api>
-                                    <!-- [dataInput]="partners" -->
-          <!-- <app-search-remote-api (queryOut)='isSearchQueryShort($event)'
+    <div class="item">
+      <app-search-remote-api [labelField]="'Naziv'" [valueField]="'Sifra'" [descriptionField]="'Ulica_i_Broj'"
+        [apiEndpointUrl]="'/api/dashboard/KPIsReport/radnikPodredjenPartner'" [maxResultsInput]="100" (selectedAction)="loadReportData($event)"
+        [placeholder]="'Pretraži partnere...'"></app-search-remote-api>
+      <!-- [dataInput]="partners" -->
+      <!-- <app-search-remote-api (queryOut)='isSearchQueryShort($event)'
                                     [labelField]="'Naziv'"
                                     [valueField]="'Sifra'"
                                     [descriptionField]="'Ulica_i_Broj'"
@@ -26,38 +22,41 @@
                                     [maxResultsInput]="100"
                                     (selectedAction)="loadSelectedPartnerData($event)"
                                     [placeholder]="'Pretraži partnere...'"></app-search-remote-api> -->
-        </div>
     </div>
+  </div>
 </div>
 
 <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
-    <div class="ui text loader">Učitavanje izveštaja!</div>
+  <div class="ui text loader">Učitavanje izveštaja!</div>
 </sui-dimmer>
 
 <!-- <div class="ui basic segment"> -->
 <div class="page__content__holder">
 
-    <div *ngIf="!dataSource || dataSource.length <= 1" class="ui text container segment__main__content">
-        <div class="ui middle aligned center aligned grid" style="height: 100%">
-            <div class="column">
-                <div *ngIf="!dataSource; else elseBlock" class="ui success big green message">
-                    <div *ngIf="isQueryShort; else elseBlock2">
-                        Minimalna dužina teksta za pretragu je 3 karaktera</div>
-                    <ng-template #elseBlock2>
-                        Odaberite datum i partnera.</ng-template>
-                </div>
-                <ng-template #elseBlock>
-                    <div class="ui big red message">
-                        Nema podataka za odabranog partnera.</div>
-                </ng-template>
-
-                <app-quick-list [newItem]="selectedPartner" (selectedAction)="loadReportData($event)"></app-quick-list>
-            </div>
+  <div *ngIf="!dataSource || dataSource.length <= 1" class="ui text container segment__main__content">
+    <div class="ui middle aligned center aligned grid" style="height: 100%">
+      <div class="column">
+        <div *ngIf="!dataSource; else elseBlock" class="ui success big green message">
+          <div *ngIf="isQueryShort; else elseBlock2">
+            Minimalna dužina teksta za pretragu je 3 karaktera</div>
+          <ng-template #elseBlock2>
+            Odaberite datum i partnera.</ng-template>
         </div>
-    </div>
+        <ng-template #elseBlock>
+          <div class="ui big red message">
+            Nema podataka za odabranog partnera.</div>
+        </ng-template>
 
-    <div *ngIf="dataSource != null && dataSource.length > 1" class="ui basic segment  segment__main__content">
-        <app-table-sorting [rptDataInput]="dataSource"></app-table-sorting>
+        <!-- <app-quick-list [newItem]="(dataSource && this.dataSource.length > 1) ? selectedPartner : null" (selectedAction)="loadReportData($event)"></app-quick-list> -->
+        <!-- <app-quick-list [newItemInput]="addToQuickList ? selectedPartner : null" (selectedAction)="loadReportData($event)"></app-quick-list> -->
+        <!-- <app-quick-list [newItemInput]="addToQuickList" (selectedAction)="loadReportData($event)"></app-quick-list> -->
+        <app-quick-list [newItem]="selectedPartner" stateKey='quickList_newTaskPartners' (selectedAction)="loadReportData($event)"></app-quick-list>
+      </div>
     </div>
+  </div>
+
+  <div *ngIf="dataSource != null && dataSource.length > 1" class="ui basic segment  segment__main__content">
+    <app-table-sorting [rptDataInput]="dataSource"></app-table-sorting>
+  </div>
 
 </div>

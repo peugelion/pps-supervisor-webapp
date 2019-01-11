@@ -33,6 +33,7 @@ import { SuiCheckboxModule } from 'ng2-semantic-ui';
 
 /* session logging, production only */
 import * as LogRocket from 'logrocket';
+import { ByAreaBySkuPipe } from './pages/izvestaj-kpis/by-area-by-sku.pipe';
 
 @NgModule({
    declarations: [
@@ -41,6 +42,7 @@ import * as LogRocket from 'logrocket';
       SidebarLayoutComponent,
       NoSidebarLayoutComponent,
       ChoicesModalComponent,
+      ByAreaBySkuPipe,
    ],
    imports: [
       // BrowserModule,

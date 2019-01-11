@@ -20,11 +20,15 @@ import { SearchModule } from '@pepsi-shared/search/search.module';
 // import { WorkerRouteModule } from './worker-route/worker-route.module';
 // import { CardLayoutComponent } from './worker-route/card-layout/card-layout.component';
 // import { TableLayoutModule } from './worker-route/table-layout/table-layout.module';
+/* quick list cmp */
+// import { QuickListComponent } from './quick-list/quick-list.component';
+import { QuickListModule } from '@pepsi-shared/quick-list/quick-list.module';
 
 @NgModule({
   declarations: [
     OdblokirajUnosPorudzbineComponent,
     // SearchRemoteApiComponent
+    // QuickListComponent
   ],
   imports: [
     CommonModule,
@@ -37,9 +41,10 @@ import { SearchModule } from '@pepsi-shared/search/search.module';
     KorisnikModule,
     DatePickerModule,
     SelectModule,
-    SearchModule
+    SearchModule,
     // SearchRemoteApiComponent,
     // TableLayoutModule
+    QuickListModule
   ],
 })
 export class OdblokirajUnosPorudzbineModule { }

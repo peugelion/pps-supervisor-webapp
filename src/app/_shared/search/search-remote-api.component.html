@@ -1,12 +1,7 @@
 <label class="mobile hidden">{{ label }}</label>
-<sui-search [placeholder]="placeholder"
-  retainSelectedResult="false"
-  [optionsField]="labelField"
-  [optionsLookup]="optionsLookup"
-  (resultSelected)="isSelectedAction($event)"
-  [resultTemplate]="resultTemplate"
-  (resultFormatter)="resultFormatter($event, null)"
-  [maxResults]="maxResults" #searchBox></sui-search>
+<sui-search [placeholder]="placeholder" retainSelectedResult="false" retainSelectedResult [optionsField]="labelField"
+  [optionsLookup]="optionsLookup" (resultSelected)="isSelectedAction($event)" [resultTemplate]="resultTemplate"
+  (resultFormatter)="resultFormatter($event, null)" [maxResults]="maxResults" #searchBox></sui-search>
 <ng-template let-result let-query="query" #resultTemplate>
   <!-- {{ result.Naziv }} <b>({{ result.FK_Partner }})</b> -->
   <!-- {{ result.Naziv }} <b>({{ result.Sifra }})</b> -->
@@ -22,7 +17,7 @@
     <div class="header">No Results</div>
     <div class="description">Your search returned no results.</div>
   </div> -->
-  
+
   <!-- <div class="ui floating label">{{ result[valueField] }}</div>
   {{ result[labelField] }} -->
 

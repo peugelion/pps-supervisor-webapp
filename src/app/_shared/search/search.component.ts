@@ -29,15 +29,12 @@ export class SearchComponent {
     }
   }
 
-  // ngOnInit() {
-  // }
-
   public optionsLookup = async (query: string, initial) => {
     this.searchBox.dropdownService.setOpenState(true);   /* https://github.com/edcarroll/ng2-semantic-ui/issues/357 */
-      // if (initial != undefined) {
-      //     return new Promise<IOption>(resolve => setTimeout(() => resolve(this._options.find(item => item.id === initial.id)), 500));
-      // }
-      //  return new Promise<IOption[]>(resolve => setTimeout(() => resolve(this._options), 500));
+    // if (initial != undefined) {
+    //     return new Promise<IOption>(resolve => setTimeout(() => resolve(this._options.find(item => item.id === initial.id)), 500));
+    // }
+    //  return new Promise<IOption[]>(resolve => setTimeout(() => resolve(this._options), 500));
     console.log('optionsLookup', query, query.replace(/\,/g, ' '));
     return this.search(query.replace(/\,/g, ' '), this.data);
   }

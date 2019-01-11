@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* https://v6.material.angular.io/guide/getting-started */
 // @import "./assets/semantic.v2.4.1.min.css";
+
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 // @media only screen and (max-width: 767px) {
@@ -55,3 +56,59 @@
 //         background:unset
 //     }
 // }
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url("https://fonts.gstatic.com/s/lato/v14/S6u8w4BMUTPHjxsAUi-qJCY.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6u8w4BMUTPHjxsAUi-sNiXg7Q.woff") format('woff')
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url("https://fonts.gstatic.com/s/lato/v14/S6u8w4BMUTPHjxsAXC-q.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6u8w4BMUTPHjxsAUi-sNiXg7Q.woff") format('woff')
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url("https://fonts.gstatic.com/s/lato/v14/S6u_w4BMUTPHjxsI5wq_FQft1dw.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6u_w4BMUTPHjxsI5wq_FQfrx9897g.woff") format('woff')
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url("https://fonts.gstatic.com/s/lato/v14/S6u_w4BMUTPHjxsI5wq_Gwft.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6u_w4BMUTPHjxsI5wq_FQfrx9897g.woff") format('woff')
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url("https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjxAwXjeu.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjxAwWCWtFCc.woff") format('woff')
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url("https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjx4wXg.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjxAwWCWtFCc.woff") format('woff')
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url("https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh6UVSwaPGR_p.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh6UVSwaPHw3q5d0.woff") format('woff')
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url("https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh6UVSwiPGQ.woff2") format('woff2'), url("https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh6UVSwaPHw3q5d0.woff") format('woff')
+}

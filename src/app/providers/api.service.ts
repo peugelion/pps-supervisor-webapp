@@ -101,9 +101,9 @@ export class ApiService {
   // Fk_Partner, date, Fk_St_670)
   async insertKomercijalistaPravo(Fk_RadnikSifra: number, Fk_Partner: number, dateStr: string, Fk_St_670: number) {
     try {
-      console.log('api insertKomercijalistaPravo: ', Fk_RadnikSifra, Fk_Partner, dateStr, Fk_St_670);
+      // console.log('api insertKomercijalistaPravo: ', Fk_RadnikSifra, Fk_Partner, dateStr, Fk_St_670);
       const body = {
-        'Fk_RadnikSifra' : Fk_RadnikSifra.toString(),
+        'Fk_RadnikSifra': Fk_RadnikSifra.toString(),
         // 'Fk_Partner': Fk_Partner,
         'date': dateStr,
         'Fk_St_670': Fk_St_670.toString()
@@ -126,7 +126,7 @@ export class ApiService {
       const httpOptions = {
         withCredentials: true,
         params: {
-          'Datum_do' : Datum_do ? Datum_do.toISOString() : null
+          'Datum_do': Datum_do ? Datum_do.toISOString() : null
         }
       };      // console.log('SifraPARTNER', SifraPARTNER, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
       return await this._http.get<any[]>(apiURL, httpOptions).toPromise();

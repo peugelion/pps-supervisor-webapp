@@ -27,10 +27,13 @@ app-search-remote-api {
       // left: -35px; // was 0
       // right: -13px;
       left: unset;
-      width: 100%;
+      right: 0;
+      // width: 100%;
+      min-width: 100%;
       max-height: 700px;
       overflow: auto;
       transition: all .5s;
+      z-index: 110;
 
       /* Mobile */
       @media screen and (max-width: $break-mobile) {

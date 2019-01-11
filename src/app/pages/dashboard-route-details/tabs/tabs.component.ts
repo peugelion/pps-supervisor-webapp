@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ApiService } from '@pepsi-app/providers/api.service';
+import { isDevMode } from '@angular/core';
+
 
 @Component({
   selector: 'app-tabs',
@@ -34,6 +36,7 @@ export class TabsComponent {
   private isFullScreenSlider = false;             // pomocna, ui, fullscreen image slider
   private pageDimmed = false;
   private segmentDimmed = false;
+  private isDevMode = isDevMode();
 
   constructor(private apiService: ApiService) { }
 

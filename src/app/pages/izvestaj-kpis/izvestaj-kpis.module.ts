@@ -12,22 +12,23 @@ import { SearchModule } from '@pepsi-shared/search/search.module';
 import { ToggleMenuBtnModule } from '@pepsi-shared/_top-menu/toggle-menu-btn/toggle-menu-btn.module';
 import { KorisnikModule } from '@pepsi-shared/_top-menu/korisnik/korisnik.module';
 
-/* quick list cmp */
-import { QuickListComponent } from '@pepsi-app/pages/izvestaj-kpis/quick-list/quick-list.component';
 /* table-sorting-pagination cmp */
 // import { TableSortingComponent } from '@pepsi-shared/table-sorting/table-sorting.component';
 import { TableSortingModule } from '@pepsi-shared/table-sorting/table-sorting.module';
-  // import { CustomPipeModule } from '../../pipes/custom.pipe.module';
-  // import {MatTableModule} from '@angular/material/table';
-  // import {MatSortModule} from '@angular/material/sort';
-  // import {MatPaginatorModule} from '@angular/material/paginator';
+// import { CustomPipeModule } from '../../pipes/custom.pipe.module';
+// import {MatTableModule} from '@angular/material/table';
+// import {MatSortModule} from '@angular/material/sort';
+// import {MatPaginatorModule} from '@angular/material/paginator';
+/* quick list cmp */
+// import { QuickListComponent } from '@pepsi-shared/quick-list/quick-list.component';
+import { QuickListModule } from '@pepsi-shared/quick-list/quick-list.module';
 
 
 @NgModule({
   declarations: [
     IzvestajKpisComponent,
     // SearchComponent,
-    QuickListComponent,
+    // QuickListComponent,
     // TableSortingComponent
   ],
   imports: [
@@ -47,6 +48,7 @@ import { TableSortingModule } from '@pepsi-shared/table-sorting/table-sorting.mo
 
     // CustomPipeModule,
     // MatTableModule, MatSortModule, MatPaginatorModule
+    QuickListModule
   ]
 })
 export class IzvestajKpisModule { }

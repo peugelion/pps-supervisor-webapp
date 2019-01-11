@@ -47,7 +47,8 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
     this.saveState(this.selectedDate, this.selectedSubordinate_SifraRadnik, this.partnerUnblockedState); /* save selected worker state */
   }
 
-  async loadSelectedPartnerData(selection: any) {   // console.log('loadSelectedPartnerData USO', selection);
+  async loadSelectedPartner(selection: any) {
+    // console.log('loadSelectedPartner USO', selection);
     if (selection) {
       this.selectedPartner = selection;
       this.selectedPartner_Sifra = selection['Sifra'];
@@ -61,14 +62,15 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
 
   //
 
-  loadSelectedPartnerData_dateChange(date: any) {
+  loadSelectedPartner_dateChange(date: any) {
     this.selectedDate = date;
-    this.loadSelectedPartnerData(null);
+    this.loadSelectedPartner(null);
   }
 
-  loadSelectedPartnerData_subordinateChange(selectedSubordinate_SifraRadnik: string) {
+  loadSelectedPartner_subordinateChange(selectedSubordinate_SifraRadnik: string) {
+    // console.log('loadSelectedPartner_subordinateChange USO', selectedSubordinate_SifraRadnik);
     this.selectedSubordinate_SifraRadnik = selectedSubordinate_SifraRadnik;
-    this.loadSelectedPartnerData(null);
+    this.loadSelectedPartner(null);
   }
 
   /* poruka da treba min 3 karaktera za pretragu partnera */
@@ -79,12 +81,12 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
   //
 
   insertKomercijalistaPravo(Sifra) {
-    console.log('insertKomercijalistaPravo inputs 0', Sifra);
+    // console.log('insertKomercijalistaPravo inputs 0', Sifra);
     event.stopPropagation();
     this.saveState(this.selectedDate, this.selectedSubordinate_SifraRadnik, null); /* save selected worker state */
     const dateSrpski = this.stateService.getFormatDate();
     const Fk_RadnikSifra = this.stateService.getSelectedSubordinate_SifraRadnik();
-    console.log('Fk_RadnikSifra', dateSrpski, Fk_RadnikSifra, this.selectedSubordinate_SifraRadnik);
+    // console.log('Fk_RadnikSifra', dateSrpski, Fk_RadnikSifra, this.selectedSubordinate_SifraRadnik);
 
     // SET @Fk_St_670 = 6160
     const choices = [{
@@ -105,7 +107,7 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
         this.apiService.insertKomercijalistaPravo(this.selectedSubordinate_SifraRadnik, Sifra, dateSrpski, Fk_St_670)
           /* https://stackoverflow.com/questions/45439313/angular-2-4-how-to-style-angular-material-design-snackbar */
           .then(r => {
-            console.log('r,recordsets', r['recordsets'], r['recordsets'] == null);
+            // console.log('r,recordsets', r['recordsets'], r['recordsets'] == null);
             if (r['recordsets'] == null) {
               this.ppsAlert.showErrorAlert({
                 'text': 'Nije uspelo, pokušajte ponovo!'
@@ -135,7 +137,7 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
     let partnerUnblockedState = JSON.parse(localStorage.getItem('partnerUnblockedState'));
     if (!partnerUnblockedState) {
       const dateStr = new Date().toISOString().split('T')[0];
-      console.log('   dateStr', dateStr);
+      // console.log('   dateStr', dateStr);
       partnerUnblockedState = {};
       partnerUnblockedState[dateStr] = [];
       // partnerUnblockedState = {dateStr: []};
@@ -158,8 +160,8 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
 
   addToPartnerUnblockedState(dateSrpski, Sifra) {
     // const dateStr = this.selectedDate.toISOString().split('T')[0];
-    console.log('addToPartnerUnblockedState 0', dateSrpski, Sifra);
-    console.log('addToPartnerUnblockedState 1', this.partnerUnblockedState, this.partnerUnblockedState[dateSrpski]);
+    // console.log('addToPartnerUnblockedState 0', dateSrpski, Sifra);
+    // console.log('addToPartnerUnblockedState 1', this.partnerUnblockedState, this.partnerUnblockedState[dateSrpski]);
     if (this.partnerUnblockedState[dateSrpski] != null) {
       // console.log(' 1 state na dan nije null -> push');
       this.partnerUnblockedState[dateSrpski].push(Sifra);

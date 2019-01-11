@@ -54,7 +54,7 @@
             <a class="ui left corner label">
               <i class="icon">{{ tab.Sifra }}</i>
             </a>
-            <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!image.Slika" [src]="image.Slika || '/assets/404.svg'">
+            <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!image.Slika" [src]="image.Slika ? isDevMode ? image.Slika : 'https://i0.wp.com/supervisor.apdoo.com' + image.Slika + '?h=1106&quality=99&strip=all' : '/assets/404.svg'">
             <!-- <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!singlePosition[activeImageIndex].Slika" [src]="singlePosition[activeImageIndex].Slika || '/assets/404.svg'" > -->
 
 
