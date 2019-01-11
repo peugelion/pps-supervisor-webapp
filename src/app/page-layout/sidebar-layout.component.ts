@@ -32,8 +32,13 @@ export class SidebarLayoutComponent {
       icon: 'redo'
     },
     {
-      title: 'Izveštaj KPIs',
-      route: '/izvestaj-kpis',
+      title: 'Izveštaj KPIs: by customer by SKU',
+      route: '/report-daily-sales-kpis/by-customer-by-sku',
+      icon: 'newspaper outline'
+    },
+    {
+      title: 'Izveštaj KPIs: by area by SKU',
+      route: '/report-daily-sales-kpis/by-area-by-sku',
       icon: 'newspaper outline'
     },
   ];
@@ -63,7 +68,7 @@ export class SidebarLayoutComponent {
     this._sharedService.emitMenuToggle(false);
     this._authService.logout().catch(e => {
       this.ppsAlert.showErrorAlert({
-        'text' : e.error + ' (' +  e.status + ' ' + e.statusText + '). ',
+        'text': e.error + ' (' + e.status + ' ' + e.statusText + '). ',
       });
     });
   }

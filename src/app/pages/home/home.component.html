@@ -18,11 +18,11 @@
       </div> -->
 
       <div class="ui placeholder segment   ">
-        <div class="ui two column stackable center aligned grid">
+        <div class="ui two column stackable center aligned grid   box blurred-bg tinted">
           <!-- <div class="ui vertical divider">
             <span class="mobile hidden">Ili</span>
           </div> -->
-          <div class="middle aligned row  box blurred-bg tinted">
+          <div class="middle aligned row">
             <a class="column" [routerLink]="['/dashboard']">
               <div class="ui blue icon header">
                 <i class="circular world icon"></i>
@@ -41,13 +41,30 @@
                 Odblokiraj unos por.
               </div>
             </a>
-            <a class="column" [routerLink]="['/izvestaj-kpis']">
-              <div class="ui blue icon header">
+          </div>
+
+          <span class="reports__header">
+            <i class="newspaper outline icon"></i>
+            Daily Sales KPI's Reports :
+          </span>
+
+          <div class="middle aligned row">
+            <a class="column" [routerLink]="['/report-daily-sales-kpis/by-customer-by-sku']">
+              <div class="ui blue icon header mobile hidden">
                 <i class="circular newspaper outline icon"></i>
-                <!-- Izveštaj KPIs -->
+                <!-- Izveštaj KPI's 1 -->
               </div>
               <div class="ui primary red button">
-                Izveštaj KPIs [by customer by SKU]
+                By customer by SKU
+              </div>
+            </a>
+            <a class="column" [routerLink]="['/report-daily-sales-kpis/by-area-by-sku']">
+              <div class="ui blue icon header mobile hidden">
+                <i class="circular newspaper outline icon"></i>
+                <!-- Izveštaj KPI's 2 -->
+              </div>
+              <div class="ui primary red button">
+                By area by SKU
               </div>
             </a>
           </div>

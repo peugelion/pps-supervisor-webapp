@@ -41,7 +41,7 @@ const routes: Routes = [
                 loadChildren: './pages-tlnr/tlnr/tlnr.module#TlnrModule',
                 canActivate: [RoleGuardService],
                 data: {
-                  expectedRole: 'tlnr'
+                    expectedRole: 'tlnr'
                 }
             }
         ]
@@ -61,9 +61,14 @@ const routes: Routes = [
                 loadChildren: './pages/odblokiraj-unos-porudzbine/odblokiraj-unos-porudzbine.module#OdblokirajUnosPorudzbineModule',
                 canActivate: [RoleGuardService]
             }, {
-                path: 'izvestaj-kpis',
+                // path: 'izvestaj-kpis',
+                path: 'report-daily-sales-kpis/by-customer-by-sku',
                 // component: IzvestajKpisComponent,
                 loadChildren: './pages/izvestaj-kpis/izvestaj-kpis.module#IzvestajKpisModule',
+                canActivate: [RoleGuardService]
+            }, {
+                path: 'report-daily-sales-kpis/by-area-by-sku',
+                loadChildren: './pages/izvestaj-kpis/by-area-by-sku/by-area-by-sku.module#ByAreaBySkuModule',
                 canActivate: [RoleGuardService]
             }, {
                 path: '**',
@@ -88,5 +93,5 @@ export class AppRoutingModule {
     constructor(
         // private authService: AuthService,
         // private authGuardService: RoleGuardService
-    ) {}
+    ) { }
 }
