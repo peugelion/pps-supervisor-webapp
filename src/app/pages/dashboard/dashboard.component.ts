@@ -54,11 +54,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   searchEmployeeRoutes(selection: any) {
     // console.log('searchEmployeeRoutes USO', selection);
+    if (!this.selectedDate || !this.selectedSubordinate || this.segmentDimmed) {
+      return false;
+    }
+    const isMySuborditate = this.subordinates.find(obj => obj['Fk_Radnik'] === selection); // console.log(`ulogovan drugi korisnik`);
+    if (!isMySuborditate) {
+      return false;
+    }
     if (selection) {
       this.selectedSubordinate = selection;
-    }
-    if (!this.selectedDate || !selection || this.segmentDimmed) {
-      return false;
     }
     this.segmentDimmed = true;            // console.log('searchEmployeeRoutes PROSO', selection);
     // this.cdr.detectChanges();
@@ -87,7 +91,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (selectedSubordinate) {
       this.stateService.setSelectedSubordinate(selectedSubordinate);
       const selectedSubordinateObj = this.subordinates.find(obj => obj['Fk_Radnik'] === selectedSubordinate); /* SifraRadnik za Fk_Radnik */
-      this.stateService.setSelectedSubordinate_SifraRadnik(selectedSubordinateObj['SifraRadnik']); //
+      console.log('saveState selectedSubordinateObj', selectedSubordinateObj);
+      if (selectedSubordinateObj) {
+        this.stateService.setSelectedSubordinate_SifraRadnik(selectedSubordinateObj['SifraRadnik']); //
+      }
     }
     if (workerRoutes) { this.stateService.setWorkerRoutes(workerRoutes); }
   }

@@ -12,7 +12,8 @@
       (click)="loadSinglePosition(tab.Sifra)" [style.maxWidth]="getMaxTabHeaderWidth(activeTabArr[i])">
       <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="file image red outline icon"></i>
       {{ tab.Naziv }}</a>
-    <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="!(zalihe && zalihe.length)" [style.maxWidth]="getMaxTabHeaderWidth(activeTabArr[i])">Zalihe</a>
+    <!-- <a class="item tab__ellipsis" suiTabHeader="zalihe" [isDisabled]="!(zalihe && zalihe.length)" [style.maxWidth]="getMaxTabHeaderWidth(activeTabArr[i])">Zalihe</a> -->
+    <a *ngIf="zalihe && zalihe.length" class="item tab__ellipsis" suiTabHeader="zalihe" [style.maxWidth]="getMaxTabHeaderWidth(activeTabArr[i])">Zalihe</a>
   </div>
 
   <!-- image tab content -->
@@ -59,7 +60,7 @@
 
 
             <!-- <div class="ui top right attached red label">{{ image.DatumPosete | timeFormat }} h -->
-            <div class="ui top right attached red label">{{ image.DatumPosete }} h
+            <div class="ui top right attached red label">{{ image.DatumPosete || '--' }} h
               <!-- <span *ngIf="singlePosition.length != 1" class="detail">{{ j + 1 }} od {{ singlePosition.length }} SLIKE</span> -->
               <span *ngIf="singlePosition.length != 1" class="detail">{{ activeImageIndex + 1 }} od {{
                 singlePosition.length }} SLIKE</span>

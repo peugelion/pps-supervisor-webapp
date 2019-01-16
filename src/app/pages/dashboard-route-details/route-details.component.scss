@@ -26,7 +26,8 @@ $break-large: 1200px;
   max-width: calc(100vw - 185px);
 
   @media screen and (max-width: $break-mobile) {
-    padding: unset;
+    // padding: unset;
+    padding: 0 .78571429em;
   }
 }
 

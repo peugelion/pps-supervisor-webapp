@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {SuiModal, ComponentModalConfig, ModalSize} from 'ng2-semantic-ui';
+// import { BrowserModule } from '@angular/platform-browser';
+import { SuiModal, ComponentModalConfig, ModalSize } from 'ng2-semantic-ui';
 
 interface IRouteUnblockModalContext {
     title: string;
@@ -15,7 +16,7 @@ interface IRouteUnblockModalContext {
 })
 export class ChoicesModalComponent {
     eRadio;
-    constructor(public modal: SuiModal<IRouteUnblockModalContext, void, void>) {}
+    constructor(public modal: SuiModal<IRouteUnblockModalContext, void, void>) { }
 }
 
 //

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { StateService } from '../../providers/state.service';
-import { ApiService } from '../../providers/api.service';
+import { StateService } from '@pepsi-app/providers/state.service';
+import { ApiService } from '@pepsi-app/providers/api.service';
 
 @Component({
   selector: 'app-izvestaj-kpis',

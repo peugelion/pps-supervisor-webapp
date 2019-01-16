@@ -38,7 +38,12 @@ export class SidebarLayoutComponent {
     },
     {
       title: 'Izveštaj KPIs: by area by SKU',
-      route: '/report-daily-sales-kpis/by-area-by-sku',
+      route: '/report-daily-sales-kpis/by-area-by-sku/false',
+      icon: 'newspaper outline'
+    },
+    {
+      title: 'Izveštaj KPIs: by area by SKU_8OZ',
+      route: '/report-daily-sales-kpis/by-area-by-sku/true',
       icon: 'newspaper outline'
     },
   ];

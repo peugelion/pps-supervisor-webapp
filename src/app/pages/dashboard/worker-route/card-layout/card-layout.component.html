@@ -1,8 +1,8 @@
 <!-- <div class="ui grid">
   <div class="sixteen wide tablet eight wide computer column" *ngFor="let route of workerRoutes"> -->
 <div class="three column stackable doubling ui grid">
-  <div class="column" *ngFor="let route of workerRoutes">
-    <div class="ui fluid card">
+  <div class="column" *ngFor="let route of workerRoutes" [id]="route.Fk_Partner">
+    <div class="ui fluid card" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]">
       <div class="content">
         <a class="ui right floated inverted red button" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]">Detalji</a>
         {{route.Mesto}}

@@ -13,7 +13,8 @@ const ROUTE_DETAILS_PATH = '/api/dashboard/route-details'; // + Fk_Partner
 const API_ROUTE_DETAILS = `${API_ROOT}${ROUTE_DETAILS_PATH}`;
 
 // const INSERT_KOMECIJALISTA_PRAVO_PATH = '/api/dashboard/insertKomercijalistaPravo';
-const KPIS_RPT_DAILY_SALES_PATH = '/api/dashboard/KPIsReport/dailySalesByCustomerBySKU';
+const KPIS_RPT_DAILY_SALES_ByCustBySKU_PATH = '/api/dashboard/KPIsReport/dailySalesByCustomerBySKU';
+const KPIS_RPT_DAILY_SALES_ByAreaBySKU_PATH = '/api/dashboard/KPIsReport/dailySalesByAreaBySKU';
 // const KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH = '/api/dashboard/KPIsReport/radnikPodredjenPartner';
 // const WORKER_PARTNERS_PATH = '/api/dashboard/workerPartners';
 const TLNR_PARTNER_OPREMA_IZUZETAK_PATH = '/api/dashboard/tlnr/VratiPartnerOpremaIzuzetak';
@@ -122,13 +123,34 @@ export class ApiService {
   // @LiquidCache('dailySalesKPIsRptByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 2 })
   async dailySalesKPIsRptByCustomerBySKU(SifraPARTNER: number, Datum_do: Date) {
     try {
-      const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_PATH}/${SifraPARTNER}`;
+      const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_ByCustBySKU_PATH}/${SifraPARTNER}`;
       const httpOptions = {
         withCredentials: true,
         params: {
           'Datum_do': Datum_do ? Datum_do.toISOString() : null
         }
       };      // console.log('SifraPARTNER', SifraPARTNER, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
+      return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
+    } catch (e) {
+      this.handleHttpError(e);
+      return [];
+    }
+  }
+
+  // @LiquidCache('dailySalesKPIsRptByAreaBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 2 })
+  // async dailySalesKPIsRptByAreaBySKU(Sifra_Radnika: number, Datum_do: Date, isCsd: 0 | 1, Dali8OZ: 0 | 1) {
+  async dailySalesKPIsRptByAreaBySKU(Sifra_Radnika: number, Datum_do: Date, isCsd: 0 | 1, Dali8OZ: boolean) {
+    try {
+      // console.log(`dailySalesKPIsRptByAreaBySKU isCsd: ${isCsd}, Dali8OZ:`, Dali8OZ, +Dali8OZ);
+      const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_ByAreaBySKU_PATH}/${Sifra_Radnika}`;
+      const httpOptions = {
+        withCredentials: true,
+        params: {
+          'Datum_do': Datum_do ? Datum_do.toISOString() : null,
+          'isCsd': isCsd.toString(),
+          'Dali8OZ': (+Dali8OZ).toString()
+        }
+      };      // console.log('Sifra_Radnika', Sifra_Radnika, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
       return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
     } catch (e) {
       this.handleHttpError(e);

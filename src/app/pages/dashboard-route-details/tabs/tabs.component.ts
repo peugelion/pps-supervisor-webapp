@@ -62,14 +62,16 @@ export class TabsComponent {
   async loadSinglePosition(Fk_Pozicija) {
     this.activeImageIndex = 0; // vrati na prvu sliku u nizu
     // console.log('this.singlePosition', this.singlePosition);
-    if (this.singlePosition) {
-      this.singlePosition['Slika'] = null;
+    if (this.singlePosition && this.singlePosition.length) {
+      // this.singlePosition[0]['Slika'] = null;
+      // this.singlePosition[0]['Slika'] = 'x';
+      this.singlePosition = null;
     }
-    // this.singlePosition = null;
     this.pageDimmed = this.isFullScreenSlider;
     // console.log('this.pageDimmed', this.pageDimmed);
     this.segmentDimmed = !this.isFullScreenSlider; // true only if not fullscreen slider
     this.singlePosition = await this.apiService.getSinglePosition(this.Fk_Partner, Fk_Pozicija, this.dateStr);
+    // console.log(`this.singlePosition`, this.singlePosition, this.singlePosition.length);
     this.pageDimmed = false;
     this.segmentDimmed = false;
     // console.log('this.route', this.route, this.singlePosition);

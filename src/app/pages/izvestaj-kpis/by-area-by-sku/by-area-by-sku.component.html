@@ -1,3 +1,57 @@
-<p>
-  by-area-by-sku works!
-</p>
+<div class="ui top fixed menu  menu__gray_bg">
+  <app-toggle-menu-btn></app-toggle-menu-btn>
+  <div class="item   mobile hidden">
+    <app-korisnik-meni></app-korisnik-meni>
+  </div>
+
+  <div class="right menu">
+    <div class="item">
+      <app-date-picker [selectedDateInput]="selectedDate" (dateChangeAction)="loadReport_dateChange($event)"></app-date-picker>
+    </div>
+    <div class="item">
+      <!-- <div class="content"> -->
+      <div class="ui form">
+        <!-- <div class="grouped fields"> -->
+        <div class="inline fields" style="margin-bottom: 0">
+          <div class="field">
+            <sui-radio-button name="csd" [(ngModel)]="isCsdRadio" (currentValueChange)="loadReport($event)" value="1">CSD</sui-radio-button>
+            <!-- <sui-radio-button name="csd_or_lipton" (currentValueChange)="loadReport($event)" value="1">CSD</sui-radio-button> -->
+          </div>
+          <div class="field">
+            <sui-radio-button name="csd" [(ngModel)]="isCsdRadio" (currentValueChange)="loadReport($event)" value="0">Lipton</sui-radio-button>
+            <!-- <sui-radio-button name="csd_or_lipton" (currentValueChange)="loadReport($event)" value="0">Lipton</sui-radio-button> -->
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+<sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
+  <div class="ui text loader">Učitavanje izveštaja!</div>
+</sui-dimmer>
+
+<!-- <div class="ui basic segment"> -->
+<div class="page__content__holder">
+
+  <div *ngIf="!dataSource || dataSource.length <= 1" class="ui text container segment__main__content">
+    <div class="ui middle aligned center aligned grid" style="height: 100%">
+      <div class="column">
+        <div *ngIf="!dataSource; else elseBlock" class="ui success big green message">
+          Odaberite datum</div>
+        <ng-template #elseBlock>
+          <div class="ui big red message">
+            Nema podataka za odabranog partnera.</div>
+        </ng-template>
+
+        <!-- <app-quick-list [newItem]="selectedPartner" stateKey='quickList_newTaskPartners' (selectedAction)="loadReport($event)"></app-quick-list> -->
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="dataSource != null && dataSource.length > 1" class="ui basic segment  segment__main__content">
+    <app-table-sorting [rptDataInput]="dataSource"></app-table-sorting>
+  </div>
+
+</div>

@@ -37,6 +37,14 @@ export class TyvsLyPipe implements PipeTransform {
     if (value.includes('TYvs') || value.includes('TDvs')) {
       return 'vs';
     }
+    if (value.endsWith('TY')) {
+      // console.log(value);
+      return value.substring(0, value.length - 2);
+    }
+    if (value.endsWith('LY') && value !== 'MTDLY') {
+      // console.log(value);
+      return 'LY';
+    }
     return value;
   }
 

@@ -4,7 +4,8 @@
   </span> -->
   <!-- back to dashboard link -->
   <div class="item">
-    <button class="ui right icon button" [routerLink]="['/dashboard']">
+    <!-- <button class="ui right icon button" [routerLink]="['/dashboard']"> -->
+    <button class="ui right icon button" (click)="backClicked()">
       <i class="large left chevron icon"></i>
     </button>
   </div>
@@ -13,15 +14,15 @@
     <div class="item">
 
       <div class="ui right floated buttons">
-        <button class="ui icon button" (click)="moveToPrevRoute()">
-          <i class="left chevron icon"></i>
-        </button>
         <button class="ui button  location__name__btn">
           <i class="map marker alternate icon"></i>
           <!-- {{ route?.Naziv.split(activeRoute?.Mesto)[0] }}, {{ activeRoute?.Mesto }} -->
           {{ activeRoute?.Naziv }}, {{ activeRoute?.Mesto }}
         </button>
-        <button class="ui right icon button" (click)="moveToNextRoute()">
+        <button (click)="moveToPrevRoute()" class="ui icon button">
+          <i class="left chevron icon"></i>
+        </button>
+        <button (click)="moveToNextRoute()" class="ui right icon button">
           <i class="right chevron icon"></i>
         </button>
       </div>
@@ -57,7 +58,8 @@
 
     <!-- tabovi -->
     <div class="tabs__container">
-      <app-tabs *ngIf="pozicije" [pozicijeInput]="pozicije" [zaliheInput]="zalihe" [routeInput]="workerRoutes[activeRouteIndex]" [Fk_Partner]="Fk_Partner" [dateStr]="dateStr" ></app-tabs>
+      <app-tabs *ngIf="pozicije" [pozicijeInput]="pozicije" [zaliheInput]="zalihe" [routeInput]="workerRoutes[activeRouteIndex]"
+        [Fk_Partner]="Fk_Partner" [dateStr]="dateStr"></app-tabs>
     </div>
     <!-- redni broj aktivne rute \ ukupno ruta -->
     <span class="ui top right attached label">
