@@ -1235,11 +1235,12 @@ i.icon.chart.area:before {
 i.icon.chart.bar:before {
   content: "\f080";
 }
-
+*/
 i.icon.chart.line:before {
   content: "\f201";
 }
 
+/*
 i.icon.chart.pie:before {
   content: "\f200";
 }

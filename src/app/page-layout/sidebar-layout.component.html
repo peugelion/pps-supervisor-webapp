@@ -9,6 +9,16 @@
       <i [class]="[p.icon + ' large icon']"></i> {{p.title}}
     </a>
     <div class="ui hidden divider"></div>
+    <a class="item">
+      <!-- <i class='newspaper outline large icon'></i> -->
+      <i class='chart line large icon'></i>
+      Izveštaj KPIs:
+    </a>
+    <a *ngFor="let p of appReportPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
+      <!-- <i [class]="[p.icon + ' large icon']"></i> -->
+      - {{p.title}}
+    </a>
+    <div class="ui hidden divider"></div>
 
     <a class="item flex-container" (click)="logout()" title="logout">
       <app-korisnik></app-korisnik> <i class="logout large icon"></i>

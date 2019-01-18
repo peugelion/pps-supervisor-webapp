@@ -156,6 +156,26 @@ th.mat-sort-header-sorted {
   font-weight: 800;
 }
 
+/* TY Vs LY,  positive\negative icons */
+
+td.positive.plus:after,
+td.negative:after,
+td.mat-cell.positive.plus:after,
+td.mat-cell.negative:after {
+  font-family: 'Icons';
+  padding-left: .1em;
+}
+
+td.positive.plus:after,
+td.mat-cell.positive.plus:after {
+  content: "\f0d8";
+}
+
+td.negative:after,
+td.mat-cell.negative:after {
+  content: "\f0d7";
+}
+
 /* table paginator */
 
 .footer__paginator {

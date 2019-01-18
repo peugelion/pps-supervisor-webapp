@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     const isMySuborditate = this.subordinates.find(obj => obj['Fk_Radnik'] === selection); // console.log(`ulogovan drugi korisnik`);
     if (!isMySuborditate) {
+      console.log('!isMySuborditate');
       return false;
     }
     if (selection) {

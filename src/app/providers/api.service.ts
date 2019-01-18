@@ -143,14 +143,29 @@ export class ApiService {
     try {
       // console.log(`dailySalesKPIsRptByAreaBySKU isCsd: ${isCsd}, Dali8OZ:`, Dali8OZ, +Dali8OZ);
       const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_ByAreaBySKU_PATH}/${Sifra_Radnika}`;
+      // const httpOptions = {
+      //   withCredentials: true,
+      //   params: {
+      //     'Datum_do': Datum_do ? Datum_do.toISOString() : null,
+      //     'isCsd': isCsd.toString(),
+      //     'Dali8OZ': (+Dali8OZ).toString()
+      //   }
+      // };
+
+      const params = {};
+      params['Datum_do'] = Datum_do ? Datum_do.toISOString() : null;
+      if (!!+isCsd) {
+        params['isCsd'] = '1';
+      }
+      if (Dali8OZ) {
+        params['Dali8OZ'] = '1';
+      }
       const httpOptions = {
-        withCredentials: true,
-        params: {
-          'Datum_do': Datum_do ? Datum_do.toISOString() : null,
-          'isCsd': isCsd.toString(),
-          'Dali8OZ': (+Dali8OZ).toString()
-        }
-      };      // console.log('Sifra_Radnika', Sifra_Radnika, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
+        'withCredentials': true,
+        'params': params
+      };
+
+      // console.log('Sifra_Radnika', Sifra_Radnika, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
       return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
     } catch (e) {
       this.handleHttpError(e);

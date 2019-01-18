@@ -67,6 +67,10 @@ const routes: Routes = [
                 loadChildren: './pages/izvestaj-kpis/izvestaj-kpis.module#IzvestajKpisModule',
                 canActivate: [RoleGuardService]
             }, {
+                path: 'report-daily-sales-kpis/by-area-by-sku',
+                loadChildren: './pages/izvestaj-kpis/by-area-by-sku/by-area-by-sku.module#ByAreaBySkuModule',
+                canActivate: [RoleGuardService]
+            }, {
                 path: 'report-daily-sales-kpis/by-area-by-sku/:dali8OZ',
                 loadChildren: './pages/izvestaj-kpis/by-area-by-sku/by-area-by-sku.module#ByAreaBySkuModule',
                 canActivate: [RoleGuardService]

@@ -477,6 +477,10 @@ i.icon.calendar:before {
   content: "\f133"
 }
 
+i.icon.chart.line:before {
+  content: "\f201"
+}
+
 i.icon.chevron.left:before {
   content: "\f053"
 }

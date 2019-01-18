@@ -8,8 +8,16 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column | TYvsLY | shortMonth }}</th>
         <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header>$parseColumnName($column)</th> -->
         <!-- <td mat-cell *matCellDef="let row"  [ngClass]="{'left aligned': column === 'Opis'}">{{ row[column] }}</td> -->
-        <td mat-cell *matCellDef="let row" [ngClass]="{'positive': column.includes('vs') && row[column] > 0, 'negative': column.includes('vs') && row[column] < 0}">{{
+        <!-- <td mat-cell *matCellDef="let row" [ngClass]="{'positive': column.includes('vs') && row[column] > 0, 'negative': column.includes('vs') && row[column] < 0, 'warning': column.includes('vs') && row[column] === 0}">{{
+          row[column] }}</td> -->
+        <!-- <td mat-cell *matCellDef="let row" [className]="column.includes('vs') ? (row[column] > 0 ? 'positive' : (row[column] < 0 ? 'negative' : row['Sifra'] !== 'AKTIVNI OBJEKTI' ? 'warning' : '')) : ''">{{
+          row[column] }}</td> -->
+        <!-- <td mat-cell *matCellDef="let row" [className]="column.includes('vs') ? (row[column] > 0 ? 'positive plus' : (row[column] < 0 ? 'negative' : (this.isNumber(row.Sifra) ? 'info zero' : ''))) : ''">{{
+          row[column] }}</td> -->
+        <td mat-cell *matCellDef="let row" [ngClass]="{'positive plus': column.includes('vs') && row[column] > 0, 'negative': column.includes('vs') && row[column] < 0}">{{
           row[column] }}</td>
+
+
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

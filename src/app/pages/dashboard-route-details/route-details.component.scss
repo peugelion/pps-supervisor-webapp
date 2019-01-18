@@ -52,7 +52,8 @@ $break-large: 1200px;
 
 span.ui.top.right.attached.label {
   background: unset;
-  z-index: -1;
+  // z-index: -1;
+  z-index: 0;
 }
 
 .mini__table {

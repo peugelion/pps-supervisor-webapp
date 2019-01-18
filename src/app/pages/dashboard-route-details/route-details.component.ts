@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { StateService } from '../../providers/state.service';
 import { ApiService } from '../../providers/api.service';
-import { Location } from '@angular/common';
+// import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-route-details',
@@ -31,7 +31,7 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
     private stateService: StateService,
     private apiService: ApiService,
     private cdRef: ChangeDetectorRef,
-    private _location: Location
+    // private _location: Location
   ) {
     // override the route reuse strategy
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -112,9 +112,9 @@ export class RouteDetailsComponent implements OnInit, OnDestroy {
 
   //
 
-  backClicked() {
-    this._location.back();
-  }
+  // backClicked() {
+  //   this._location.back();
+  // }
 
   moveToNextRoute() {
     const newIndex = (this.workerRoutes.length - 1 <= this.activeRouteIndex) ? 0 : this.activeRouteIndex + 1;

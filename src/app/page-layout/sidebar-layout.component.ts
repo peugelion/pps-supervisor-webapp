@@ -30,21 +30,20 @@ export class SidebarLayoutComponent {
       title: 'Odblokiraj unos porudžbine',
       route: '/odblokiraj-unos-porudzbine',
       icon: 'redo'
-    },
+    }
+  ];
+  appReportPages = [
     {
-      title: 'Izveštaj KPIs: by customer by SKU',
+      title: 'By customer by SKU',
       route: '/report-daily-sales-kpis/by-customer-by-sku',
-      icon: 'newspaper outline'
     },
     {
-      title: 'Izveštaj KPIs: by area by SKU',
-      route: '/report-daily-sales-kpis/by-area-by-sku/false',
-      icon: 'newspaper outline'
+      title: 'By area by SKU',
+      route: '/report-daily-sales-kpis/by-area-by-sku',
     },
     {
-      title: 'Izveštaj KPIs: by area by SKU_8OZ',
+      title: 'By area by SKU_8OZ',
       route: '/report-daily-sales-kpis/by-area-by-sku/true',
-      icon: 'newspaper outline'
     },
   ];
 
