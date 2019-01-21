@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+// import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 // import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 // import { Alert } from '@angular/compiler/src/i18n/i18n_ast';
 
 /* https://material.angular.io/components/snack-bar/overview */
@@ -16,6 +17,7 @@ export interface Alert {
 
 @Component({
   selector: 'app-alert',
+  // encapsulation: ViewEncapsulation.None,
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss']
 })
@@ -64,10 +66,11 @@ export class AlertComponent {
   showErrorAlert(alert: Alert | any) {
     if (alert != null) {
       // there is a alert to show, so change snackbar style to match the alert type
-      alert = this.initMsgDefaults(alert);      console.log(alert);
+      alert = this.initMsgDefaults(alert); console.log(alert);
       this.snackBar.open(alert.text, undefined, {
         duration: alert.duration * 1000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
+        // horizontalPosition: 'right',
         panelClass: ['ui', 'negative', 'message']
       });
     }
@@ -76,10 +79,10 @@ export class AlertComponent {
   showSuccessAlert(alert: Alert | any) {
     if (alert != null) {
       // there is a alert to show, so change snackbar style to match the alert type
-      alert = this.initMsgDefaults(alert);      console.log(alert);
+      alert = this.initMsgDefaults(alert); console.log(alert);
       this.snackBar.open(alert.text, undefined, {
         duration: alert.duration * 1000,
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         panelClass: ['ui', 'positive', 'message']
       });
     }
@@ -90,7 +93,8 @@ export class AlertComponent {
   initMsgDefaults(alert: Alert | any) {
     if (!alert.action) { alert.action = 'Zatvori'; }
     if (!alert.duration) { alert.duration = 8; }
-    if (!alert.verticalPosition) { alert.verticalPosition = 'bottom'; }
+    if (!alert.verticalPosition) { alert.verticalPosition = 'top'; }
+    if (!alert.horizontalPosition) { alert.horizontalPosition = 'right'; }
     if (!alert.panelClass) { alert.panelClass = ['ui', 'message']; }
     return alert;
   }

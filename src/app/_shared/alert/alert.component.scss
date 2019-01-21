@@ -1,22 +1,28 @@
-.ui.message.mat-snack-bar-container {
-    // border-radius: 4px;
-    // box-sizing: border-box;
-    // display: block;
-    margin: 24px;
-    // max-width: 33vw;
-    // min-width: 344px;
-    // padding: 14px 16px;
-    // min-height: 48px;
-    // transform-origin: center;
-}
+// .ui.message.mat-snack-bar-container,
+// snack-bar-container.ui.message.mat-snack-bar-container {
+//   margin: 24px;
+// }
 
-.mat-snack-bar-handset .mat-snack-bar-container.ui.message {
-    margin: 8px;
-    max-width: 100%;
-    min-width: 0;
-    width: 100%;
-}
+// // .mat-snack-bar-handset {
+// .mat-snack-bar-container.ui.message,
+// snack-bar-container.mat-snack-bar-container.ui.message {
+//   margin: 8px;
+//   max-width: 100%;
+//   min-width: 0;
+//   width: 100%;
+//   /* top, centrirano sa marginom */
+//   // position: absolute;
+//   // top: 60px;
+//   // left: calc(50% - 172px);
+// }
 
-.mat-snack-bar-handset .mat-snack-bar-container.ui.message:last-child {
-    margin-bottom: unset;
-}
+// // }
+
+// // .mat-snack-bar-handset {
+// .mat-snack-bar-container.ui.message:last-child,
+// snack-bar-container.mat-snack-bar-container.ui.message:last-child {
+//   // margin-bottom: unset;
+//   margin-top: unset;
+// }
+
+// // }

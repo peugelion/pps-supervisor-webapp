@@ -9,22 +9,23 @@
                 [valueField]="valueField"
                 (selectedOptionChange)="selectChange($event)"
                 #select
-                readonly> -->
-    <sui-select class="selection" [(ngModel)]="selectedOption" [options]="options" [labelField]="labelField"
-      [optionTemplate]="optionTemplate" [valueField]="valueField" (selectedOptionChange)="selectChange($event)" #select
-      readonly>
-      <!-- <div class="ui icon search input">
+                readonly>
+      <div class="ui icon search input">
         <i class="search icon"></i>
         <input suiSelectSearch type="text" [placeholder]="placeholder">
-      </div> -->
-      <!-- <div class="divider"></div> -->
-      <!-- <div class="header">
+      </div>
+      <div class="divider"></div>
+      <div class="header">
         <i class="list icon"></i>
         Opcije
-      </div> -->
-      <!-- <div class="scrolling menu">
+      </div>
+      <div class="scrolling menu">
         <sui-select-option *ngFor="let o of select.filteredOptions" [value]="o"></sui-select-option>
-      </div> -->
+      </div>
+      <sui-select-option *ngFor="let o of select.filteredOptions" [value]="o"></sui-select-option> -->
+
+    <sui-select class="selection" [(ngModel)]="selectedOption" [options]="options" [labelField]="labelField"
+      [valueField]="valueField" (selectedOptionChange)="selectChange($event)" #select readonly>
       <sui-select-option *ngFor="let o of select.filteredOptions" [value]="o"></sui-select-option>
     </sui-select>
 
