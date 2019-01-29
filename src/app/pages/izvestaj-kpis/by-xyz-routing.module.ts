@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ByAreaBySkuComponent } from './by-area-by-sku.component';
+import { ByXYZComponent } from './by-xyz.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ByAreaBySkuComponent
+    component: ByXYZComponent
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ByAreaBySkuRoutingModule { }
+export class ByXYZRoutingModule { }

@@ -82,6 +82,7 @@ th.mat-sort-header-sorted {
   // background: #f9fafa;
   bottom: -10px;
   left: 0;
+  min-width: calc(100% - 370px);
   // z-index: 101;
   z-index: 100;
 
@@ -166,14 +167,20 @@ td.mat-cell.negative:after {
   padding-left: .1em;
 }
 
+
+td.zero:after,
+td.mat-cell.zero:after {
+  content: "%";
+}
+
 td.positive.plus:after,
 td.mat-cell.positive.plus:after {
-  content: "\f0d8";
+  content: "%\f0d8";
 }
 
 td.negative:after,
 td.mat-cell.negative:after {
-  content: "\f0d7";
+  content: "%\f0d7";
 }
 
 /* table paginator */
@@ -248,6 +255,12 @@ td.mat-cell.negative:after {
       }
     }
   }
+
+  // tbody {
+  //   tr.active {
+  //     background: #f9fafa !important;
+  //   }
+  // }
 
   /* Mobile - landscape */
   @media screen and (max-height: $break-mobile-small) {

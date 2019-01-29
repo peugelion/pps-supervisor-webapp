@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DateTimeFormatPipe, DateFormatPipe, TimeFormatPipe } from './date-time-format.pipe';
 import { TyvsLyPipe, ShortMonthPipe } from './short-str.pipe';
+import { MappingPipe, MappingPipe2 } from './universal.pipe';
 
 
 @NgModule({
@@ -12,15 +13,17 @@ import { TyvsLyPipe, ShortMonthPipe } from './short-str.pipe';
     DateFormatPipe,
     TimeFormatPipe,
     TyvsLyPipe,
-    ShortMonthPipe
+    ShortMonthPipe,
+    MappingPipe, MappingPipe2
   ],
   exports: [
     DateTimeFormatPipe,
     DateFormatPipe,
     TimeFormatPipe,
     TyvsLyPipe,
-    ShortMonthPipe
+    ShortMonthPipe,
+    MappingPipe, MappingPipe2
   ]
 })
-export class CustomPipeModule {}
+export class CustomPipeModule { }
 

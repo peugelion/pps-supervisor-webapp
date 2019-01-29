@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { IzvestajKpisRoutingModule } from './izvestaj-kpis-routing.module';
-import { IzvestajKpisComponent } from './izvestaj-kpis.component';
+import { ByCustomerRoutingModule } from './by-customer-routing.module';
+import { ByCustomerComponent } from './by-customer.component';
 
 import { SuiDimmerModule } from 'ng2-semantic-ui';
 
@@ -17,11 +17,11 @@ import { QuickListModule } from '@pepsi-shared/quick-list/quick-list.module';
 
 @NgModule({
   declarations: [
-    IzvestajKpisComponent,
+    ByCustomerComponent,
   ],
   imports: [
     CommonModule,
-    IzvestajKpisRoutingModule,
+    ByCustomerRoutingModule,
 
     SuiDimmerModule,
     // SuiSearchModule,
@@ -36,4 +36,4 @@ import { QuickListModule } from '@pepsi-shared/quick-list/quick-list.module';
     QuickListModule
   ]
 })
-export class IzvestajKpisModule { }
+export class ByCustomerModule { }

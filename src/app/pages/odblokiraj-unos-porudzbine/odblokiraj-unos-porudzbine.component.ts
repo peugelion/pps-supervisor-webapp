@@ -69,7 +69,7 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
 
   loadSelectedPartner_subordinateChange(selectedSubordinate_SifraRadnik: string) {
     // console.log('loadSelectedPartner_subordinateChange USO', selectedSubordinate_SifraRadnik);
-    this.selectedPartner = null; // reset\hide selectedPartner section in html template
+    this.selectedPartner = null; // reset\hide selectedPartner section in html  template
     this.selectedSubordinate_SifraRadnik = selectedSubordinate_SifraRadnik;
     this.loadSelectedPartner(null);
   }
@@ -190,7 +190,9 @@ export class OdblokirajUnosPorudzbineComponent implements OnInit, OnDestroy {
       this.stateService.setSelectedSubordinate_SifraRadnik(selectedSubordinate_SifraRadnik);
       /* SifraRadnik <-> Fk_Radnik */
       const selectedSubordObj = this.subordinates.find(obj => obj['SifraRadnik'] === selectedSubordinate_SifraRadnik);
-      this.stateService.setSelectedSubordinate(selectedSubordObj['Fk_Radnik']); //
+      if (selectedSubordObj) {
+        this.stateService.setSelectedSubordinate(selectedSubordObj['Fk_Radnik']); //
+      }
     }
     if (partnerUnblockedState) {
       // this.setPartnerUnblockedState(this.partnerUnblockedState);

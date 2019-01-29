@@ -4,18 +4,17 @@
   <!-- <sui-sidebar class="inverted vertical thin " #sidebar transition="overlay"  direction="left"> -->
   <sui-sidebar [(isVisible)]="isSidebarVisible" class="inverted vertical menu" #sidebar transition="overlay" direction="left">
     <!-- transition: overlay, uncover, scale down, push, slide along & slide out -->
-    <!-- <a class="item" [routerLink]="['/dashboard']">Dashboard<i class="world large icon"></i></a> -->
-    <a *ngFor="let p of appPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
+    <!-- <a *ngFor="let p of appPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()"> -->
+    <a *ngFor="let p of _appPagesService.pages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
       <i [class]="[p.icon + ' large icon']"></i> {{p.title}}
     </a>
     <div class="ui hidden divider"></div>
     <a class="item">
-      <!-- <i class='newspaper outline large icon'></i> -->
       <i class='chart line large icon'></i>
       Izveštaj KPIs:
     </a>
-    <a *ngFor="let p of appReportPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
-      <!-- <i [class]="[p.icon + ' large icon']"></i> -->
+    <!-- <a *ngFor="let p of appReportPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()"> -->
+    <a *ngFor="let p of _appPagesService.reportPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
       - {{p.title}}
     </a>
     <div class="ui hidden divider"></div>

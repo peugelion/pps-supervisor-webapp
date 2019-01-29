@@ -64,15 +64,12 @@ const routes: Routes = [
                 // path: 'izvestaj-kpis',
                 path: 'report-daily-sales-kpis/by-customer-by-sku',
                 // component: IzvestajKpisComponent,
-                loadChildren: './pages/izvestaj-kpis/izvestaj-kpis.module#IzvestajKpisModule',
+                loadChildren: './pages/izvestaj-kpis/by-customer.module#ByCustomerModule',
                 canActivate: [RoleGuardService]
             }, {
-                path: 'report-daily-sales-kpis/by-area-by-sku',
-                loadChildren: './pages/izvestaj-kpis/by-area-by-sku/by-area-by-sku.module#ByAreaBySkuModule',
-                canActivate: [RoleGuardService]
-            }, {
-                path: 'report-daily-sales-kpis/by-area-by-sku/:dali8OZ',
-                loadChildren: './pages/izvestaj-kpis/by-area-by-sku/by-area-by-sku.module#ByAreaBySkuModule',
+                // path: 'report-daily-sales-kpis/by-xyz/:dali8OZ',
+                path: 'report-daily-sales-kpis/by-xyz/:reportNo',
+                loadChildren: './pages/izvestaj-kpis/by-xyz.module#ByXYZModule',
                 canActivate: [RoleGuardService]
             }, {
                 path: '**',

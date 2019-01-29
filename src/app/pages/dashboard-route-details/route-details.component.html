@@ -31,7 +31,8 @@
   </div>
 </div>
 
-<div class="ui bottom attached segment stackable" [class.container__main__content]="pozicije.length">
+<div class="ui bottom attached segment stackable  container__main__content" [class.has__conetent]="pozicije.length">
+  <!-- <div class="ui bottom attached segment stackable  container__main__content" [class.empty]="!pozicije.length"> -->
 
   <sui-dimmer class="inverted" [(isDimmed)]="segmentDimmed">
     <div class="ui text loader">Učitavanje pozicija ...</div>

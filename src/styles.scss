@@ -25,6 +25,13 @@
 }
 
 
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 /* semantic ui scrollbar override on Mobile */
 // @media only screen and (max-width:640px) {
 //     body ::-webkit-scrollbar {

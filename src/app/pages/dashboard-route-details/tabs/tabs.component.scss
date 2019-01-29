@@ -32,6 +32,11 @@ $break-large: 1200px;
     padding: .464285715em .714285715em;
     /* duplo manje */
   }
+
+  @media screen and (max-height: $break-mobile-medium) {
+    padding: .1em .3571428575em;
+    /* duplo manje */
+  }
 }
 
 .ui.tabular.menu .active.item {

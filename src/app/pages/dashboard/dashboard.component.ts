@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (selectedSubordinate) {
       this.stateService.setSelectedSubordinate(selectedSubordinate);
       const selectedSubordinateObj = this.subordinates.find(obj => obj['Fk_Radnik'] === selectedSubordinate); /* SifraRadnik za Fk_Radnik */
-      console.log('saveState selectedSubordinateObj', selectedSubordinateObj);
+      // console.log('saveState selectedSubordinateObj', selectedSubordinateObj);
       if (selectedSubordinateObj) {
         this.stateService.setSelectedSubordinate_SifraRadnik(selectedSubordinateObj['SifraRadnik']); //
       }

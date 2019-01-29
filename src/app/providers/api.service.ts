@@ -14,7 +14,11 @@ const API_ROUTE_DETAILS = `${API_ROOT}${ROUTE_DETAILS_PATH}`;
 
 // const INSERT_KOMECIJALISTA_PRAVO_PATH = '/api/dashboard/insertKomercijalistaPravo';
 const KPIS_RPT_DAILY_SALES_ByCustBySKU_PATH = '/api/dashboard/KPIsReport/dailySalesByCustomerBySKU';
+
 const KPIS_RPT_DAILY_SALES_ByAreaBySKU_PATH = '/api/dashboard/KPIsReport/dailySalesByAreaBySKU';
+const KPIS_RPT_DAILY_SALES_ByArea_PATH = '/api/dashboard/KPIsReport/dailySalesByArea';
+const KPIS_RPT_DAILY_SALES_ByCustomer_PATH = '/api/dashboard/KPIsReport/dailySalesByCustomer';
+
 // const KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH = '/api/dashboard/KPIsReport/radnikPodredjenPartner';
 // const WORKER_PARTNERS_PATH = '/api/dashboard/workerPartners';
 const TLNR_PARTNER_OPREMA_IZUZETAK_PATH = '/api/dashboard/tlnr/VratiPartnerOpremaIzuzetak';
@@ -137,11 +141,13 @@ export class ApiService {
     }
   }
 
-  // @LiquidCache('dailySalesKPIsRptByAreaBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 2 })
-  // async dailySalesKPIsRptByAreaBySKU(Sifra_Radnika: number, Datum_do: Date, isCsd: 0 | 1, Dali8OZ: 0 | 1) {
+  // @LiquidCache('dailySalesKPIsRptByXYZ {SifraPARTNER} {Datum_do}', { duration: 60 * 2 })
+  // async dailySalesKPIsRptByXYZ(Sifra_Radnika: number, Datum_do: Date, isCsd: 0 | 1, Dali8OZ: 0 | 1) {
+  // async dailySalesKPIsRptByXYZ(Sifra_Radnika: number, Datum_do: Date, isCsd: 0 | 1, Dali8OZ: boolean) {
   async dailySalesKPIsRptByAreaBySKU(Sifra_Radnika: number, Datum_do: Date, isCsd: 0 | 1, Dali8OZ: boolean) {
+    // async dailySalesKPIsRptByAreaBySKU(Sifra_Radnika: number, Datum_do: Date, isCsd: 0 | 1, reportNo: Number) {
     try {
-      // console.log(`dailySalesKPIsRptByAreaBySKU isCsd: ${isCsd}, Dali8OZ:`, Dali8OZ, +Dali8OZ);
+      // console.log(`dailySalesKPIsRptByXYZ isCsd: ${isCsd}, Dali8OZ:`, Dali8OZ, +Dali8OZ);
       const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_ByAreaBySKU_PATH}/${Sifra_Radnika}`;
       // const httpOptions = {
       //   withCredentials: true,
@@ -157,6 +163,8 @@ export class ApiService {
       if (!!+isCsd) {
         params['isCsd'] = '1';
       }
+      // const dali8OZ = !!+(reportNo - 1);  // reportNo = 1 -> dali8OZ = false,  reportNo = 2 -> dali8OZ = true
+      // const dali8OZ = !!+(reportNo - 1);
       if (Dali8OZ) {
         params['Dali8OZ'] = '1';
       }
@@ -173,24 +181,69 @@ export class ApiService {
     }
   }
 
-  // @LiquidCache('dailySalesKPIsRptByCustomerBySKU {SifraPARTNER} {Datum_do}', { duration: 60 * 5 })
-  // async radnikPodredjenPartner(query: string) {
-  //   try {
-  //     const apiURL = `${API_ROOT}${KPIS_RPT_RADNIK_PODREDJEN_PARTNER_PATH}/${query}`;
-  //     return await this._http.get<any[]>(apiURL, {withCredentials: true}).toPromise();
-  //   } catch (e) {
-  //     this.handleHttpError(e);
-  //     return [];
-  //   }
-  // }
+  async dailySalesKPIsRptByXYZ(reportNo: number, Datum_do: Date, isCsd: 0 | 1) {
+    try {
+      // console.log(`dailySalesKPIsRptByXYZ reportNo: ${reportNo}, isCsd: ${isCsd}`);
+      // console.log('[1, 2].indexOf(reportNo) :', [1, 2].indexOf(reportNo), [1, 2].indexOf(reportNo) + 1);
+      // console.log('reportNo === (1 || 2)    :', reportNo === (1 || 2));
+      if ([3, 4, 5, 6].indexOf(reportNo) + 1) {
+        // console.log('loadDailySalesByArea (rpts 3-6)');
+        // return await this.loadDailySalesByArea();
+      }
+      // isCSD = reportNo === 1
+      const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_ByArea_PATH}`;
+      const params = {};
+      params['Datum_do'] = Datum_do ? Datum_do.toISOString() : null;
+      const isOrange = [4, 6].indexOf(reportNo) + 1; // rpt 4 or 6
+      if (isOrange) {
+        params['isOrange'] = '1';
+      } else if (!!+isCsd) {
+        params['isCsd'] = '1';
+      } else {
+        params['isLipton'] = '1';
+      }
+      const Dali8OZ = [5, 6].indexOf(reportNo) + 1; // rpt 5 or 6
+      if (Dali8OZ) {
+        params['Dali8OZ'] = '1';
+      }
+      const httpOptions = {
+        'withCredentials': true,
+        'params': params
+      };
+      // console.log('Datum_do', Datum_do, 'httpOptions', httpOptions);
+      return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
+    } catch (e) {
+      this.handleHttpError(e);
+      return [];
+    }
+  }
 
-  //
+  async dailySalesKPIsRptByCustomer(Sifra_Radnika: number, Datum: Date, isCsd: 0 | 1, Dali8OZ: boolean, isOutlet: boolean) {
+    try {
+      const apiURL = `${API_ROOT}${KPIS_RPT_DAILY_SALES_ByCustomer_PATH}/${Sifra_Radnika}`;
+      const params = {};
+      params['Datum'] = Datum ? Datum.toISOString() : null;
+      if (!!+isCsd) {
+        params['isCsd'] = '1';
+      }
+      if (Dali8OZ) {
+        params['Dali8OZ'] = '1';
+      }
+      if (isOutlet) {
+        params['isOutlet'] = '1';
+      }
+      const httpOptions = {
+        'withCredentials': true,
+        'params': params
+      };
 
-  // @LiquidCache('getWorkerPartners {Fk_Radnik} {date}', { duration: 60 * 2 }) // kesira api rezulat X minuta
-  // getWorkerPartners(Fk_Radnik, query: string) {
-  //   const apiURL = `${API_ROOT}${WORKER_PARTNERS_PATH}/${Fk_Radnik}/${query}`;
-  //   return this._http.get(apiURL, {withCredentials: true});
-  // }
+      // console.log('Sifra_Radnika', Sifra_Radnika, 'Datum_do', Datum_do, 'httpOptions', httpOptions);
+      return await this._http.get<any[]>(apiURL, httpOptions).toPromise();
+    } catch (e) {
+      this.handleHttpError(e);
+      return [];
+    }
+  }
 
   //
 

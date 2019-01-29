@@ -1,12 +1,13 @@
-import {Component, ViewEncapsulation, Input, AfterViewInit, ViewChild } from '@angular/core';
-import {MatSort, MatPaginator, MatTableDataSource} from '@angular/material';
+// import { Component, ViewEncapsulation, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+// export interface PeriodicElement {
+//   name: string;
+//   position: number;
+//   weight: number;
+//   symbol: string;
+// }
 
 // const data = {'AKvsKK': 1, 'AprTYvsAprLY': 0, 'AprilLY': 0, 'AprilTY': 0, 'AugTYvsAugLY': 0, 'AugustLY': 0, 'AugustTY': 0,
 // 'DecTYvsDecLY': 0, 'DecemberLY': 0, 'DecemberTY': 0, 'DiffMTD': 0, 'FebTYvsFebLY': 0, 'FebruaryLY': 0, 'FebruaryTY': 0,
@@ -30,55 +31,48 @@ export class TableSortingComponent implements AfterViewInit {
   rptData = [];
   dataSource = new MatTableDataSource();
   displayedColumns: string[];
-  // dataSource: MatTableDataSource<LocationItem> = new MatTableDataSource();
 
   isSingleRow = false;
+  isSmallTable = false;
   tableCssClass = 'ui unstackable red table  celled selectable  custom__table';  // helper
   filterActive = null; // filter state
 
   @Input() set rptDataInput(val: Array<Object>) {
     this.isSingleRow = val.length === 1;
-    if (this.isSingleRow) {
-      // this.tableCssClass = 'ui unstackable red table  very basic  custom__table';
-    }
+    this.isSmallTable = val.length && val.length <= 20;
     this.displayedColumns = (Object.keys(val[0]));    // console.log('this.displayedColumns', this.displayedColumns);
-    this.displayedColumns.shift(); // remove 'RNB' collumn
+    // this.displayedColumns.shift(); // remove 'RNB' column
     this.rptData = val;
-    // this.dataSource = new MatTableDataSource<Object>(val);
-    // this.dataSource.data = val;
     // this.cdRef.detectChanges(); // force change detection (zone lost)
-    /* https://stackoverflow.com/questions/50962765/expressionchangedafterithasbeencheckederror-invoking-toastr-in-nginit-in-angular */
-    // setTimeout(() => {
-      this.dataSource.data = this.rptData;
-    // });
+    this.dataSource.data = this.rptData;
   }
   @Input() set filterValueInput(val: string) {
     this.applyFilter(val);
   }
-  // @Output() btnClick = new EventEmitter();
+
+  filtersArr: string[] | null = null;
+  @Input() set filtersArrInput(val: string[]) {
+    console.log('filtersArrInput', val);
+    this.filtersArr = val;
+  }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(
-    // private cdRef: ChangeDetectorRef
-  ) {}
-
-  // ngOnInit() {}
-  // ngOnDestroy() {}
+  constructor() { }
 
   /**
    * Set the paginator and sort after the view init since this component will
    * be able to query its view for the initialized paginator and sort.
    */
   ngAfterViewInit() {
-  // ngOnInit() {
     /* https://stackoverflow.com/questions/50962765/expressionchangedafterithasbeencheckederror-invoking-toastr-in-nginit-in-angular */
     setTimeout(() => {
       if (!this.isSingleRow) {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-      this.dataSource.data = this.rptData;
+      // this.dataSource.data = this.rptData;
+      // console.log('[ngAfterViewInit]');
     });
   }
 
@@ -111,16 +105,17 @@ export class TableSortingComponent implements AfterViewInit {
 
   //
 
-  parseColumnName(collumnName) {
-    console.log('collumnName', collumnName);
-    return collumnName;
-  }
+  // parseColumnName(columnName) {
+  //   console.log('columnName', columnName);
+  //   return columnName;
+  // }
 
   //
 
-  isStickyCollumn (column: string): boolean {
-    // console.log(column);
-    return column === 'Opis' ? true : false;
+  isStickyCollumn(columnTxt: string): boolean {
+    // return column === 'Opis' ? true : false;
+    // console.log('isStickyCollumn', columnTxt);
+    return ['Opis', 'NazivPartner', 'ImeProd'].indexOf(columnTxt) + 1 ? true : false;
   }
 
   //
@@ -131,16 +126,35 @@ export class TableSortingComponent implements AfterViewInit {
   //   return /^\d+$/.test(val);
   // }
 
-  isNumber(val) {
-    if (!val) {
-      return false;
-    }
-    return /^\d+$/.test(val);
+  isActiveRow(row) {
+    // console.log('isActiveRow', row);
+    const isNumber = val => {
+      if (!val) {
+        return false;
+      }
+      return /^\d+$/.test(val);
+    };
+    return (!isNumber(row.Sifra) && !isNumber(row.sifraPartner) && !isNumber(row.SifraProd));
   }
 
   // isRightAllignedCollumn(column) {
   //   console.log('column ...', (column !== 'Opis'), column );
   //   return (column !== 'Opis');
   // }
-}
 
+  tdClass(column, row) {
+    // {'zero': column.includes('vs'), 'positive plus': column.includes('vs') && row[column] > 0,
+    // 'negative': column.includes('vs') && row[column] < 0 && row[column] != -100}
+    const isVsColumn = column.includes('vs');
+    if (!isVsColumn) {
+      return;
+    }
+    // console.log('tdClass', column, row);
+    if (row[column] > 0) {
+      return 'positive plus';
+    } else if (row[column] < 0 && row[column] !== -100) {
+      return 'negative';
+    }
+    return 'zero';
+  }
+}

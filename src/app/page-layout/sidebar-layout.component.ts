@@ -5,6 +5,7 @@ import { AuthService } from '../providers/auth.service';
 import { AlertComponent } from '@pepsi-app/_shared/alert/alert.component';
 import { Router, NavigationEnd } from '@angular/router'; // za zatvaranje sidebar-a
 import { filter } from 'rxjs/operators';                 // za zatvaranje sidebar-a
+import { AppPagesService } from '@pepsi-app/providers/app-pages.service';
 
 @Component({
   selector: 'app-sidebar-layout',
@@ -12,46 +13,29 @@ import { filter } from 'rxjs/operators';                 // za zatvaranje sideba
   styleUrls: ['./sidebar-layout.component.scss']
 })
 export class SidebarLayoutComponent {
-  // showSidebar$: Observable<boolean>;
-  // private defaultShowSidebar = true;
   allowSidebarOnPage = false;
   isSidebarVisible$: Observable<boolean>;
   isSidebarVisible = false;
-  // isSupervisor = false;
-
-  appPages = [
-    {
-      title: 'Dashboard',
-      route: '/dashboard',
-      icon: 'world',
-      // permissions: isSupervisor;
-    },
-    {
-      title: 'Odblokiraj unos porudžbine',
-      route: '/odblokiraj-unos-porudzbine',
-      icon: 'redo'
-    }
-  ];
-  appReportPages = [
-    {
-      title: 'By customer by SKU',
-      route: '/report-daily-sales-kpis/by-customer-by-sku',
-    },
-    {
-      title: 'By area by SKU',
-      route: '/report-daily-sales-kpis/by-area-by-sku',
-    },
-    {
-      title: 'By area by SKU_8OZ',
-      route: '/report-daily-sales-kpis/by-area-by-sku/true',
-    },
-  ];
+  // appPages = [
+  //   {
+  //     title: 'Dashboard',
+  //     route: '/dashboard',
+  //     icon: 'world',
+  //     // permissions: isSupervisor;
+  //   },
+  //   {
+  //     title: 'Odblokiraj unos porudžbine',
+  //     route: '/odblokiraj-unos-porudzbine',
+  //     icon: 'redo'
+  //   }
+  // ];
 
   constructor(
     public ppsAlert: AlertComponent,
     private _sharedService: SharedService,
     private _authService: AuthService,
     router: Router, // za zatvaranje sidebar-a
+    public _appPagesService: AppPagesService,
   ) {
     _sharedService.toggleChangeEmitted$.subscribe(toggle => this.isSidebarVisible = toggle);
     /* zatvaram sidebar nakon promene rute */

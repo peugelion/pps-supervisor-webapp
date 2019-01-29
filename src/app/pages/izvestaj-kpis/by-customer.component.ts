@@ -3,11 +3,11 @@ import { StateService } from '@pepsi-app/providers/state.service';
 import { ApiService } from '@pepsi-app/providers/api.service';
 
 @Component({
-  selector: 'app-izvestaj-kpis',
-  templateUrl: './izvestaj-kpis.component.html',
-  styleUrls: ['./izvestaj-kpis.component.scss']
+  selector: 'app-by-customer',
+  templateUrl: './by-customer.component.html',
+  styleUrls: ['./by-customer.component.scss']
 })
-export class IzvestajKpisComponent implements OnDestroy {
+export class ByCustomerComponent implements OnDestroy {
   segmentDimmed = false;
   isQueryShort = false;
   // addToQuickList = false;

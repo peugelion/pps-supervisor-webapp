@@ -1,23 +1,17 @@
 <div class='table__cmp__holder'>
 
-  <div class="custom__table__container__dimensions">
+  <div class="custom__table__container__dimensions" #customTable>
     <table mat-table *ngIf="displayedColumns && dataSource" [dataSource]="dataSource" class="mat-elevation-z8" [class]="tableCssClass"
       matSort>
-      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column" [sticky]="isStickyCollumn(column)">
+      <!-- <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column" [sticky]="isStickyCollumn(column)"> -->
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column" [sticky]="column | genericMapPipe : isStickyCollumn">
         <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSingleRow">{{ column }}</th> -->
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column | TYvsLY | shortMonth }}</th>
-        <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header>$parseColumnName($column)</th> -->
-        <!-- <td mat-cell *matCellDef="let row"  [ngClass]="{'left aligned': column === 'Opis'}">{{ row[column] }}</td> -->
-        <!-- <td mat-cell *matCellDef="let row" [ngClass]="{'positive': column.includes('vs') && row[column] > 0, 'negative': column.includes('vs') && row[column] < 0, 'warning': column.includes('vs') && row[column] === 0}">{{
+        <!-- <td mat-cell *matCellDef="let row" [ngClass]="{'zero': column.includes('vs'), 'positive plus': column.includes('vs') && row[column] > 0, 'negative': column.includes('vs') && row[column] < 0 && row[column] != -100}">{{
           row[column] }}</td> -->
-        <!-- <td mat-cell *matCellDef="let row" [className]="column.includes('vs') ? (row[column] > 0 ? 'positive' : (row[column] < 0 ? 'negative' : row['Sifra'] !== 'AKTIVNI OBJEKTI' ? 'warning' : '')) : ''">{{
-          row[column] }}</td> -->
-        <!-- <td mat-cell *matCellDef="let row" [className]="column.includes('vs') ? (row[column] > 0 ? 'positive plus' : (row[column] < 0 ? 'negative' : (this.isNumber(row.Sifra) ? 'info zero' : ''))) : ''">{{
-          row[column] }}</td> -->
-        <td mat-cell *matCellDef="let row" [ngClass]="{'positive plus': column.includes('vs') && row[column] > 0, 'negative': column.includes('vs') && row[column] < 0}">{{
-          row[column] }}</td>
-
-
+        <!-- <td mat-cell *matCellDef="let row" [ngClass]="tdClass(column, row)">{{ row[column] }}</td> -->
+        <td mat-cell *matCellDef="let row" [ngClass]="[column, row] | genericMapPipe_Spread : tdClass">{{ row[column]
+          }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -25,43 +19,50 @@
       <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [className]="row['Sifra']"></tr> -->
       <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'right aligned': !isSingleRow}" [className]="!this.isNumber(row['Sifra']) ? 'active' : 'inactive'"></tr> -->
       <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [className]="(this.isNumber(row.Sifra)) ? 'active' : 'inactive'"></tr> -->
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="right aligned" [class.active]="!this.isNumber(row.Sifra)"></tr>
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="right aligned" [class.active]="!this.isNumber(row.Sifra) && !this.isNumber(row.sifraPartner)"></tr> -->
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="right aligned" [class.active]="this.isActiveRow(row)"></tr> -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="right aligned" [class.active]="row | genericMapPipe : isActiveRow"></tr>
     </table>
   </div>
 
   <div class="footer__paginator">
 
-    <mat-paginator [pageSizeOptions]="[50, 25, 15, 10, 5]" class='paginator__wrapper'></mat-paginator>
+    <mat-paginator *ngIf="!isSmallTable" [pageSize]="rptData.length <= 200 ? rptData.length : 100" [pageSizeOptions]="[10, 15, 20, 30, 50, 100, 200]"
+      class='paginator__wrapper'></mat-paginator>
+    <!-- <mat-paginator [pageSize]="customTableHeight" [pageSizeOptions]="[10, 15, 30, 50, 100, 200]" class='paginator__wrapper'></mat-paginator> -->
 
     <div class="custom__input__positioning">
-      <!-- <div class=""> -->
       <div mat-form-field class="ui icon input  hidden__tablet">
         <input matInput (keyup)="inputFilter($event.target.value)" type="text" placeholder="Filter">
         <i class="search link icon"></i>
       </div>
 
       <div class="ui large tag labels  filter__labels__display__inline__flex">
-        <a class="ui label" [class.active]="filterActive === 0" (click)="clickFilter(0, 'Can')">
-          Can
+
+        <a *ngFor="let filter of filtersArr; let i=index" class="ui label" [class.active]="filterActive === i" (click)="clickFilter(i, filter)">
+          {{ filter }}
         </a>
-        <a class="ui label" [class.active]="filterActive === 1" (click)="clickFilter(1, 'Pet')">
-          Pet
-        </a>
-        <a class="ui label" [class.active]="filterActive === 2" (click)="clickFilter(2, '7UP')">
-          7UP
-        </a>
-        <a class="ui label" [class.active]="filterActive === 3">
-          <span (click)="clickFilter(3, 'Pepsi')">Pepsi</span>
-          <div class="detail" [class.active]="filterActive === 4" (click)="clickFilter(4, 'Max')">Max</div>
-          <div class="detail" [class.active]="filterActive === 5" (click)="clickFilter(5, 'Twist')">Twist</div>
-        </a>
-        <a class="ui label" [class.active]="filterActive === 6" (click)="clickFilter(6, 'Mirinda')">
-          Mirinda
-        </a>
-        <!-- <a class="ui label" [class.active]="filterActive === 1" (click)="clickFilter(1, 'Pet 0.5')"> <span class="tablet__portrait__hidden">Pet </span>0.5L</a>
-        <a class="ui label" [class.active]="filterActive === 2" (click)="clickFilter(2, 'Pet 1L')"> <span class="tablet__portrait__hidden">Pet </span>1L</a>
-        <a class="ui label" [class.active]="filterActive === 3" (click)="clickFilter(3, '1.5')"> <span class="tablet__portrait__hidden">Pet </span>1.5L</a>
-        <a class="ui label" [class.active]="filterActive === 4" (click)="clickFilter(4, 'Pet 2')"> <span class="tablet__portrait__hidden">Pet </span>2L</a> -->
+
+        <div *ngIf="!filtersArr" class="ui large tag labels  filter__labels__display__inline__flex">
+          <a class="ui label" [class.active]="filterActive === 0" (click)="clickFilter(0, 'Can')">
+            Can
+          </a>
+          <a class="ui label" [class.active]="filterActive === 1" (click)="clickFilter(1, 'Pet')">
+            Pet
+          </a>
+          <a class="ui label" [class.active]="filterActive === 2" (click)="clickFilter(2, '7UP')">
+            7UP
+          </a>
+          <a class="ui label" [class.active]="filterActive === 3">
+            <span (click)="clickFilter(3, 'Pepsi')">Pepsi</span>
+            <div class="detail" [class.active]="filterActive === 4" (click)="clickFilter(4, 'Max')">Max</div>
+            <div class="detail" [class.active]="filterActive === 5" (click)="clickFilter(5, 'Twist')">Twist</div>
+          </a>
+          <a class="ui label" [class.active]="filterActive === 6" (click)="clickFilter(6, 'Mirinda')">
+            Mirinda
+          </a>
+        </div>
+
       </div>
     </div>
 

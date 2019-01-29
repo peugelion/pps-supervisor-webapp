@@ -1,6 +1,6 @@
 <div *ngIf="isSupervizor" class="custom__container">
   <div class="ui middle aligned center aligned grid">
-    <div class="column">
+    <div class="column      box blurred-bg tinted">
       <!-- <h2 class="ui red image header">
         <img src="assets/icons/icon-192x192.png" class="image">
         <div class="content">
@@ -17,67 +17,102 @@
         </a>
       </div> -->
 
-      <div class="ui placeholder segment   ">
-        <div class="ui two column stackable center aligned grid   box blurred-bg tinted">
+      <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+
           <!-- <div class="ui vertical divider">
             <span class="mobile hidden">Ili</span>
           </div> -->
-          <div class="middle aligned row">
+
+          <!-- <div class="middle aligned row">
             <a class="column" [routerLink]="['/dashboard']">
               <div class="ui blue icon header">
-                <i class="circular world icon"></i>
-                <!-- Dashboard -->
-              </div>
+                <i class="circular world icon"></i> -->
+          <!-- Dashboard -->
+          <!-- </div>
               <div class="ui primary button">
                 Dashboard
               </div>
             </a>
-            <a class="column" [routerLink]="['/odblokiraj-unos-porudzbine']">
-              <div class="ui blue icon header">
-                <i class="circular redo icon"></i>
-                <!-- Odblokiraj unos porudžbine -->
-              </div>
+            <a class="column  custom__column" [routerLink]="['/odblokiraj-unos-porudzbine']">
+              <div class="ui blue icon header  page__icon">
+                <i class="circular redo icon"></i> -->
+          <!-- Odblokiraj unos porudžbine -->
+          <!-- </div>
               <div class="ui primary button">
                 Odblokiraj unos por.
               </div>
             </a>
+          </div> -->
+
+          <!-- 1. Dashboard page -->
+          <!-- 2. Odblokiraj unos porudžbine -->
+          <div class="middle aligned row">
+            <a *ngFor="let p of _appPagesService.pages" class="column" [routerLink]="p.route">
+              <div class="align__left">
+                <div class="ui blue icon header  align__left">
+                  <i [class]="[p.icon + ' circular icon']"></i>
+                </div>
+              </div>
+              <!-- <div class="ui primary button  ellipsis"> -->
+              <div class="align__right">
+                <div class="ui button  ellipsis">
+                  {{p.title}}
+                </div>
+              </div>
+            </a>
           </div>
+
+          <!-- <div class="middle aligned row">
+            <div *ngFor="let p of _appPagesService.pages" class="column" [routerLink]="p.route">
+              <div class="ui relaxed divided list reports__list">
+                <div class="item  report__item" [routerLink]="p.route">
+                  <i [class]="[p.icon + ' huge icon']"></i>
+
+                  <div class="content">
+                    <a class="ui  button  header">{{p.title}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
 
           <span class="reports__header">
             <i class="chart line icon"></i>
             Daily Sales KPI's Reports :
           </span>
 
-          <div class="middle aligned row">
-            <a class="column" [routerLink]="['/report-daily-sales-kpis/by-customer-by-sku']">
-              <div class="ui blue icon header mobile hidden">
-                <i class="circular newspaper outline icon"></i>
-                <!-- Izveštaj KPI's 1 -->
+          <div class="ui big middle aligned relaxed divided list    reports__list">
+            <div *ngFor="let p of _appPagesService.reportPages" class="item  report__item" [routerLink]="p.route">
+              <!-- <i class="large github middle aligned icon"></i> -->
+              <i class="newspaper outline icon"></i>
+              <div class="content">
+                <a class="header">{{p.title}}</a>
+                <!-- <div class="description">-</div> -->
               </div>
-              <div class="ui primary red button">
-                By customer by SKU
-              </div>
-            </a>
-            <a class="column" [routerLink]="['/report-daily-sales-kpis/by-area-by-sku']">
-              <div class="ui blue icon header mobile hidden">
-                <i class="circular newspaper outline icon"></i>
-                <!-- Izveštaj KPI's 2 -->
-              </div>
-              <div class="ui primary red button">
-                By area by SKU
-              </div>
-            </a>
-            <a class="column" [routerLink]="['/report-daily-sales-kpis/by-area-by-sku/true']">
-              <div class="ui blue icon header mobile hidden">
-                <i class="circular newspaper outline icon"></i>
-                <!-- Izveštaj KPI's 3 -->
-              </div>
-              <div class="ui primary red button">
-                By area by SKU_8OZ
-              </div>
-            </a>
+              <!-- <div class="content">
+                {{p.title}}
+              </div> -->
+            </div>
           </div>
+
+          <!-- <div *ngFor="let p of _appPagesService.reportPages" class="middle aligned row">
+            <a class="column" [routerLink]="p.route">
+              <div class="ui blue icon header mobile hidden">
+                <i class="circular newspaper outline icon"></i>
+              </div>
+              <div class="ui primary red button">
+                {{p.title}}
+              </div>
+            </a>
+          </div> -->
+
+          <!-- <a *ngFor="let p of _appPagesService.reportPages; let i = index" class="item" [routerLink]="p.route" (click)="sidebar.close()">
+            {{p.title}}
+          </a> -->
+
         </div>
+
       </div>
 
     </div>

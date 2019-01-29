@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 // import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { ByAreaBySkuRoutingModule } from './by-area-by-sku-routing.module';
-import { ByAreaBySkuComponent } from './by-area-by-sku.component';
+import { ByXYZRoutingModule } from './by-xyz-routing.module';
+import { ByXYZComponent } from './by-xyz.component';
 
 import { SuiDimmerModule, SuiCheckboxModule } from 'ng2-semantic-ui';
 import { DatePickerModule } from '@pepsi-shared/date-picker/date-picker.module';
@@ -18,12 +18,12 @@ import { TableSortingModule } from '@pepsi-shared/table-sorting/table-sorting.mo
 
 @NgModule({
   declarations: [
-    ByAreaBySkuComponent,
+    ByXYZComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ByAreaBySkuRoutingModule,
+    ByXYZRoutingModule,
     SuiDimmerModule, SuiCheckboxModule,
     ToggleMenuBtnModule,
     KorisnikModule,
@@ -31,4 +31,4 @@ import { TableSortingModule } from '@pepsi-shared/table-sorting/table-sorting.mo
     TableSortingModule,
   ]
 })
-export class ByAreaBySkuModule { }
+export class ByXYZModule { }
