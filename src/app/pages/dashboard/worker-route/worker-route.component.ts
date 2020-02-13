@@ -12,12 +12,12 @@ export class WorkerRouteComponent {
   @Input('route') route;
   // @Input('workerRoutes') workerRoutes;
   workerRoutes: Array<any> = null;
-  workerRoutesParsed: Array<any> = null;
+  // workerRoutesParsed: Array<any> = null;
   @Input() set workerRoutesInput(val: any) {
     this.workerRoutes = val;
     if (this.isTableLayoutActive) {
       // console.log('isTableLayoutActive -> parseWorkerRoutes', val.length);
-      this.workerRoutesParsed = this.parseWorkerRoutes(val);
+      // this.workerRoutesParsed = this.parseWorkerRoutes(val);
     }
   }
 
@@ -36,17 +36,17 @@ export class WorkerRouteComponent {
     localStorage.setItem('tableLayoutActive', isTableLayoutActive); // true or false
     localStorage.setItem('isTableLayoutActive', isTableLayoutActive); // true or false
     this.isTableLayoutActive = isTableLayoutActive;
-    if (isTableLayoutActive && !this.workerRoutesParsed) {
-      this.workerRoutesParsed = this.parseWorkerRoutes(this.workerRoutes);
-    }
+    // if (isTableLayoutActive && !this.workerRoutesParsed) {
+    //   this.workerRoutesParsed = this.parseWorkerRoutes(this.workerRoutes);
+    // }
   }
 
   //
 
   /* skracujem datume i stringove za table layout */
-  parseWorkerRoutes(workerRoutes: Array<any>) {
-    // console.log('parse WR uso');
-    workerRoutes.map(route => route.PauzaMinuta = route.PauzaMinuta.replace(0, '').replace('0:00', ''));
-    return workerRoutes;
-  }
+  // parseWorkerRoutes(workerRoutes: Array<any>) {
+  //   // console.log('parse WR uso');
+  //   workerRoutes.map(route => route.PauzaMinuta = route.PauzaMinuta.replace(0, '').replace('0:00', ''));
+  //   return workerRoutes;
+  // }
 }

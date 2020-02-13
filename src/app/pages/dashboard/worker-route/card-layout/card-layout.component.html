@@ -1,10 +1,14 @@
 <!-- <div class="ui grid">
   <div class="sixteen wide tablet eight wide computer column" *ngFor="let route of workerRoutes"> -->
-<div class="three column stackable doubling ui grid">
+<div class="ui link cards  three column doubling stackable  masonry  ui grid">
+  <!-- <div class="column" *ngFor="let route of workerRoutes" [id]="route.Fk_Partner"> -->
   <div class="column" *ngFor="let route of workerRoutes" [id]="route.Fk_Partner">
-    <div class="ui fluid card" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]">
+    <!-- <a class="ui  top right attached label">
+      <a>Način: </a>{{route.TelPlan}}
+    </a> -->
+    <div class="ui fluid red card" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]">
       <div class="content">
-        <a class="ui right floated inverted red button" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]">Detalji</a>
+        <!-- <a class="ui right floated inverted red button" [routerLink]="['/dashboard/route-details/', route.Fk_Partner]">Detalji</a> -->
         {{route.Mesto}}
         <!-- <div class="header ellipsis">{{route.Naziv.split(route.Mesto)[0]}}</div> -->
         <div class="header ellipsis">{{ route.Naziv }}</div>
@@ -16,32 +20,27 @@
               <div class="description">
                 <!-- <p><a>Početak: </a> {{route.DatumPocetka.split(' ')[1].slice(0, -3)}}</p>
                 <p><a>Završetak: </a> {{route.DatumZavrsetka.split(' ')[1].slice(0, -3)}}</p> -->
-                <p><a>Početak: </a> {{ route.DatumPocetka }}</p>
-                <p><a>Završetak: </a> {{ route.DatumZavrsetka }}</p>
-                <p><a>Dužina: </a> {{route.DuzinaPosete}}</p>
-                <p><a>Pauza: </a> {{route.PauzaMinuta}}</p>
-                <p><a>Razlog: </a> {{route.Razlog_542}}</p>
+                <p><a>Od-do: </a> {{ route.DatumPocetka }} - {{ route.DatumZavrsetka }}</p>
+                <p><a>Dužina: </a> {{route.DuzinaPosete}} min</p>
+                <p *ngIf='route.PauzaMinuta'><a>Pauza: </a> {{route.PauzaMinuta}}</p>
+                <p *ngIf='route.Razlog_542'><a>Razlog: </a> {{route.Razlog_542}}</p>
               </div>
             </div>
             <div class="eight wide column">
               <div class="description">
-                <p><a>Target(mesec): </a> {{route.TargetMesec | number:'.2-2'}}</p>
-                <p><a>Prodaja(mesec): </a> {{route.ProdajaMesec | number:'.2-2'}}</p>
-                <p><a>Target(dan): </a> {{route.TargetDan | number:'.2-2'}}</p>
-                <p><a>Prodaja(dan): </a> {{route.ProdajaDan | number:'.2-2'}}</p>
-                <p><a>Način: </a> {{route.TelPlan}}</p>
+                <p *ngIf='route.TargetMesec || route.TargetDan'><a>Target(mesec): </a> {{route.TargetMesec || '-'}}</p>
+                <p *ngIf='route.TargetMesec || route.TargetDan'><a>Target(dan): </a> {{route.TargetDan || '-'}}</p>
+                <p><a>Prodaja(mesec): </a> {{route.ProdajaMesec}}</p>
+                <p><a>Prodaja(dan): </a> {{route.ProdajaDan}}</p>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="sixteen wide column">
-              <div class="description">
-                <p class="ellipsis"><a>Opis: </a> {{route.Opis_542}}
-                  <!-- <a class="ui right floated inverted blue button" (click)="click(route.Fk_Partner)">Odblokiraj</a> -->
-                </p>
-              </div>
-            </div>
-          </div>
+        </div>
+      </div>
+      <div *ngIf='route.TelPlan || route.Opis_542' class="extra content">
+        <div class="description">
+          <span *ngIf='route.Opis_542' class="ellipsis"><a>Opis: </a> {{route.Opis_542}}, </span>
+          <span class="float__right"><a>Način: </a> {{route.TelPlan}}</span>
         </div>
       </div>
       <!-- <div class="extra content">

@@ -29,57 +29,13 @@
       </h2>
     </sui-dimmer>
 
-    <!-- <div *ngFor="let image of singlePosition; let j = index" [class.height__100pt]="j == activeImageIndex" > -->
-    <div class="height__100pt">
-      <!-- <div *ngIf="j == activeImageIndex" class="ui card  card__fullwidth"> -->
-      <div *ngIf="singlePosition && singlePosition[activeImageIndex] as image" class="ui card  card__fullwidth">
+    <!-- <app-image-slider [pozicijeIn]="pozicije" [singlePositionIn]="singlePosition" [activeImageIndexIn]="activeImageIndex"
+      [routeIn]="route" [segmentDimmedIn]="segmentDimmed" [pageDimmedIn]="pageDimmed" (moveToNextImageAction)="moveToNextImage()"
+      (moveToPrevImageAction)="moveToPrevImage()" (isFullscreenSliderAction)="isFullscreenSlider($event)"></app-image-slider> -->
+    <app-image-slider [pozicijeIn]="pozicije" [singlePositionIn]="singlePosition" [activeImageIndexIn]="activeImageIndex"
+      [routeIn]="route" (moveToNextImageAction)="moveToNextImage()" (moveToPrevImageAction)="moveToPrevImage()"
+      (isFullscreenSliderAction)="isFullscreenSlider($event)"></app-image-slider>
 
-        <div class="red card slides  height__100pt" [class.fullscreen]="isFullScreenSlider" (swipeleft)="moveToNextImage()"
-          (swiperight)="moveToPrevImage()" (swipeup)="swipeFullScreen(true)" (swipedown)="swipeFullScreen(false)"
-          (keydown.enter)="clickFullScreenSliderToggle()" (keydown.ArrowLeft)="clickFullScreenSliderToggle($event)"
-          (keydown.ArrowRight)="clickFullScreenSliderToggle($event)" (keydown.ArrowUp)="clickFullScreenSliderToggle($event)"
-          (keydown.ArrowDown)="clickFullScreenSliderToggle($event)">
-
-          <a class="slide__arrowcontainer_up_down" (click)="clickFullScreenSliderToggle()">
-            <i class="big angle icon" [ngClass]="{'up': !isFullScreenSlider, 'down': isFullScreenSlider}"></i>
-            <!-- <i *ngIf="7 >= tabs.length || activeTabArr[i]" class="big down angle icon"></i> -->
-          </a>
-          <a class="slide__arrowcontainer_left" (click)="moveToPrevImage()" *ngIf="singlePosition.length > 1 || tabs.length > 1">
-            <i class="big left angle icon"></i>
-          </a>
-          <a class="slide__arrowcontainer_right" (click)="moveToNextImage()" *ngIf="singlePosition.length > 1 || tabs.length > 1">
-            <i class="big right angle icon"></i>
-          </a>
-          <!-- <div class="image" (click)="moveToNextImage()"> -->
-          <div class="image  image__fullheight" (click)="clickFullScreenSliderToggle()">
-            <a class="ui left corner label">
-              <i class="icon">{{ tab.Sifra }}</i>
-            </a>
-            <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!image.Slika" [src]="image.Slika ? isDevMode ? image.Slika : 'https://i0.wp.com/supervisor.apdoo.com' + image.Slika + '?h=1106&quality=99&strip=all' : '/assets/404.svg'">
-            <!-- <img class="ui centered image placeholder image__fullheight" [class.placeholder]="!singlePosition[activeImageIndex].Slika" [src]="singlePosition[activeImageIndex].Slika || '/assets/404.svg'" > -->
-
-
-            <!-- <div class="ui top right attached red label">{{ image.DatumPosete | timeFormat }} h -->
-            <div class="ui top right attached red label">{{ image.DatumPosete || '--' }} h
-              <!-- <span *ngIf="singlePosition.length != 1" class="detail">{{ j + 1 }} od {{ singlePosition.length }} SLIKE</span> -->
-              <span *ngIf="singlePosition.length != 1" class="detail">{{ activeImageIndex + 1 }} od {{
-                singlePosition.length }} SLIKE</span>
-            </div>
-
-            <div class="ui bottom left attached label">{{ route.DuzinaPosete.replace(0, '') }}m
-              <span *ngIf="route.DatumPocetka" class="detail">{{ route.DatumPocetka }}-{{ route.DatumZavrsetka }}h</span>
-              <span *ngIf="route.PauzaMinuta && route.PauzaMinuta !== '00:00'" class="detail">p: {{ route.PauzaMinuta
-                }}</span>
-            </div>
-
-            <div *ngIf="route.TargetMesec" class="ui bottom right attached label">m: {{ route.TargetMesec }}/{{
-              route.ProdajaMesec }}
-              <span *ngIf="route.TargetDan != 1" class="detail">d: {{ route.TargetDan }}\{{ route.ProdajaDan }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- zalihe tab content -->

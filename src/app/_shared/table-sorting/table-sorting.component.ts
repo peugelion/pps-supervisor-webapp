@@ -33,13 +33,13 @@ export class TableSortingComponent implements AfterViewInit {
   displayedColumns: string[];
 
   isSingleRow = false;
-  isSmallTable = false;
+  // isSmallTable = false;
   tableCssClass = 'ui unstackable red table  celled selectable  custom__table';  // helper
   filterActive = null; // filter state
 
   @Input() set rptDataInput(val: Array<Object>) {
     this.isSingleRow = val.length === 1;
-    this.isSmallTable = val.length && val.length <= 20;
+    // this.isSmallTable = val.length && val.length <= 20;
     this.displayedColumns = (Object.keys(val[0]));    // console.log('this.displayedColumns', this.displayedColumns);
     // this.displayedColumns.shift(); // remove 'RNB' column
     this.rptData = val;
@@ -52,7 +52,7 @@ export class TableSortingComponent implements AfterViewInit {
 
   filtersArr: string[] | null = null;
   @Input() set filtersArrInput(val: string[]) {
-    console.log('filtersArrInput', val);
+    // console.log('filtersArrInput', val);
     this.filtersArr = val;
   }
 
@@ -84,11 +84,11 @@ export class TableSortingComponent implements AfterViewInit {
   }
 
   inputFilter(filterValue: string) {
-    console.log('input filterValue', filterValue, this.filterActive);
+    console.log('input filterValue 0', filterValue, this.filterActive);
     if (this.filterActive != null) {
       this.filterActive = null;
     }
-    console.log('input filterValue', filterValue, this.filterActive);
+    console.log('input filterValue 1', filterValue, this.filterActive);
     this.applyFilter(filterValue);
   }
 
@@ -105,26 +105,11 @@ export class TableSortingComponent implements AfterViewInit {
 
   //
 
-  // parseColumnName(columnName) {
-  //   console.log('columnName', columnName);
-  //   return columnName;
-  // }
-
-  //
-
   isStickyCollumn(columnTxt: string): boolean {
-    // return column === 'Opis' ? true : false;
     // console.log('isStickyCollumn', columnTxt);
+    // return columnTxt === 'Opis' ? true : false;
     return ['Opis', 'NazivPartner', 'ImeProd'].indexOf(columnTxt) + 1 ? true : false;
   }
-
-  //
-
-  // tdCssClass(val) {
-  //   [ngClass]="{'right aligned': !isSingleRow, 'active': !this.isNumber(row['Sifra']), 'inactive': this.isNumber(row['Sifra'])}"
-  //   [className]="!this.isNumber(row['Sifra']) ? 'active' : 'inactive'";
-  //   return /^\d+$/.test(val);
-  // }
 
   isActiveRow(row) {
     // console.log('isActiveRow', row);
@@ -143,8 +128,11 @@ export class TableSortingComponent implements AfterViewInit {
   // }
 
   tdClass(column, row) {
-    // {'zero': column.includes('vs'), 'positive plus': column.includes('vs') && row[column] > 0,
-    // 'negative': column.includes('vs') && row[column] < 0 && row[column] != -100}
+    // {
+    //   'zero': column.includes('vs'),
+    //    'positive plus': column.includes('vs') && row[column] > 0,
+    //    'negative': column.includes('vs') && row[column] < 0 && row[column] != -100
+    // }
     const isVsColumn = column.includes('vs');
     if (!isVsColumn) {
       return;

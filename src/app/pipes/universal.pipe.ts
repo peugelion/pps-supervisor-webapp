@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 /* https://codeburst.io/angular-bad-practices-eab0e594ce92 */
+
 @Pipe({
-  name: 'genericMapPipe'
+  name: 'map'
 })
 export class MappingPipe implements PipeTransform {
   /*
@@ -15,10 +16,11 @@ export class MappingPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'genericMapPipe_Spread'
+  // genericMapPipe with 2+ arguments passed to the function
+  name: 'map_Spread'
 })
 export class MappingPipe2 implements PipeTransform {
-  transform(value, mappingFunction: Function) {
-    return mappingFunction(...value);
+  transform(values, mappingFunction: Function) {
+    return mappingFunction(...values);
   }
 }

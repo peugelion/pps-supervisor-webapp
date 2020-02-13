@@ -736,11 +736,11 @@ i.icon.angle.double.right:before {
 i.icon.angle.double.up:before {
   content: "\f102";
 }
+*/
 
 i.icon.angle.down:before {
   content: "\f107";
 }
-*/
 
 i.icon.angle.left:before {
   content: "\f104";
@@ -750,11 +750,11 @@ i.icon.angle.right:before {
   content: "\f105";
 }
 
-/*
 i.icon.angle.up:before {
   content: "\f106";
 }
 
+/*
 i.icon.angrycreative:before {
   content: "\f36e";
 }

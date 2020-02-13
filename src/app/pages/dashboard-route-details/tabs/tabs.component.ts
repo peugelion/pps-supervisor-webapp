@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ApiService } from '@pepsi-app/providers/api.service';
-import { isDevMode } from '@angular/core';
 
 
 @Component({
@@ -36,9 +35,15 @@ export class TabsComponent {
   private isFullScreenSlider = false;             // pomocna, ui, fullscreen image slider
   private pageDimmed = false;
   private segmentDimmed = false;
-  private isDevMode = isDevMode();
 
   constructor(private apiService: ApiService) { }
+
+  // pageDimmedChange(pageDimmed: boolean) {
+  //   this.pageDimmed = pageDimmed;
+  // }
+  // segmentDimmedChange(segmentDimmed: boolean) {
+  //   this.segmentDimmed = segmentDimmed;
+  // }
 
   // ngOnChanges(changes: SimpleChanges) {
   // if (this.pozicije && this.pozicije.length) {
@@ -61,36 +66,20 @@ export class TabsComponent {
   /* single tab - listu slika za aktivni tab */
   async loadSinglePosition(Fk_Pozicija) {
     this.activeImageIndex = 0; // vrati na prvu sliku u nizu
-    // console.log('this.singlePosition', this.singlePosition);
     if (this.singlePosition && this.singlePosition.length) {
-      // this.singlePosition[0]['Slika'] = null;
-      // this.singlePosition[0]['Slika'] = 'x';
       this.singlePosition = null;
     }
     this.pageDimmed = this.isFullScreenSlider;
-    // console.log('this.pageDimmed', this.pageDimmed);
     this.segmentDimmed = !this.isFullScreenSlider; // true only if not fullscreen slider
     this.singlePosition = await this.apiService.getSinglePosition(this.Fk_Partner, Fk_Pozicija, this.dateStr);
-    // console.log(`this.singlePosition`, this.singlePosition, this.singlePosition.length);
     this.pageDimmed = false;
     this.segmentDimmed = false;
-    // console.log('this.route', this.route, this.singlePosition);
-  }
-
-  //
-
-  clickFullScreenSliderToggle() {
-    this.isFullScreenSlider = !this.isFullScreenSlider;
-  }
-
-  swipeFullScreen(isFullscreen) {
-    console.log('swipeFullScreen', isFullscreen);
-    this.isFullScreenSlider = isFullscreen;
   }
 
   //
 
   moveToNextImage() {
+    console.log('tab moveToNextImage');
     if (this.singlePosition.length - 1 <= this.activeImageIndex) {
       const activeTabIndex = this.activeTabArr.findIndex(el => el);
       const nexTab = (activeTabIndex !== this.activeTabArr.length - 1) ? activeTabIndex + 1 : 0;
@@ -102,6 +91,7 @@ export class TabsComponent {
   }
 
   moveToPrevImage() {
+    console.log('tab moveToPrevImage');
     if (this.activeImageIndex === 0) {
       const activeTabIndex = this.activeTabArr.findIndex(el => el);
       const prevTab = (activeTabIndex) ? activeTabIndex - 1 : this.activeTabArr.length - 1;
@@ -115,5 +105,23 @@ export class TabsComponent {
   getMaxTabHeaderWidth(active) {
     return active ? null : 80 / this.pozicije.length + 'vw';
   }
+
+  //
+
+  isFullscreenSlider(isFullscreenSlider) {
+    // isFullscreenSlider() {
+    console.log('tabCmp isFullscreenSlider', isFullscreenSlider);
+    this.isFullScreenSlider = isFullscreenSlider;
+    // this.isFullScreenSlider = !this.isFullScreenSlider;
+  }
+
+  // clickFullScreenSliderToggle() {
+  //   this.isFullScreenSlider = !this.isFullScreenSlider;
+  // }
+
+  // swipeFullScreen(isFullscreen) {
+  //   console.log('swipeFullScreen', isFullscreen);
+  //   this.isFullScreenSlider = isFullscreen;
+  // }
 
 }

@@ -465,12 +465,20 @@ i.icons.inverted.corner.icon {
   text-shadow: -1px-1px 0 #1B1C1D, 1px-1px 0 #1B1C1D, -1px 1px 0 #1B1C1D, 1px 1px 0 #1B1C1D
 }
 
+i.icon.angle.down:before {
+  content: "\f107"
+}
+
 i.icon.angle.left:before {
   content: "\f104"
 }
 
 i.icon.angle.right:before {
   content: "\f105"
+}
+
+i.icon.angle.up:before {
+  content: "\f106"
 }
 
 i.icon.calendar:before {
